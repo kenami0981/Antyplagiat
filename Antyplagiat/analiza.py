@@ -1,38 +1,28 @@
-from pylatexenc.latexwalker import LatexWalker, LatexEnvironmentNode, LatexMathNode
+import re
+from pylatexenc.latex2text import LatexNodes2Text
 
 def preprocessing(file_content):
-    walker = LatexWalker(file_content)
-    nodes, _, _ = walker.get_latex_nodes()
+    m = re.search(r'\\begin{document}(.*)\\end{document}', file_content, flags=re.S)
+    if m:
+        file_content = m.group(1)
 
-    text_parts = []
-    equations = []
+    env_pattern = r'\\begin\{(equation|align|gather|multline|eqnarray)\}(.*?)\\end\{\1\}'
+    env_eqs = [m[1] for m in re.findall(env_pattern, file_content, flags=re.S)]
 
-    def node_end(node):
-        if hasattr(node, "pos_end") and node.pos_end is not None:
-            return node.pos_end
-        return node.pos + node.len
+    inline_eqs = re.findall(r'\$(.*?)\$', file_content, flags=re.S)
+    display_eqs = re.findall(r'\\\[(.*?)\\\]', file_content, flags=re.S)
 
-    def visit_node(node):
-        if isinstance(node, LatexMathNode):
-            equations.append(file_content[node.pos:node_end(node)])
-            return
-        
-        if isinstance(node, LatexEnvironmentNode):
-            if node.envname in ["equation", "align", "gather", "multline", "eqnarray"]:
-                equations.append(file_content[node.pos:node_end(node)])
-                return
-            
-        if hasattr(node, "chars") and node.chars:
-            text_parts.append(node.chars)
+    equations = env_eqs + inline_eqs + display_eqs
 
-        if hasattr(node, "nodelist") and node.nodelist:
-            for child in node.nodelist:
-                visit_node(child)
+    tmp = re.sub(env_pattern, '', file_content, flags=re.S)
+    tmp = re.sub(r'\$(.*?)\$', '', tmp, flags=re.S)
+    tmp = re.sub(r'\\\[(.*?)\\\]', '', tmp, flags=re.S)
 
-    for n in nodes:
-        visit_node(n)
+    tmp = re.sub(r'\\[a-zA-Z]+\*?(?=\s|$|{)', '', tmp)
 
-    text = " ".join("".join(text_parts).split())
+    text = LatexNodes2Text().latex_to_text(tmp)
+
+    text = " ".join(text.split())
 
     return equations, text
 
@@ -57,7 +47,13 @@ def split_phrases(text, phrase_len):
 
     return phrases
 
+with open("plik.tex", "r", encoding="utf-8") as f:
+    content = f.read()
 
+equations, text = preprocessing(content)
+
+print("\n=== Tekst ===")
+print(text)
     
     
 
