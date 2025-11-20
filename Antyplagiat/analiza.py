@@ -37,3 +37,28 @@ def preprocessing(file_content):
     return equations, text
 
 
+def similarity_levels(level):
+    if level == "niski":
+        return [3, 6, 8, 11]
+    elif level == "średni":
+        return [4, 8, 11, 14]
+    elif level == "wysoki":
+        return [5, 9, 13, 17]
+    elif level == "bardzo_wysoki":
+        return [5, 10, 15, 19]
+
+def split_phrases(text, phrase_len):
+    words = text.split()
+    phrases = []
+
+    for i in range(len(words) - phrase_len + 1):
+        phrase = " ".join(words[i : i + phrase_len])
+        phrases.append(phrase)
+
+    return phrases
+
+
+    
+    
+
+
