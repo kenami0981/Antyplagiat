@@ -1,0 +1,1185 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+%\usepackage{comment}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{amsthm}
+ \usepackage{lmodern}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+  \usepackage{caption} 
+ \input xy
+\xyoption{all}
+\usepackage{graphics}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amscd}
+%%%end of packages
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{Conjecture}[theorem]{Conjecture}
+\newtheorem*{thma}{Theorem V}
+\newtheorem*{thmb}{Theorem HP}
+\newcommand\Aa{{\mathcal A}}
+\newcommand\reven{0}
+\newcommand\K{{\mathcal K}}
+\newcommand\rodd{1}
+\newcommand\q{\mathfrak q}
+\renewcommand\j{{\bf j}}
+\newcommand\ort{\mathfrak o}
+\newcommand\Ha{\widehat H}
+\newcommand{\bmu}{\bar{\mu}}
+%\renewcommand\gg{\g[x]/\g}
+\newcommand\I{\Cal I}
+\newcommand\DD{D_\Phi}
+\newcommand\T{\mathbf T}
+\newcommand\half{\tfrac{1}{2}}
+\newcommand\num{D_\g}
+\newcommand\rao{{{|\h_0}}}
+\newcommand\al{\widehat L}
+\newcommand\algsi{\widehat L (\g, \si)}
+\newcommand\alkmusi{\widehat L (\k_\mu, \si_{|\k_\mu})}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\opluss}{\oplus}
+%\DeclareMathOperator{\Hom}{Hom}
+\newcommand\ov{\overline}
+\newcommand\hvee{\mathbf{h}^\vee}
+\renewcommand\o{\varpi}
+\newcommand\Vol{\text{\it Vol}}
+\newcommand\des{\text{\it Des\,}}
+\renewcommand\({\left(}
+\renewcommand\){\right)}
+\newcommand\U{{\tildeU}}
+\newcommand\rhat{\widehat\rho}
+\newcommand\rkhat{\rhat_\k}
+\newcommand\be{\beta}
+\newcommand\de{\delta}
+\newcommand\ka{\widehat \k}
+\newcommand\op{\widehat{L}(\ort(\g_1))}
+\newcommand\ua{\widehat{\mathfrak{u}}}
+\newcommand\w{\wedge}
+\newcommand\g{\mathfrak g}
+\renewcommand\ll{\mathfrak l}
+\newcommand\ga{\widehat{\mathfrak g}}
+\newcommand\h{\mathfrak h}
+\newcommand\ha{\widehat{\mathfrak h}}
+\renewcommand\sp{\text{\it Span\,}}
+\newcommand\n{\mathfrak n}
+\newcommand\bb{\mathfrak b}
+\newcommand\D{\Delta}
+\renewcommand\l{\lambda}
+\newcommand\Dp{\Delta^+}
+\newcommand\Dm{\Delta^-}
+\newcommand\Da{\widehat\Delta}
+\newcommand\Pia{\widehat\Pi}
+\newcommand\Dap{\widehat\Delta^+}
+\newcommand\Wa{\widehat{W}}
+\renewcommand\d{\delta}
+\newcommand \Dim{\rm Dim} 
+\renewcommand\r{\mathfrak r}
+\renewcommand\t{\mathfrak t}
+\renewcommand\a{\alpha}
+\renewcommand\aa{\mathfrak a}
+\renewcommand\b{\bb}
+\renewcommand\k{\mathbf k}
+\newcommand\lie{\mathfrak l}
+\newcommand\alie{\l(h)ie}
+\newcommand\arho{\widehat\rho}
+\newcommand{\Z}{\mathbb Z}
+%\newcommand\I{\Cal I}
+\renewcommand\th{\theta}
+\newcommand\Q{\check Q}
+\renewcommand\i{{\mathfrak i}}
+\newcommand\nd{\noindent}
+\renewcommand\ggg{\gamma}
+%\newcommand\DD{D_\Phi}
+\newcommand\nat{\mathbb N}
+\newcommand\ganz{\mathbb Z}
+\renewcommand\j{\mathfrak j}
+\newcommand\s{\sigma}
+\renewcommand\L{\Lambda}
+%\newcommand\T{\mathbf T}
+%\renewcommand\ll{\tilde\lambda}
+\renewcommand\aa{\mathfrak a}
+%\newcommand\la{\langle}
+%\newcommand\ra{\rangle}
+\newcommand\la{\lambda}
+\renewcommand\u{{\bf u}}
+\newcommand\x{{\bf x}}
+\newcommand\y{{\bf y}}
+\newcommand\real{\mathbb R}
+\newcommand\hard{\ha_\real^*}
+\newcommand\hauno{\ha^*_1}
+\newcommand\hzero{\h^*_0}
+\newcommand\e{\epsilon}
+\newcommand\C{\mathbb C}
+\newcommand\R{\mathbb R}
+\newcommand\A{\mathcal  A}
+\newcommand\si{\sigma}
+\renewcommand\I{\sqrt{-1}}
+\newcommand\Si{\Sigma}
+\newcommand\G{\Gamma}
+\newcommand\What{\widehat W}
+\newcommand\supp{\text{\it Supp\,}}
+\renewcommand\num{D_\g}
+\newcommand\Dadj{(\D_{adj})}
+\newcommand\va{|0\rangle}
+\newcommand\Padj{(\Phi_{adj})}
+\renewcommand\rao{{{|\h_0}}}
+\renewcommand\ha{\widehat{\mathfrak h}}
+\renewcommand\hard{\ha_\real^*}
+\renewcommand\hauno{\ha^*_1}
+\renewcommand\hzero{\h^*_0}
+\newcommand\Wakmu{\Wa_{\k_\mu}}
+\newcommand\Wakmusi{\Wa_{\k_\mu,\si}}
+\newcommand\cop{\varpi}
+\newcommand\bv{{\bf v}}
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\fk}{\mathfrak{k}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fo}{\mathfrak{o}}
+\newcommand\p{\mathfrak p}
+\newcommand{\fs}{\mathfrak{s}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\rank}{{\rm rank}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\di}{{(G_{\g,\h})_0}}
+\newcommand{\at}{a^{tw}}
+\newcommand{\bt}{b^{tw}}
+\newcommand{\sa}{\mathfrak{a}}
+\newcommand{\asdim}{\text{\rm asdim}}
+\newcommand{\sdim}{\text{\rm sdim}}
+\newcommand{\charge}{\mbox{charge}}
+\newcommand{\Cur}{\mbox{Cur}\,}
+\newcommand{\End}{\mbox{End}}
+\newcommand{\Env}{\mbox{Env}}
+\newcommand{\Hom}{\mbox{Hom}}
+\newcommand{\Lie}{\mbox{Lie}}
+\newcommand{\Res}{\mbox{Res}}
+%\newcommand{\d}{\boldsymbol \delta}
+\newcommand{\tw}{\rm{tw}}
+\newcommand{\Span}{\mbox{span}}
+\newcommand{\Vir}{\mbox{Vir}}
+\newcommand{\langlerangle}{\langle \, . \, , 
+. \, \rangle}
+\newcommand{\parenthesis}{(\,\cdot\,|\,\cdot\,)}
+\newcommand{\wt}{{\rm {wt} }   }
+\newcommand{\vac}{|0\rangle}
+%\newcommand{\vac}{{\bf 1}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\Ws}{W_k^{\min}(\g)}
+\newcommand{\Wu}{W^k_{\min}(\g)}
+\newcommand{\Zhu}{Zhu_R}
+%\renewcommand{\v}{{\widetilde v}}
+
+
+\begin{document}
+
+\title[Spectral flow and application to unitarity]{Spectral flow and application to unitarity of representations of minimal
+$W$-algebras}
+\author[Victor~G. Kac, Pierluigi M\"oseneder Frajria,  Paolo  Papi]{Victor~G. Kac\\Pierluigi M\"oseneder Frajria\\Paolo  Papi}
+
+
+\begin{abstract}
+Using spectral flow, we provide a proof of  \cite[Theorem 9.17]{KMPR} on unitarity of Ramond twisted non-extremal representations of minimal 
+$W$-algebras that does not rely on the still conjectural  exactness of the twisted quantum reduction functor (see Conjecture 9.11 of \cite{KMPR}). When $\g=spo(2|2n)$, $F(4)$, $D(2,1;\frac{m}{n})$, it is also proven that the unitarity of extremal (=massless) representations of the minimal $W$-algebra $\Wu$ in the Ramond sector is equivalent to the unitarity of extremal representations in the Neveu-Schwarz sector.
+ \end{abstract}
+\maketitle
+
+
+\section{Introduction}
+In our paper \cite{KMP1} we listed all non-critical levels $k$ for which the minimal simple $W$-algebra $\Ws$ is unitary, where $\g$ is a basic simple Lie superalgebra over $\C$. We showed, in particular, that the only possibilities for $\g$ are the following: $sl(2|m)$, $m\ge 3$; $psl(2|2)$; $spo(2|m)$, $m\ge0$; $D(2,1;a), a\in \mathbb Q_{>0}$; $F(4)$; $G(3)$.
+
+We also gave in \cite{KMP1} a classification of unitary irreducible highest weight modules over these $W$-algebras in the Neveu-Schwarz sector, and in \cite{KMPR} in the Ramond sector.
+
+We excluded from consideration in \cite{KMP1} and \cite{KMPR} the cases $\g=spo(2|m)$ with $m=0,1,2$, since the corresponding minimal $W$-algebras are the simple vertex algebras associated to the Virasoro algebra, Neveu-Schwarz algebra, and $N=2$ superconformal algebra, whose unitarity and unitarity of their irreducible highest weight modules have been well studied. We also excluded the case $\g=sl(2|m)$, $m\ge 3$, from consideration since in this case the corresponding $W$-algebra is the free boson. In the present paper we exclude these cases from consideration as well.
+
+Recall that \cite{KW1} in the case $\g=psl(2|2)$, the corresponding minimal $W$-algebra is isomorphic to the simple vertex algebra, associated to $N=4$ superconformal algebra, and that in the case $\g=spo(2|3)$ (resp. $=D(2,1;a)$) the tensor product of the minimal $W$-algebra with one fermion (resp. with three fermions and one boson) is isomorphic to the $N=3$ (resp. $big\ N=4$) superconformal algebra. Here the classification of irreducible highest weight modules over $N=4$, $N=3$, and $big\ N=4$ superconformal algebras is equivalent to that of the corresponding minimal $W$-algebras. These classifications were considered in physics literature \cite{ET1}, \cite{M}, and \cite{Gunaydin} respectively (without detailded proofs); they also considered unitary modules in the Ramond sector.
+
+In our paper \cite{KMP1}, we gave a detailed proof of the classification of non-extremal (=massive) unitary modules over all unitary minimal simple $W$-algebras, found the necessary conditions of unitarity of the extremal (=massless) ones, and conjectured that all of them are unitary. We also proved that the extremal modules over $N=3$ and $4$ superconformal algebras are indeed unitary, confirming all the results of \cite{ET1} and \cite{M}. For the $big\ N=4$ our results in \cite{KMP1} and \cite{KMPN4} confirmed the conjectures and the results of \cite{Gunaydin}. In \cite{KMPR} and \cite{KMPN4} we have dealt with the Ramond sector, proving necessary conditions for unitarity and a classification of unitary highest weight modules up to the (still conjectural) exactness property of the twisted quantum Hamiltonian reduction functor (\cite[Conjecture 9.11]{KMPR}).
+
+In the present paper we provide a proof of \cite[Theorem 9.17]{KMPR} in the cases $\g=psl(2|2)$, $spo(2|2m)$, $D(2,1;a)$, $F(4)$ that does not rely on \cite[Conjecture 9.11]{KMPR} (see Theorem \ref{sfnomextremal}). This result  completes the classification of non-extremal unitary representations for all minimal unitary $W$-algebras since the classification for the remaining cases of $\g=spo(2|2m+1)$ and $G(3)$ is already provided by \cite[Corollary 9.5]{KMPR}.
+
+We also prove that in the cases $\g=psl(2|2)$, $spo(2|2m)$, $D(2,1;a)$, and $F(4)$ unitarity of extremal modules in the Neveu-Schwarz sector is equivalent to that in the Ramond sector (see Theorem \ref{fromNStoR}).
+
+The proofs are based on a functor described in Section \ref{SF} between the categories of ordinary modules over a vertex algebra and the Ramond twisted modules. Such functor cannot exist for minimal $W$-algebras in the cases $\g=spo(2|2m+1)$ and $G(3)$ since in these cases the quantum Hamiltonian reduction of a simple module is not simple (\cite[Conjecture 9.11]{KMPR}), while it is simple in the Neveu-Schwarz sector, by Arakawa's theorem.
+In the paper \cite{Lii2} it is proved that the above  functor is the spectral  flow \cite{Lii}. We thank Haisheng Li for pointing out to us this result.
+% but we do not need this fact and its proof would take us far from the goal of this paper.
+%Evidence that our spectral flow coincides with that defined in \cite{Lii} is given by the example of the free boson, developed in \cite[Section 6]{KMP1}.
+
+For the basic notions and facts of the vertex algebra theory we refer to \cite{FHL}, \cite{KB}, and for construction of $W$-algebras to \cite{KW1}.
+
+
+\section{A functor between categories of positive energy twisted modules}\label{SF}
+
+In the next section we will build up a functor between positive energy $\Wu$-modules mapping  untwisted highest weight modules to Ramond twisted highest weight modules.
+This functor is obtained by applying twice   the  construction  of the contragredient module. It is shown in \cite[Section 2]{Lii2} that this functor  coincides with the spectral flow defined in \cite{Lii}.
+To keep the paper as self-contained as possible and to take care of the modifications needed to work with  conjugate dual modules rather than  contragredient ones, we provide in this section some details of this construction.
+
+Let $V$ be a vertex  algebra that
+admits a conformal (=Virasoro) vector $L$ with $L_0$ acting diagonally with real eigenvalues (=conformal weights).  Let 
+$$
+V=\oplus_{\D\in \R}V_\D
+$$
+be the corresponding eigenspace decomposition.
+We make the further assumption that  $V_0=\C\vac$.
+This implies that $V_1$ is a Lie superalgebra under the bracket
+$$
+[a,b]=a_{(0)}b,
+$$
+ that admits an invariant bilinear form $\be$ given by 
+$$
+a_{(1)}b=\be(a,b)\vac.
+$$
+
+Let $f$ be a parity preserving diagonalizable automorphism of $V$ with modulus one eigenvalues such that $f(L)=L$. If $\gamma\in\R$ set
+$V^{[\gamma]}$ to be the $e^{2\pi\sqrt{-1}\gamma}$-eigenspace of $f$ so that
+$$
+V=\oplus_{[\gamma]\in\R/\ZZ}V^{[\gamma]}
+$$
+is a vertex algebra grading and $L_0(V^{[\gamma]})\subseteq V^{[\gamma]}$.
+
+
+Recall that 
+an $f$--\emph{twisted module} for $V$ is a vector superspace $M$ and a parity preserving
+linear map from $V$ to the space of $\End M$--valued 
+$f$--\emph{twisted quantum fields} 
+$ V^{[\gamma_a]} \ni a\mapsto Y^M (a,z) = \sum_{m \in [\gamma_a]} a^M_{(m)}
+z^{-m-1}$ (i.e. $a^M_{(m)} \in \End M$ and $a^M_{(m)} v=0$ for
+each $v \in M$ and $m \gg 0$), such that (2.12) and (2.13) of \cite{KMP} hold.
+
+
+
+
+Since $V^{[\gamma]}$ is $L_0$--invariant, we have its eigenspace decomposition $V^{[\gamma]}=\oplus_\D V_\D^{[\gamma]}$, and we will write for $a\in V_{\Delta_a}^{[\gamma]}$,
+$$
+Y_M(a,z)=\sum_{n\in [\gamma-\D_a]}a^M_nz^{-n-\D_a}.
+$$
+
+An $f$--twisted $V$--module $M$ is called an \emph{$L$-positive
+  energy  $V$--module} if $M$ has an
+$\R$--grading $M =\oplus_{{j \geq 0}} M_j$ such that
+%
+\begin{equation}
+  \label{eq:2.39}
+  a^M_n M_j \subseteq M_{j - n}, \ a\in V^{[\gamma]}_{\D_a} .
+\end{equation}
+The subspace ~$M_0$ is called the
+\emph{minimal energy subspace}.  Then,
+%
+\begin{equation}
+  \label{eq:2.40}
+  a^M_n M_0 = 0 \hbox{  for  } n>0 \hbox{  and  }a^M_0 M_0
+  \subseteq M_0 \, .
+\end{equation}
+
+Set
+$$p(a)=\begin{cases}0&\text{ if $a\in V_{\bar{0}}$},\\ 1 &\text{ if $a\in V_{\bar{1}}$, }
+\end{cases}
+$$
+Note that we will regard  $p(a)$ as an integer, not as a residue class.
+ If $a\in V_{\D_a}$, set for $t\in\R$,
+\begin{align}\label{(-1)L0}
+(-1)^{tL_0}a&=e^{\pi\sqrt{-}1t\D_a}a,\quad\s^{t}(a)=e^{\pi\sqrt{-}1tp(a)}a.
+\end{align}
+%where $\s(a)$ is defined in \eqref{s}.
+%
+\begin{lemma}\label{twistAz}Let $g$ be a diagonalizable parity preserving conjugate  linear  operator on $V$ with modulus $1$ eigenvalues.
+Then  
+\begin{equation}\label{congsign}
+g Y(a,z)g^{-1} b=p(a,b)Y(g (a),-z)b
+\end{equation}
+if and only if (with the notation established in \eqref{(-1)L0})
+ \begin{equation}\label{gamma}\phi=g (-1)^{-L_0} \s^{-1/2} \end{equation} is  a conjugate linear automorphism of $V$.
+\end{lemma}
+\begin{proof}
+ Assume that $g$ satisfies \eqref{congsign}. This means that
+\begin{equation}\label{ggggg}
+ g(a_{(n)}b)=(-1)^{n+1} p(a,b)g(a)_{(n)}g(b).
+\end{equation}
+ 
+ 
+ Then
+  \begin{align}\label{23}\phi(a)_{(n)}\phi(b)&=g((-1)^{-L_0} \s^{-1/2}(a)_{(n)}g((-1)^{-L_0} \s^{-1/2})(b)\\
+&=e^{\pi\sqrt{-}1(\D_a+\D_b)}e^{\pi/2\sqrt{-}1(p(a)+p(b))}g(a)_{(n)}g(b).\notag
+\end{align}
+By \eqref{ggggg}, substituting in \eqref{23}, and noting 
+that $p(a)+p(b)+2p(a)p(b)=p(a_{(n)}b)\mod 4\Z$, we obtain
+\begin{align*}\phi(a)_{(n)}\phi(b)&=e^{\pi\sqrt{-}1(\D_a+\D_b)}e^{\pi/2\sqrt{-}1(p(a)+p(b))}(-1)^{n+1} p(a,b)g(a_{(n)}b)\\
+&=e^{\pi\sqrt{-}1\D_{a_{(n)}b}}e^{\pi/2\sqrt{-}1(p(a)+p(b)+2p(a)p(b))}g(a_{(n)}b)\\
+&=ge^{-\pi\sqrt{-}1\D_{a_{(n)}b}}e^{-\pi/2\sqrt{-}1p(a_{(n)}b)}(a_{(n)}b)=\phi(a_{(n)}b).
+\end{align*}
+Reversing the argument we obtain the converse statement. 
+\end{proof}
+
+Note that Lemma \ref{congsign} implies that $g(\vac)=\vac$,  $g(\partial a)=-\partial g(a)$ and that $L':=g(L)$ is a conformal  vector for $V$. Indeed, $g(\vac)=\phi(\vac)=\vac$;  if $a\in V_\D$, then
+$$
+\partial g(a)=\partial \phi \s^{1/2} (-1)^{L_0} a=\phi(e^{\pi\sqrt{-}1(\D_a+\frac{1}{2}p(a))}\partial a=-\phi(e^{\pi\sqrt{-}1(\D_{\partial a}+\frac{1}{2}p(\partial a))}\partial a=-g(\partial a);
+$$
+and, since $g(L)=\phi(L)$, we have
+$$
+[g(L)_\la g(L)]=\phi([L_\la L])=\partial \phi( L)+2\phi(L)+\frac{ \la^3 }{12}\ov c\vac=\partial g( L)+2g(L)+\frac{ \la^3 }{12}\ov c\vac.
+$$
+
+ Let $g$ be a diagonalizable parity preserving conjugate linear  operator on $V$  satisfying \eqref{congsign}.
+Define $A(z):V_\D\to z^{-2\D} V[[z]]$ by 
+\begin{equation}\label{AZ}
+A(z)v=ge^{-zL_1}  z^{-2L_0}v.
+\end{equation}
+
+Using  the results of \cite[\S\ 4.9]{KB}, one deduces from Lemma \ref{twistAz}, as in Lemma 3.3 of \cite{KMP}, that
+ \begin{equation}\label{conjAzzt}
+p(a,b)A(w)Y(a,z)A(w)^{-1}b=i_{w,z}Y\left( A(z+w)a,\frac{-z}{(z+w)w}\right)b.
+\end{equation}
+
+If $M$ is a $L$-positive energy $f$-twisted $V$-module, we set 
+$$
+M^\dagger=\oplus_{n}M^\dagger_n,
+$$
+where $M^\dagger_n$ is the  conjugate linear dual of $M_n$.
+
+Assume now that  the conformal weights for $L$ are in $\half \ZZ_+$ and that $\phi(L)=L$. Choose an even element $h\in V_1$ such that $\phi(h)=-h$ and $f(h)=h$. Assume that $h_0$ acts semisimply on $V$ with real eigenvalues.
+If $t\in\R$, set $L(th)=L+t\partial h$. Since $V_\D=\{0\}$ for $\D<0$, we have
+$$
+[h_\l h]=\l\be(h,h)\vac.
+$$
+This implies that
+$$
+[L(th)_\l L(th)]=\partial L(th)+2L(th)+\la^3\frac{c-12t^2\be(h,h)}{12},
+$$
+so $L(th)$ is a Virasoro vector for $V$. 
+To clarify notation, we set  $V_{\D(t)}$ to be the eigenspace for $L(th)$ corresponding to the conformal weight $\D(t)$. If $M$ is a $f$-twisted module and $a\in V^{[\gamma]}_{\D_a}$, we will write
+$$
+Y_M(a,z)=\sum_{n\in[\gamma-\D_a]}a^M_nz^{-n-\D_a},
+$$
+while, if $a\in V^{[\gamma]}_{\D_a(t)}$, we write the mode expansion with respect to  $L(th)$ as
+$$
+Y_M(a,z)=\sum_{n\in[\gamma-\D_a(t)]}a^M(n,t)z^{-n-\D_a(t)}.
+$$
+Note that, since $L(th)_{(1)}L(th)=2L(th)=L_{(1)}L(th)$, we have
+$$
+L(th)(n,t)=L(th)_n=L_n-t(n+1)h_n.
+$$
+In particular 
+\begin{equation}\label{Lth0}
+L(th)(0,t)=L(th)_0=L_0-th_0.
+\end{equation}
+Since $[f,h_0]=0$, we can write 
+$$V^{[\gamma]}=\oplus_{\gamma'\in\R} V^{[\gamma],\gamma'},$$
+where $V^{[\gamma],\gamma'}$ is the $\gamma'$-eigenspace for $h_0$. Since $f(L)=L$, we have that $V^{[\gamma],\gamma'}=\oplus_\D V^{[\gamma],\gamma'}_\D$.
+By \eqref{Lth0}, if $a\in V^{[\gamma],\gamma_a}_{\D_a}$,  then $\D_a(t)=\D_a-t\gamma_a$ and
+$$
+a^M(n,t)=a^M_{n-t\gamma_a}.
+$$
+
+
+
+Also, by \eqref{Lth0}, $L(th)(0,t)=L(th)_0$ acts semisimply on $V$ with real eigenvalues, so that we can define
+ $$A(z,th)=ge^{-zL(th)_1}  z^{-2L(th)_0},
+ $$
+ as in \eqref{AZ}, with $L=L(th)$ and $g=\phi\s^{1/2}(-1)^{L(th)_0}$.
+
+\begin{lemma}\label{functor}
+If $M$ is an $f$-twisted $L(th)$-positive energy $V$-module set, for $m^\dagger\in M^\dagger, m\in M$ and $a\in V$, 
+$$
+(Y^{(th)} (a,z)m^\dagger)(m)=m^\dagger(Y_M(A(z,th)a,z^{-1})m).
+$$ 
+ Then
+$Y^{(th)}  (a,z)$ is a $(\phi^{-1}e^{-4\pi \sqrt{-}1th_0}f\phi)$-twisted quantum field and the map $a\mapsto Y^{(th)}  (a,z)$ gives  $M^\dagger$ the structure of a $(\phi^{-1}e^{-4\pi \sqrt{-}1th_0}f\phi)$-twisted $L(3th)$-positive energy $V$-module.
+\end{lemma}
+\begin{proof}
+
+Write $V=\oplus_{\gamma}V^{[\gamma]}(t)$ for the eigenspace decomposition with respect to $\phi^{-1}e^{-4\pi t\sqrt{-}1h_0}f\phi$. 
+Clearly 
+$$V^{[\gamma]}(t)=\oplus _{\gamma=-\gamma_1+2t\gamma'}\phi^{-1}(V^{[\gamma_1],\gamma'}).
+$$ 
+Note also that  $L(sh)_0=\phi^{-1}(L(-sh))_0$ so $V^{[\gamma]}(t)$ is $L(sh)_0$-stable and 
+$$V^{[\gamma]}(t)_{\D(s)}=\oplus _{\gamma=-\gamma_1+2t\gamma'}\phi^{-1}(V^{[\gamma_1],\gamma'}_{\D(-s)}).
+$$ 
+In particular, if    $a\in \phi^{-1}(V^{[\gamma_1],\gamma'})_{\D_a}= \phi^{-1}(V^{[\gamma_1],\gamma'}_{\D_a})$ then $\D_a(s)=\D_a+s\gamma'$. 
+
+Write explicitly 
+$$
+Y^{(th)}(a,z)=\sum_{n\in [\gamma-\D_a(3t)]}a^{(th)}_{n}z^{-n-\D_a(3t)}.
+$$
+Then we have
+$$\sum_{n\in[\gamma-\D_a(3t)]}( a^{(h)}(n,3t)f)(m) z^{-n-\D_a(3t)}=
+\sum_{r}(\tfrac{(-1)^r}{r!}f ( Y_M(g({L(th)_1^r}a), z^{-1})m)z^{-2\D_a-2t\gamma'+r}.
+$$
+We have $a=\phi^{-1}(b)$ with $b\in V^{[\gamma_1],\gamma'}_{\D_a}$ so
+$$
+\begin{aligned}
+&g(L(th)_1^ra)=\phi\s^{1/2}(-1)^{L(th)_0}(L(th)_1^r\phi^{-1}(b)=\s^{-1/2}(-1)^{-L(th)_0}\phi\phi^{-1}(L(-th)^r_1b)\\
+&=\s^{-1/2}(-1)^{-L(th)_0}(L(-th)^r_1b)\in V^{[\gamma_1],\gamma'}_{\D_a-r},
+\end{aligned}
+$$
+hence we can write
+$$
+ Y_M(g(L(th)_1^ra), z)=\sum_{n\in[\gamma_1-\D_a+t\gamma']}g(L(h)_1^ra)^M(n,t)z^{-n-\D_a+t\gamma'+r},
+$$
+so
+$$
+\begin{aligned}
+&\sum_{n\in[\gamma-\D_a(3t)]}( a^{(h)}(n,3t)f)(m) z^{-n-\D_a(3t)}\\&=
+\sum_{r,n\in[\gamma_1-\D_a+t\gamma']}(\tfrac{(-1)^r}{r!}f (g(L(th)_1^ra)^M(n,t)m)z^{n-\D_a -3t\gamma'}\\
+&=\sum_{r,n\in[-\gamma_1-t\gamma'+\D_a]}(\tfrac{(-1)^r}{r!}f (g(({L^{(h)}_1)^r}a)^M(-n,t)m)z^{-n-\D_a(3t)}\\
+&=\sum_{r,n\in[-\gamma_1+2t\gamma'-\D_a(3t)]}(\tfrac{(-1)^r}{r!}f (g(({L^{(h)}_1)^r}a)^M(-n,t)m)z^{-n-\D_a(3t)},
+\end{aligned}
+$$
+where, in the last equality, we used the assumption that $\D_a\in\half\ZZ$.
+In other words,
+\begin{equation}\label{undagger}
+(a^{(th)}(n,3t)\la)(m) =\la((e^{g(L(th))_1}g(a))^M(-n,t)m).
+\end{equation}
+In particular, 
+\begin{equation}\label{ispe}
+a^{(th)}(n,3t)M^\dagger_j\subseteq M^\dagger_{j-n}.
+\end{equation}
+This proves that  $Y^{(th)}$ is indeed an  $f$-twisted quantum field.
+
+Next observe that
+\begin{equation}\label{vacdagger}
+( \vac^{(th)}_{(n)}f)(m)=(\vac^{(th)}(n+1,3t)f)(m)=f(\vac^M_{-n-1}m)=\d_{-n-1,0}f(m),
+\end{equation}
+hence (2.12) of \cite{KMP} holds for $M^\dagger$.
+
+The proof of the  Borcherds identities  follows from \eqref{conjAzzt} as in Section 5 of \cite{FHL} with slight modifications as in the proof of Proposition 3.6 of \cite{KMP} to accommodate our setting. 
+
+The fact that $M^\dagger$ is $L(3th)$-positive energy follows readily from \eqref{ispe}.
+\end{proof}
+
+\section{Spectral flow for minimal $W$-algebras.}
+
+We now specialize to $W^k_{\min}(\g)$ with $\g$ one of the Lie superalgebras described in the Introduction. We list them in Table \ref{thetahalfisnotroot}. We also assume  $k\in\R$ non-critical.
+In particular we have that 
+\begin{enumerate}
+\item $\Wu$ admits a Virasoro vector $L$ with $L_0$ acting diagonally. Moreover the gradation of $V$ by conformal weights is
+$$\Wu=\bigoplus_{n\in\half\ZZ_+}\Wu_n,$$
+with $\Wu_0=\C\vac$ and $\Wu_{\frac{1}{2}}=\{0\}$.
+\item $\Wu_{\ov 0}=\oplus_{n\in\ZZ_+}\Wu_n$ and $\Wu_{\ov 1}=\oplus_{n\in\half+\ZZ_+}\Wu_n$.
+
+\end{enumerate}
+%We consider only the cases when  all odd roots of  $\g$ are isotropic. We also disregard the case $\g=sl(2|m)$ since in this case $k=-1$ and $\Ws$ is the vertex algebra of one free boson. The remaining Lie superalgebras we are considering are listed in Table \ref{thetahalfisnotroot}.\item  There is a conjugate linear involution $\omega$ on $\Wu$ and  a $\omega$-invariant Hermitian form $(\cdot,\cdot)$ on $\Wu$. We normalize the form by setting $(\vac,\vac)=1$.
+
+
+
+In \cite[Table 1]{KMP1}, we chose a special set of simple roots for $\g$, denoted by  $S$. It has the property that, if $\D^\natural$ is the set of roots for $(\g^\natural,\h^\natural)$,  then $S\cap\D^\natural$ is a set of simple roots for $\g^\natural$.
+Let  
+$\g^\natural=\n^\natural_-\oplus\h^\natural\oplus\n^\natural_+$ be the corresponding triangular decomposition and let $\D^\natural_+$ be the corresponding set of positive roots.
+Recall that $\g^\natural$ is a semisimple Lie algebra and write $\g=\oplus_{i=1}^{r_0}\g_{i}$ for its decomposition into simple ideals. Actually, $\g^\natural$ is simple  except when $\g=D(2,1;a)$, so $r_0=1$ except when $\g=D(2,1;a)$ where $r_0=2$.
+We let $\omega^j_i$ be the fundamental weights of $\g^\natural_j$ corresponding to our choice of simple roots. Likewise let $\theta^\natural_i$ be the highest root of $\g^\natural_i$. Let $\rho_R$ be as in Table \ref{thetahalfisnotroot}. These data  appear also in Tables 2,3 from \cite{KMPR}, where one more choice $\rho_R=\omega_3^1 $ in type $F(4)$ appears.
+
+ We need to treat this extra case with a special argument (cf. Lemma \ref{42}). 
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
+\begin{tabular}{c | c| c |c |c}
+$\g$&$psl(2|2)$&
+$spo(2|2r)$& $D(2,1;\tfrac{m}{n})$&$F(4)$\\
+\hline
+$\rho_R$&$\omega^1_1$&$\omega^1_r,\omega^1_{r-1}$&$\omega_1^1,\omega_1^2$
+&$\omega^1_1$
+\end{tabular}
+\captionof{table}{The algebras $\g$ and the weights $\rho_R$.\label{thetahalfisnotroot}}
+\end{table}
+Denote by $(\cdot|\cdot)$ the invariant bilinear form on $\g$ described explicitly in \cite[Table 1]{KMP1}. 
+Identify $\h^\natural$ with $(\h^\natural)^*$ using  $(\cdot|\cdot)$ and define $h^R\in\h^\natural$ by
+\begin{equation}\label{hoR}
+h^R=4\frac{\rho_R}{(\theta_i^\natural|\theta_i^\natural)}\text{ if $\rho_R=\omega^i_j$.}
+\end{equation}
+
+\begin{lemma}\label{hRexixts} $ad(h^R)_{|\g^\natural}$ has eigenvalues in $2\Z$ and  $ad(h^R)_{|\g_{-{1}/{2}}}$ has eigenvalues in $2\Z+1$.
+\end{lemma}
+\begin{proof}
+Note that 
+\begin{equation}\label{eigenhR}
+\a(h^R)\in\{\pm2,0\}\text{ if $\g_{\a}\subset \g^\natural$}, \ \a(h^R)\in\{\pm1\}\text{ if $\g_{\a}\subset \g_{-1/2}$}.
+\end{equation}
+\end{proof}
+
+
+
+
+\begin{remark}
+Note that Lemma \ref{hRexixts} does not hold if $\g$ is $spo(2|2n+1)$ or $G(3)$, i.e. in the two remaining   cases listed in \cite[Proposition  8.10]{KMP1}. The reason is that in these cases  $0$ is a $\h^\natural$-weight of $\g_{-1/2}$.
+\end{remark}
+
+We call a $\Wu$-module {\sl ordinary} if it is $f$-twisted with $f$ the identity on $\Wu$.
+Assume that $M$ is an ordinary $L(th^R)$-positive energy module for all $t$ in a subset $I$ of $\R$. 
+
+Let $\omega$ be a conjugate linear involution  on $\Wu$ such that 
+\begin{equation}\label{hRReal}
+\omega(h^R)=-h^R.
+\end{equation}
+  Applying Lemma \ref{functor}, we find that $M^\dagger$ is a $L(3th^R)$-positive energy $\omega^{-1}e^{-4\pi\sqrt{-}1th^R_0}\omega$-twisted module, so, applying Lemma \ref{functor} again, we find that, if $s\in3I$, then $(M^\dagger)^\dagger$ is a $L(3sh^R)$-positive energy $\omega^{-1}e^{-4\pi\sqrt{-}1sh_0}\omega^{-1}e^{-4\pi\sqrt{-}1th_0}\omega^2$-twisted module. Since
+ $$\omega^{-1}e^{-4\pi\sqrt{-}1sh^R_0}\omega^{-1}e^{-4\pi\sqrt{-}1th^R_0}\omega^2=e^{-4\pi\sqrt{-}1(s+t)h^R_0},
+ $$
+  we find that, choosing $s=\tfrac{1}{4}-t$, $(M^\dagger)^\dagger$ is a $\s_R$-twisted module.
+
+ There is a canonical linear embedding $M\to (M^\dagger)^\dagger$ given by $m\mapsto F_m$ with $F_m(\lambda)=\ov{\lambda(m)}$. We define a structure of  $\s_R$-twisted $\Wu$-module on $M$ via the fields $Y^R(a,z)$ defined by
+  $$
+F_{ Y^R(a,z)m}=Y^{(sh^R)}(a,z)(F_m).
+$$
+ If $a\in\Wu$, write $Y^R(a,z)=\sum_{n\in\Z} a^R_nz^{-n-\D_a}$. If $a\in\g$ is an eigenvector for $ad(h^R)$, write $\gamma_a$ for the corresponding eigenvalue. By \eqref{eigenhR}
+ \begin{equation}
+ \gamma_a\in \{\pm2,0\}\text{ if $a\in\g^\natural$}, \ \gamma_a\in \{\pm1\}\text{ if $a\in\g_{-1/2}$}.
+ \end{equation}
+ Recall that there is an embedding $V^{\be_k}(\g^\natural)\to\Wu$, where $\be_k$ is the cocycle given explicitly in \cite[Theorem 5.1]{KW1}.
+ 
+ \begin{lemma}Fix $n\in\ZZ$ and $m\in M$. If $a\in \g^\natural$ and $v\in\g_{-1/2}$, then 
+\begin{align}
+&(J^{\{ a \}})^{R}_n m=e^{-\frac{\pi}{4}\sqrt{-}1\gamma_a}J^{\{a\}}_{n+1/2\gamma_a}m+\half\d_{n,0}\beta_k(h^R,a)m,\label{JAR}\\
+&(G^{\{ v \}})^{R}_n m  = e^{-\frac{\pi}{4}\sqrt{-}1\gamma_v} G^{\{v\}}_{n+1/2\gamma_v}m,\label{GAR}\\
+&L^{R}_n m  =L_nm+\half J^{\{h^R\}}_nm+\d_{n,0}\tfrac{1}{8}\be_k(h^R,h^R)m\label{LAR}.
+\end{align}
+\end{lemma}
+\begin{proof}To simplify notation, in this proof we set $h=h^R$.
+ Observe that
+ $g(L(th))=\omega(L(th))=L-t\partial h$. It follows that,
+if $a\in \g^\natural$ and $v\in \g_{-1/2}$, then 
+$$
+ \begin{aligned}
+& g(L(th))(1,t)g((J^{\{ a \}}))=(L_1-t\partial h_1)g(J^{\{ a \}})=(L_1-t\partial h_1)e^{-\pi\sqrt{-}1\D_a(t)}J^{\{\omega(a)\}}\\
+&=2te^{-\pi\sqrt{-}1\D_a(t)}\beta_k(h,\omega(a))\vac,
+ \\
+  &g(L(th))(1,t)g(G^{\{ v \}})=(L_1-t\partial h_1)e^{-\pi\sqrt{-}1(\D_v(t)+1/2)}G^{\{\omega( v) \}}=0,\\
+   & g(L(th))(1,t)g(L)=(L_1-t\partial h_1)L=2t h.
+ \end{aligned}
+ $$
+It follows from \eqref{undagger} that, if $a\in g^\natural$ and $n\in\ZZ$,
+ $$
+ \begin{aligned}
+& ((J^{\{ a \}})^{(sh)}_nF_m)(\lambda)= ((J^{\{ a \}})^{(sh)}(n+3s\gamma_a,3s)F_m)(\lambda)\\
+&= F_m(g(J^{\{ a \}})^{(th)}(-n-3s\gamma_a,s)\lambda)\\
+&+2se^{\pi\sqrt{-}1\D_a(s)}\ov{\beta_k(h,\omega(a))}F_m(\vac(-n-3s\gamma_a,s)\lambda)\\
+&= F_m(e^{-\pi\sqrt{-}1\D_a(s)}(J^{\{\omega(a)\}})^{(th)}(-n-3s\gamma_a,s)\lambda)\\
+&+\d_{n+3s\gamma_a,0}2s\ov{e^{-\pi\sqrt{-}1\D_a(s)}\beta_k(h,\omega(a))\lambda(m)}\\
+&= \ov{ (e^{-\pi\sqrt{-}1\D_a(s)}(J^{\{\omega(a)\}})^{(th)}(-n-(2s+3t)\gamma_a,3t)\lambda)(m)}\\
+&+\d_{n+3s\gamma_a,0}2s\ov{e^{-\pi\sqrt{-}1\D_a(s)}\beta_k(h,\omega(a))\lambda(m)}\\
+&= \ov{ (e^{-\pi\sqrt{-}1\D_a(s)}\lambda(e^{-\pi\sqrt{-}1\D_{\omega(a)}(t)}J^{\{a\}}(n+(2s+3t)\gamma_a,t)m)}\\
+&+\ov{2te^{-\pi\sqrt{-}1\D_a(s)}\lambda(e^{-\pi\sqrt{-}1\D_{\omega(a)}(t)}\beta_k(h,a)\vac(n+(2s+3t)\gamma_a,t)m)}\\
+&+\d_{n+3s\gamma_a,0}2s\ov{e^{-\pi\sqrt{-}1\D_a(s)}\beta_k(h,\omega(a))\lambda(m)}\\
+&= \ov{ (e^{-\pi\sqrt{-}1(\D_a(s)-\D_{\omega(a)}(t))}\lambda(J^{\{a\}}_{n+2(s+t)\gamma_a}m)}\\
+&+\ov{\left(\d_{n+(2s+3t)\gamma_a,0}2te^{-\pi\sqrt{-}1(\D_a(s)-\D_{\omega(a)}(t))}\ov{\beta_k(h,a)}+\d_{n+3s\gamma_a,0}2se^{-\pi\sqrt{-}1\D_a(s)}\beta_k(h,\omega(a))\right)\lambda(m)}.
+ \end{aligned}
+ $$
+Set now  $s=\frac{1}{4}-t$ and observe that $\be_k(h,a)=\be_k(h,\omega(a))=0$ unless $\gamma_a=0$.   Since $\omega$ is an automorphism of $\Wu$, it follows that  $\be_k(\omega(a),\omega(b))=\ov{(a,b)}$. Moreover,
+ $$
+ \D_a(s)-\D_{\omega(a)}(t)=1-(\frac{1}{4}-t)\gamma_a-1-t\gamma_a=-\frac{\gamma_a}{4}.
+ $$
+ Putting together all these observations, our formula reduces to
+  $$
+ \begin{aligned}
+& ((J^{\{ a \}})^{(sh)}_nF_m)(\lambda)
+= e^{-\frac{\pi}{4}\sqrt{-}1\gamma_a}F_{ J^{\{a\}}_{n+1/2\gamma_a}m}(\lambda)+\half\d_{n,0}\beta_k(h,a)F_m(\lambda),
+ \end{aligned}
+ $$
+ which is \eqref{JAR}.
+ Similarly one obtains, for $n\in\ZZ$ and $v\in\g_{-1/2}$, 
+ $$
+ \begin{aligned}
+& ((G^{\{ v \}})^{(sh)}_nF_m)(\lambda)= F_m(e^{-\pi\sqrt{-}1(\D_v(s)+1/2)}G^{\{\omega( v) \}}(-n-3s\gamma_v,s)\lambda)\\
+&= \ov{ e^{-\pi\sqrt{-}1(\D_v(s)+1/2)}G^{\{\omega( v) \}}(-n-3s\gamma_v,s)\lambda(m)}\\
+&= \ov{ e^{-\pi\sqrt{-}1(\D_v(s)+1/2)}\lambda(e^{-\pi\sqrt{-}1(\D_{\omega(v)}(t)+1/2)}G^{\{v\}}(n+(2s+3t)\gamma_v,t)m)}\\
+&= \ov{ (e^{-\pi\sqrt{-}1(\D_v(s)-\D_{\omega(v)}(t))}\lambda(G^{\{v\}}_{n+2(s+t)\gamma_v}m)}= e^{-\frac{\pi}{4}\sqrt{-}1\gamma_v} F_{ G^{\{v\}}_{n+1/2\gamma_v}m}(\lambda),
+ \end{aligned}
+ $$
+ which gives \eqref{GAR}.
+ Finally, if $n\in\ZZ$,
+ $$
+  \begin{aligned}
+ &(L^{(sh)}_nF_m)(\lambda)=(L^{(sh)}(n,3s)F_m)(\lambda)\\
+ &=F_m(\left(L^{(th)}(-n,s)+2s(J^{\{h\}})^{(th)}(-n,s)+\d_{n,0}2s^2\be_k(h,h)\right)\lambda)\\
+  &=\ov{\left(L^{(th)}(-n,s)+2s(J^{\{h\}})^{(th)}(-n,s)+\d_{n,0}2s^2\be_k(h,h)\right)\lambda)(m)}\\
+  &=\ov{\lambda((L_n+2tJ^{\{h\}}_n+\d_{n,0}2t^2\be_k(h,h))m)}\\
+  &+\ov{2s\lambda((J^{\{h\}}_n+\d_{n,0}2t\be_k(h,h))m)} +\d_{n,0}2s^2\ov{\be_k(h,h)\lambda(m)}\\
+  &=\ov{\lambda(\left(L_n+2(t+s)J^{\{h\}}_n+\d_{n,0}2(t+s)^2\be_k(h,h)\right)m)}  .
+  \end{aligned} 
+  $$
+  Since $\ov{\be_k(h,h)}=\be_k(\omega(h),\omega(h))=\be_k(h,h)$, we obtain \eqref{LAR}.
+\end{proof}
+
+\begin{remark}
+Clearly \eqref{JAR}, \eqref{GAR}, and \eqref{LAR} can be inverted to obtain
+\begin{align}
+&J^{\{a\}}_{n}m=e^{\frac{\pi}{4}\sqrt{-}1\gamma_a}((J^{\{ a \}})^{R}_{n-1/2\gamma_a} m-\half\d_{n,1/2\gamma_a}\beta_k(h^R,a)m),\label{JAOR}\\
+&  G^{\{v\}}_{n}m= e^{\frac{\pi}{4}\sqrt{-}1\gamma_v}(G^{\{ v \}})^{R}_{n-1/2\gamma_v} m ,\label{GAOR}\\
+& L_nm=L^{R}_n m -\half (J^{\{h^R\}})^R_nm+\d_{n,0}\tfrac{3}{8}\be_k(h^R,h^R)m\label{LAOR}.
+\end{align}
+\end{remark}
+
+
+
+%Note that $u\in\mathfrak n_-^\natural$ instead of  $\mathfrak n_+^\natural$ in the last equality above.
+ 
+ \section{Spectral flow and unitary highest weight modules}
+We now assume that $k$ is in the unitary range (see \cite[Definition 8.11]{KMP1}). This implies that  there is a conjugate linear involution $\omega$ on $\Wu$ and  a semi-positive definite  $\omega$-invariant Hermitian form $(\cdot,\cdot)$ on $\Wu$. In other words the simple $W$-algebra $\Ws$ is a unitary vertex algebra. We normalize this  form by setting $(\vac,\vac)=1$.
+ Note that $\omega_{|\g^\natural}$ must be the conjugation with respect to a compact form. This implies in particular that \eqref{hRReal} holds.
+  
+  Remark that
+$\D^{NS}_+=\{\a\in\D^\natural\mid \a(h^R)<0\}\cup \{\a\in\D^\natural_+\mid \a(h^R)=0\}$ is a set of positve roots for $\g^\natural$. Let 
+$\mathfrak n^{NS}_-\oplus \h^\natural \oplus \mathfrak n^{NS}_+$ be the corresponding triangular decomposition of $\g^\natural$. 
+By  a {\sl highest weight ordinary  $\Wu$-module of highest weight $(\nu,\ell)$ }we mean an ordinary $\Wu$-module $M$ generated by a vector $v_{\nu,\ell}$ such that
+\begin{align*}
+&J^{\{h\}}_0v_{\nu,\ell}=\nu(h)v_{\nu, \ell} \text{ for } h\in\h^\natural,\quad L_0v_{\nu,\ell}=\ell v_{\nu,\ell},\\
+&J^{\{u\}}_nv_{\nu,\ell_0}=G^{\{v\}}_nv_{\nu,\ell_0}=L_nv_{\nu,\ell_0}=0\text{ for $n>0$, $u\in \g^\natural$},\ v\in\g_{-1/2}, \\
+&J^{\{u\}}_0v_{\nu,\ell_0}=0\text{ for } u\in\n^{NS}_+.
+\end{align*}
+
+  
+Let $M$ be a unitary ordinary highest weight module. This implies that the minimal energy space $M_0$ is finite dimensional. Recall that $M$ is linearly spanned by monomials
+$$
+\begin{aligned}\label{formulona}
+&J^{\{a_{1}\}}_{i_1}\cdots J^{\{a_{t}\}}_{i_t}G^{\{v_{1}\}}_{j_1}\cdots G^{\{v_{s}\}}_{j_s}L_{k_1}\cdots L_{k_r}m,
+\end{aligned}
+ $$
+ with $m\in M_0$, $i_l,k_u\in \Z_{<0}$ and $j_h\in\
+ \half+\Z_{<0}$.
+We can choose $a_i, v_i$ and $m$ to be eigenvectors for the action of $h_0$ and let $\gamma_{a_i}$, $\gamma_{v_i}$ and $\l$ be the corresponding eigenvalues. Since $M_0$ is finite dimensional, $\l$ is bounded below. 
+The eigenvalue for $L(th)_0=L_0-th_0$ on these monomials is
+$$
+-\sum i_l-\sum j_h-\sum k_u-\sum t\gamma_{a_l}-\sum t\gamma_{v_h}+\ell-t\la.
+$$
+Since the eigenvalues of $ad(h^R)$ on $\g^\natural$ are in $\{\pm2,0\}$, the eigenvalues of  $ad(h^R)$ on $\g_{-1/2}$ are in $\{\pm1\}$, we see that, choosing $|t|<\half$, 
+$$
+-\sum i_l-\sum j_h-\sum k_u-\sum t\gamma_{a_l}-\sum t\gamma_{v_h}+\ell-t\la\ge\ell-t\la
+$$
+has a minimum value $s_0$. Let 
+ $M_j=\{m\in M\mid (L_0-th_0)m=j-s_0\}$. The grading 
+$$
+M=\oplus_j M_j
+$$
+turns $M$ into a $L(th)$-positive energy module.
+ Recall from \cite{KMPR} that a $\s_R$-twisted highest weight module is a module  with a cyclic vector $m$ such that 
+\begin{align}
+  &(J^{\{ a \}})^{M}_n m=(G^{\{ v \}})^{M}_n m=L^{M}_n m=
+  0 \text{ if $n>0$ },\label{m3}\\
+ &(J^{\{ a \}})^{M}_0 m=
+  0 \text{ if 
+     $a \in \fn_0 (\sigma_R)_+$},\label{m4}\\
+     &(G^{\{ v \}})^{M}_0 m  =
+  0 \text{ if 
+     $v \in \fn_{-1/2} (\sigma_R)'_+$},\label{m5}
+\end{align}
+where $\fn_0 (\sigma_R)_+=\sum_{\a\in\D^\natural_+}\g^\natural_\a$ and $\fn_{-1/2} (\sigma_R)'_+=\sum_{\eta\in\ov \D_{1/2}^+}(\g_{-1/2})_\eta$ with the sets $\D^\natural_+$ and $\ov \D_{1/2}^+$  explicitly described in Section 6 of \cite{KMPR}. Here, for a $\h^\natural$-stable  space $\mathfrak r$ and a weight $\eta\in(\h^\natural)^*$, we denote by $\mathfrak r_\eta$ the corresponding weight space. Note that, if $\g\ne psl(2|2)$, there are two choices for the set $\overline\D^+_{1/2}$. 
+
+Recall that we chose $\rho_R$ from Table \ref{thetahalfisnotroot}. 
+The choice of $\rho_R$ is equivalent to choosing a set $\overline\D^+_{1/2}$ in \eqref{m5}. Indeed
+\begin{equation}\label{roR}
+\rho_R=\half\sum_{\eta\in \overline\D^+_{1/2}}\dim(\g_{-1/2})_\eta\eta=\half\!\!\!\!\!\!\!\!\sum_{(\g_{-1/2})_\eta\subset \fn_{-1/2} (\sigma_R)'_+}\!\!\!\!\!\!\!\!\!\!\!\!\dim(\g_{-1/2})_\eta\eta.
+\end{equation}
+ \begin{proposition}\label{Hwumaphwu}Let $M$ be a unitary highest weight ordinary $\Wu$-module of highest weight $(\nu,\ell)$.  
+Choose $h^R$ as in \eqref{hoR} with $\rho_R$ chosen from Table \ref{thetahalfisnotroot}. Then 
+\begin{itemize}
+ \item[(a)] In the $\s_R$-twisted module  $(Y^R,M)$ the vector $v_{\nu,\ell}$ generates a $\s_R$-twisted highest weight module of highest weight $(\nu^R,\ell^R)$ with
+ $$
+ \nu^R=\nu+M_i(k)\rho_R,\ \ell^R=\ell +\frac{2}{(\theta^\natural_i|\theta^\natural_i) }(\nu|\rho_R)+\frac{1}{(\theta^\natural_i|\theta^\natural_i) }M_i(k)(\rho_R|\rho_R),
+ $$
+where $\rho_R=\omega^i_j$ as in Table \ref{thetahalfisnotroot}. 
+ \item[(b)]   If $M$ is irreducible, then $(M^\dagger)^\dagger$ is the irreducible    $\s_R$-twisted highest weight mo\-dule
+ with highest weight $(\nu^R,\ell^R)$.\end{itemize}
+ \end{proposition}
+ \begin{proof}
+ If $n\ge2$ and $a\in \g^\natural$, since $\gamma_a\in\{\pm2,0\}$,
+ by \eqref{JAR}, $(J^{\{a\}})^R_n v_{\nu,\ell}=0$. If $n=1$ and  $\gamma_a\ge 0$, by \eqref{JAR}, $(J^{\{a\}})^R_1 v_{\nu,\ell}=0$. If $\gamma_a=-2$, then $a\in \mathfrak n(R)_+$ and, by \eqref{JAR}, $(J^{\{a\}})^R_1 v_{\nu,\ell}=-\sqrt{-1}J^{\{a\}}_{0}v_{\nu,\ell}=0$.
+ Observe that, if $a\in \mathfrak n_+$ then $\gamma_a\ge 0$. If $n=0$ and $\gamma_a=2$, then $(J^{\{a\}})^R_0 v_{\nu,\ell}=-\sqrt{-1}J^{\{a\}}_{1}v_{\nu,\ell}=0$. If $n=0$ and $\gamma_a=0$ then $a\in \mathfrak n(R)_+$, so $(J^{\{a\}})^R_0 v_{\nu,\ell}=-\sqrt{-1}J^{\{a\}}_{0}v_{\nu,\ell}=0$.
+ 
+ If $n>0$ and $v\in \g_{-1/2}$, since $\gamma_v\in\{\pm1\}$, by \eqref{GAR}, $(G^{\{v\}})^R_n v_{\nu,\ell}=e^{-\frac{\pi}{4}\sqrt{-}1\gamma_v} G^{\{v\}}_{n+1/2\gamma_v} v_{\nu,\ell}=0$.
+ If $n=0$ and $v \in \fn_{-1/2} (\sigma)'_+$ then $\gamma_v=1$ so, by \eqref{GAR}, $(G^{\{v\}})^R_0 v_{\nu,\ell}=e^{-\frac{\pi}{4}\sqrt{-}1} G^{\{v\}}_{1/2} v_{\nu,\ell}=0$.
+ 
+ If $n>0$ then, by \eqref{LAR}, 
+ $$L^{R}_n v_{\nu,\ell}  =L_nv_{\nu,\ell}+\half J^{\{h^R\}}_nv_{\nu,\ell}+\d_{n,0}\tfrac{1}{8}\be_k(h^R,h^R)v_{\nu,\ell}=0.
+ $$
+ 
+ If $a\in \h^\natural$, then, by \eqref{JAR},
+ $$
+ (J^{\{ a \}})^{R}_0 v_{\nu,\ell}=J^{\{a\}}_{0}v_{\nu,\ell}+\half\beta_k(h^R,a)v_{\nu,\ell}=(\nu(a)+\half\beta_k(h^R,a))v_{\nu,\ell}.
+ $$
+ By \cite[(7.22)]{KMP1} if $h^R\in\g^\natural_i$ and $a\in\g^\natural_j$, we have
+ $$
+\be_k(h^R,a)= \d_{i,j} M_i(k)\frac{(\theta_i|\theta_i)}{2}(h^R|a)=\d_{i,j} 2M_i(k)\rho_R(a).
+ $$
+ By \eqref{LAR},
+ $$
+ L^{R}_0 v_{\nu,\ell}=(\ell +\half \nu(h^R)+\tfrac{1}{8}\be_k(h^R,h^R)) v_{\nu,\ell}=(\ell +\frac{2}{(\theta^\natural_i|\theta^\natural_i) }(\nu|\rho_R)+\frac{1}{(\theta^\natural_i|\theta^\natural_i) }M_i(k)(\rho_R|\rho_R)) v_{\nu,\ell}.
+ $$
+ 
+ Assume now that $M$ is irreducible. If $N$ is a  proper submodule of $(M^\dagger)^\dagger$, then it is graded by $L(9th)_0$. It follows that $N^\perp$ is generated by $M_0^\dagger$, hence $(N^\perp)^\perp$ is a graded proper submodule of $M$ such that $(N^\perp)^\perp\cap M_0=\{0\}$. Thus $N=\{0\}$ and $(M^\dagger)^\dagger$ is irreducible. 
+ \end{proof}
+Let $P^k_+(R)\subset (\h^\natural)^*$ be the set of dominant integral weights for $\Delta^\natural_+$ such that $\nu((\theta^\natural_i)^\vee)\le M_i(k)$ for all $i$.
+Let also $P^k_+(NS)\subset (\h^\natural)^*$ be the set of dominant integral weights for $\D^{NS}_+$ such that $\nu((\theta^\natural_i(NS))^\vee)\le M_i(k)$ for all $i$, where  $\theta^\natural_i(NS)$ is the highest root of $\g^\natural_i$ in $\D^{NS}_+$.
+Recall that  the ordinary highest weight module $L(\nu,\ell)$ can be unitary only if $\nu\in P^k_+(NS)$ and $\ell\ge  A^{NS}(k,\nu)$ with $ A^{NS}(k,\nu)$ given by \cite[(8.11)]{KMP1}.
+%\begin{equation}\label{Aknu}
+ %A^{NS}(k,\nu)=\frac{(\nu|\nu+2\rho^\natural(NS))}{2(k+h^\vee)}+%\frac{(\xi|\nu)}{k+h^\vee}((\xi|\nu)-k-1).
+ %\end{equation}
+ 
+Similarly, a $\s_R$-twisted highest weight module $L^R(\nu,\ell)$ can be unitary only if $\nu\in P^k_+(R)$ and $\ell\ge A^R(k,\nu)$ with
+ $ A^R(k,\nu)$ given by \cite[(6.31)]{KMPR}. Explicit expressions for both $A^{NS}(k,\nu)$ and $A^R(k,\nu)$ are given case by case in \cite[Section 12]{KMP1} and \cite[Section 10]{KMPR} respectively.
+ %$$
+% =\tfrac{1}{2(k+h^\vee)}\left((\nu|\nu+2\rho^\natural)    -\tfrac{1}{2} p(k)+F_{\nu}(\eta_{\min})\right).
+%$$
+\begin{lemma}\label{remarkable}If $\nu\in P^k_+(NS)$ set $ \nu^R=\nu+M_i(k)\rho_R$ (as in Proposition \ref{Hwumaphwu}) with $\rho_R$ chosen from Table \ref{thetahalfisnotroot}.
+Then $\nu^R\in P^k_+(R)$ and
+\begin{equation}\label{mf}
+A^{NS}(k,\nu) +\frac{2}{(\theta^\natural_i|\theta^\natural_i) }(\nu|\rho_R)+\frac{1}{(\theta^\natural_i|\theta^\natural_i) }M_i(k)(\rho_R|\rho_R)=A^R(k,\nu^R).
+\end{equation}
+\end{lemma}
+\begin{proof}Let $\widehat \g^\natural=\left(\C[t,t^{-1}]\otimes \g^\natural\right)\oplus(\oplus_{i=0}^{r_0}\C K_i)\oplus \C \frac{d}{dt}$ be the affinization of $\g^\natural$ and set $\ha^\natural=\h^\natural\oplus(\oplus_{i=0}^{r_0}\C K_i)\oplus \C \frac{d}{dt}$. Let $(\cdot|\cdot)^\natural$ be the  invariant symmetric bilinear form on $\g^\natural$ such that $(\theta^\natural_i|\theta^\natural_i)^{\natural}=2$ for all $i$. If $\rho_R=\omega^i_j$   set, for $\l\in(\ha^\natural)^*$,
+$$
+t_{\rho_R}(\l) = \l+ \l( K_i)\rho_R-((\l_{|\h^\natural}|\rho_R)^\natural +\half(\rho_R|\rho_R)^\natural\l(K_i))\d.
+$$
+We note that $\rho_R=\omega^i_j$ with $\a_j$ a simple root for $\g^\natural$ such that, if $\theta^\natural_i=\sum_r a_r\a_r$ then $a_j=1$. Let
+$\D^\natural(j)$ denote the root subsystem of $\D^\natural$ generated by
+$S\setminus\{\a_j\}$ and by $w^j_0$ the longest (w.r.t.
+$S\setminus\{\a_j\}$) element of the
+corresponding parabolic subgroup of $W$. Let $w_{0}$ be the longest
+element of $W$ with respect to $S$. Then it is observed in \cite[Theorem D]{Compatible} that from the results of \cite{IwMa} one deduces that $t_{\rho_R}w^j_0w_0(P^+_k(R))=P^+_k(R)$. Note that $\D^{NS}_+=w^j_0w_0(\D^\natural_+)$, so if $\nu\in P^+_k(NS)$ then $\nu=w_0^jw_0(\nu')$ with  $\nu'\in P^+_k(R)$ so $\nu^R=t_{\rho_R}(\nu)=t_{\rho_R}w_0^jw_0(\nu')\in P^+_k(R)$.
+
+
+
+We will prove \eqref{mf} by a case by case inspection using the explicit expressions for $A^{NS}(k,\nu)$ and $A^R(k,\nu)$ given in \cite[Section 12]{KMP1} and \cite[Section 10]{KMPR} respectively.
+
+\subsection{$psl(2|2)$} In this case $\g^\natural=sl(2)$, $M_1(k)=-k-1$. We choose
+$\D^\natural_+=\{\d_1-\d_2\}$ so that  
+$$\rho_R=\half(\d_1-\d_2), \ h^R=-2\rho_R,\ \D^{NS}_+=\{-\d_1+\d_2\}, 
+$$
+and
+$$
+ P^+_k(NS)=\{-\frac{r}{2}(\d_1-\d_2)\mid 0\le r\le M_1(k)\},\ P^+_k(R)=\{\frac{r}{2}(\d_1-\d_2)\mid 0\le r\le M_1(k)\}.
+ $$
+ In this case
+$$
+A^{NS}(k,\nu)=\frac{r}{2},\quad
+A^R(k,\nu^R)= -\frac{k+1}{4},
+$$
+and, indeed,
+$$
+A^{NS}(k,\nu) +\frac{2}{(\theta^\natural_i|\theta^\natural_i) }(\nu|\rho_R)+\frac{1}{(\theta^\natural_i|\theta^\natural_i) }M_i(k)(\rho_R|\rho_R)=\frac{r}{2}-\frac{r}{2}+\frac{1}{4}(-k-1)=A^R(k,\nu^R).
+$$
+
+\subsection{$spo(2|2r)$, $r>2$}In this case
+$$\g^\natural=so(2r),\ M_1(k)=-2k-1.
+$$
+Assume first $\rho_R=\omega_r^1$. 
+ Then
+$$
+P^+_k(R)=\{\nu=\sum_i m_i\e_i,\,m_i\in\half +\ZZ\text{ or }m_i\in\ZZ,\ m_1\geq\ldots\geq m_{r-1}\geq |m_r|,\ m_1+m_2\le M_1(k)\},
+$$
+and 
+$$
+P^+_k(NS)=\{\nu=\sum_i m_i\e_i,\,m_i\in\half +\ZZ\text{ or }m_i\in\ZZ,\ -|m_1|\geq\ldots\geq m_{r-1}\geq m_r,\ -m_{r-1}-m_r\le M_1(k)\}.
+$$
+Since
+\begin{equation*}\label{1a}
+A^{NS}(k,\nu)=-\frac{(\sum_{i=1}^r (m_i^2-2m_i(i-1))+m_r (2k-m_r+2)}{4 (k-r+2)},
+\end{equation*}
+\begin{align*}
+A^R(k,\nu)&=\frac{-4\left( \sum_{i=1}^{r-1}(2 (r-i)-1)m_i +m_i^2\right)-4 k^2+2(r-4) k  +r-3}{16 (k+2-r)},
+\end{align*}
+and
+ $$
+ \frac{2}{(\theta^\natural_1|\theta^\natural_1) }(\nu|\rho_R)=\half \sum m_i,\quad\frac{1}{(\theta^\natural_1|\theta^\natural_1) }M_1(k)(\rho_R|\rho_R)=\frac{M_1(k)}{8}r,
+ $$
+ \eqref{mf} reads
+ \begin{equation}\label{equivalent}
+\begin{aligned}
+&\frac{-4\left( \sum_{i=1}^{r-1}(2 (r-i)-1)(m_i+\half(-2k-1) )+(m_i+\frac{1}{2}(-2k-1))^2\right)}{16 (k+2-r)}\\
+&-\frac{4 k^2-2(r-4) k  -r+3}{16 (k+2-r)}\\
+&=\frac{-4(\sum_{i=1}^r (m_i^2-2m_i(i-1)+m_r (2k-m_r+2)) +8 (k-r+2) \sum m_i}{16 (k-r+2)}\\
+&+\frac{2r(-2k-1) (k-r+2)}{16 (k-r+2)},
+\end{aligned}
+\end{equation}
+or, equivalently,
+\begin{equation}\label{equivalentbis}
+\begin{aligned}
+&\sum_{i=1}^{r-1}\left( 8 k m_i-8 i k-8 r m_i-4m_i^2+8 i m_i+8 m_i-4i-4k^2+8 k r-8 k+4r-3\right)\\
+&-4 k^2+2(r-4) k  +r-3\\
+&=\sum_{i=1}^{r-1}\left(8 k m_i-8 r m_i-4 m_i^2+8 i m_i+8 m_i\right)+2r(-2k-1) (k-r+2),
+\end{aligned}
+\end{equation}
+which, after some simplifications,  
+turns out to be
+$$
+-4 k^2 r+4 k r^2-10 k r+2 r^2-4 r=2r(-2k-1) (k-r+2),
+$$
+which is readily verified.
+
+If $\rho_R=\omega_{r-1}^1$,
+then  \eqref{mf} is obtained from \eqref{equivalent} by changing $m_r$ with $-m_r$. Since \eqref{equivalent} is equivalent to \eqref{equivalentbis} and the latter equation does not depend on $m_r$, we deduce that \eqref{mf} is satisfied in this case as well.
+
+\subsection{$D(2,1,\tfrac{m}{n})\  \text{\rm with $m,n$ coprime}$}
+In this case $k=-\frac{mn}{m+n}t$ with $t\in\nat$,
+$$\g^\natural=sl(2)\times sl(2),\ M_1(k)=mt-1,\ M_2(k)=nt-1.
+$$
+Assume first $\rho_R=\omega_1^1$. 
+ Then
+$$
+P^+_k(R)=\{\nu=\sum_{i=1}^2 m_i\e_{i+1}\mid m_i\in \ZZ_+,\ 0\le m_i\le M_i(k)\},
+$$
+and 
+$$
+P^+_k(NS)=\{\nu=-m_1\e_2+m_2\e_3\mid m_i\in \ZZ_+,\ 0\le m_i\le M_i(k)\}.
+$$
+Since
+\begin{equation*}
+A^{NS}(k,\nu)=\frac{ (m_1-
+  m_2 )^2+2t(
+  m_2 m + m_1
+ n)}{4 (m+n )t},
+\end{equation*}
+\begin{align*}
+A^R(k,\nu)=\frac{(1 + m_1 + m_2)^2  + t (-m-n + mnt)}{4 (m + n) t},
+\end{align*}
+and, if $\nu=-m_1\e_2+m_2\e_3\in P^+_k(NS)$, 
+ $$
+ \frac{2}{(\theta^\natural_1|\theta^\natural_1) }(\nu|\rho_R)=-\frac{m_1}{2},\quad\frac{1}{(\theta^\natural_1|\theta^\natural_1) }M_1(k)(\rho_R|\rho_R)=\frac{M_1(k)}{4},
+ $$
+it follows that \eqref{mf} becomes
+ $$
+\frac{ (m_1-
+  m_2 )^2+2t(
+  m_2 m + m_1
+ n)}{4 (m+n )t}-\frac{m_1}{2}+\frac{M_1(k)}{4}=\frac{(1 +M_1(k)- m_1 + m_2)^2  + t (-m-n + mnt)}{4 (m + n) t}.
+ $$
+This equation is equivalent to
+$$
+m^2 t^2+m n t^2-m t-n t-2 m m_1 t+2 m m_2 t+m_1^2+m_2^2-2
+   m_1 m_2=t (m n t-m-n)+\left(m t-m_1+m_2\right)^2,
+$$
+which is readily verified.
+
+If $\rho_R=\omega_2^1$, then
+$$
+P^+_k(NS)=\{\nu=m_1\e_2-m_2\e_3\mid m_i\in \ZZ_+,\ 0\le m_i\le M_i(k)\},
+$$
+and, if $\nu=m_1\e_2-m_2\e_3\in P^+_k(NS)$, 
+ $$
+ \frac{2}{(\theta^\natural_2|\theta^\natural_2) }(\nu|\rho_R)=-\frac{m_2}{2},\quad\frac{1}{(\theta^\natural_2|\theta^\natural_2) }M_1(k)(\rho_R|\rho_R)=\frac{M_2(k)}{4}.
+ $$
+It follows that \eqref{mf} becomes
+ $$
+\frac{ (m_1-
+  m_2 )^2+2t(
+  m_2 m + m_1
+ n)}{4 (m+n )t}-\frac{m_2}{2}+\frac{M_2(k)}{4}=\frac{(1 +M_2(k)+ m_1 - m_2)^2  + t (-m-n + mnt)}{4 (m + n) t},
+ $$
+ which is equivalent to 
+ $$
+n^2 t^2+ m n t^2-m t-n t+2 m_1 n t-2 m_2 n t+m_1^2+m_2^2-2 m_1
+   m_2=t (m n t-m-n)+\left(nt+m_1-m_2\right){}^2,
+   $$
+ and this formula is readily verified as well.
+ 
+ 
+ 
+  \subsection{$F(4)$}\label{F4}
+In this case 
+$\g^\natural=so(7)$, $M_1(k)=-\frac{3}{2} k-1$ and $\rho_R=\omega_1^1$. Then, if we write $\nu=r_1\epsilon_1+r_2\epsilon_2+r_3\epsilon_3$ with $\epsilon_i$ as in \cite[Table 1]{KMP1}, we have
+{\small
+$$
+P^+_k(R)=\{m_1\epsilon_1+m_2\epsilon_2+m_3\epsilon_3\mid m_i\in \ZZ_+\text{ or }m_i\in\half  \ZZ_+,\ m_1\ge m_2\ge m_3\ge0,\ m_1+m_2\le M_1(k)\}
+$$}
+and
+{\small
+$$
+P^+_k(NS)=\{-m_1\epsilon_1+m_2\epsilon_2+m_3\epsilon_3\mid m_i\in \ZZ_+\text{ or }m_i\in\half  \ZZ_+,\ m_1\ge m_2\ge m_3\ge0,\ m_1+m_2\le M_1(k)\}.
+$$}
+
+Since{\small
+\begin{align*}\label{1c}
+A^{NS}(k,\nu)= \frac{m_1 (6-\tfrac{3}{2}k)+m_2 (3-\tfrac{3}{2}k)+m_3
+   (-\tfrac{3}{2}k)+m_1^2+m_2^2+m_3^2-m_1m_2-m_1m_3-m_2m_3}{3 (3-\tfrac{3}{2}k)},
+\end{align*}
+\begin{align*}
+A^R(k,\nu)&=-\frac{9 k^2+8 m_1^2+8 m_1 (m_2+m_3+5)+8 m_2^2-8 m_2
+   m_3+32 m_2+8 m_3^2+8 m_3-4}{36 (k-2)},
+   \end{align*}}
+and, if $\nu=-m_1\e_1+m_2\e_2+m_3\e_3\in P^+_k(NS)$, 
+ $$
+ \frac{2}{(\theta^\natural_1|\theta^\natural_1) }(\nu|\rho_R)=-m_1,\quad\frac{1}{(\theta^\natural_1|\theta^\natural_1) }M_1(k)(\rho_R|\rho_R)=\frac{M_1(k)}{2},
+ $$
+Since $\nu^R=(M_1(k)-m_1)\e_1+m_2\e_2+m_3\e_3$, it follows that \eqref{mf} becomes
+{\small
+  $$
+  \begin{aligned}
+&4 \frac{m_1 (12-3k)+m_2 (6-3k)+m_3
+   (-3k)+2m_1^2+2m_2^2+2m_3^2-2m_1m_2-2m_1m_3-2m_2m_3}{36 (2-k)}\\
+   &-m_1+\half M_1(k)\\
+   &=
+   \frac{9 k^2+8 (M_1(k)-m_1)^2+8 (M_1(k)-m_1) (m_2+m_3+5)+8 m_2^2-8 m_2
+   m_3+32 m_2+8 m_3^2+8 m_3-4}{36 (2-k)}
+   \end{aligned}
+ $$}
+ which is equivalent to 
+ $$
+ \begin{aligned}
+&27 k^2-12 k m_3+8 m_1 \left(3 k-m_2-m_3-3\right)-4 m_2 \left(3 k+2 m_3-6\right)\\
+&-36 k+8
+   m_1^2+8 m_2^2+8 m_3^2-36\\
+   &=9 k^2+2 \left(3 k+2 m_1+2\right){}^2-4 \left(m_2+m_3+5\right) \left(3 k+2 m_1+2\right)\\
+   &+8
+   m_2^2+8 m_3^2+32 m_2-8 m_2 m_3+8 m_3-4
+   \end{aligned}
+   $$
+ and this formula holds.
+\end{proof}
+
+
+First we observe that the spectral flow maps unitary modules to unitary modules.
+Recall  that a $\Wu$-module $M$ (ordinary or $\s_R$-twisted) is unitary if it admits a positive definite  Hermitian form $H$ such that
+\begin{equation}
+\begin{aligned}
+H(m,J^{\{a\}}_nm)&=-H(J^{\{\omega(a)\}}_{-n}m,m'),\\
+H(m,G^{\{v\}}_nm)&=H(G^{\{\omega(v)\}}_{-n}m,m'),\\
+H(m,L_nm)&=H(L_{-n}m,m').
+\end{aligned}
+\end{equation}
+
+\begin{lemma}\label{sfunitary}
+ $(Y_M,M)$ is an ordinary  unitary module if and only if $(Y^R,M)$ is a $\s_R$-twisted unitary module. 
+\end{lemma}
+\begin{proof}
+First, by \eqref{JAR},
+$$
+\begin{aligned}
+&H(m,(J^{\{ a \}})^{R}_n m')=e^{-\frac{\pi}{4}\sqrt{-}1\gamma_a}H(m,J^{\{a\}}_{n+1/2\gamma_a}m')+\half\d_{n,0}\beta_k(h^R,a)H(m, m')\\
+&=-e^{-\frac{\pi}{4}\sqrt{-}1\gamma_a}H(J^{\{\omega(a)\}}_{-n-1/2\gamma_a}m,m')+\half\d_{n,0}H(\ov{\beta_k(h^R,a)}m, m')\\
+&=-H(e^{-\frac{\pi}{4}\sqrt{-}1\gamma_{\omega(a)}}J^{\{\omega(a)\}}_{-n+1/2\gamma_{\omega(a)}}m,m')-\half\d_{n,0}H(\beta_k(h^R,\omega(a))m ,m')\\
+&=-H((J^{\{\omega(a)\}})^R_{-n}m,m').
+\end{aligned}
+$$
+Next, by \eqref{GAR},
+$$
+\begin{aligned}
+&H(m,(G^{\{ v \}})^{R}_n m')=e^{-\frac{\pi}{4}\sqrt{-}1\gamma_v} H(m, G^{\{v\}}_{n+1/2\gamma_v}m')\\
+&=e^{-\frac{\pi}{4}\sqrt{-}1\gamma_v}H(G^{\{\omega(v)\}}_{-n-1/2\gamma_v}m,m')=H(e^{-\frac{\pi}{4}\sqrt{-}1\gamma_{\omega(v)}}G^{\{\omega(v)\}}_{-n+1/2\gamma_{\omega(v)}}m,m')\\
+&=H((G^{\{\omega(v)\}})^R_{-n}m,m').
+\end{aligned}
+$$
+Finally, since $\be_k(h^R,h^R)\in\R$, by \eqref{LAR},
+$$
+\begin{aligned}
+&H(m,L^{R}_n m')=H(m,L_nm')+\half H(m,J^{\{h^R\}}_nm')+\d_{n,0}\tfrac{1}{8}\be_k(h^R,h^R)H(m,m')\\
+&=H(L_{-n}m,m')+\half H(J^{\{h^R\}}_{-n}m,m')+\d_{n,0}\tfrac{1}{8}H(\be_k(h^R,h^R)m,m')=H(L^R_{-n}m,m').
+\end{aligned}
+$$
+This proves that $(Y^R,M)$ is unitary. The reverse statement is obtained by the same argument using \eqref{JAOR}, \eqref{GAOR}, and \eqref{LAOR}.
+\end{proof}
+
+In Proposition \ref{Hwumaphwu} and Lemma \ref{remarkable} we restricted ourselves to $\rho_R$ from Table \ref{thetahalfisnotroot}. According to \cite{KMPR}, if $\g=F(4)$, one can choose also  $\rho_R=\omega^1_3$. To deal with this case we need the following result. If $\psi$ is a weight for $\g_{-1/2}$, we denote by $v_\psi$ a corresponding weight vector. 
+\begin{lemma}\label{42}Let  $\g=F(4)$ and $\rho_R=\omega^1_3$. Let  $M$ be a $\s_R$-twisted highest weight module of highest weight $(\nu,\ell)$ such that \eqref{m5} holds with 
+$$\ov \D_{1/2}=\{\half(\e_1+\e_2+\e_3),\half(\e_1-\e_2+\e_3),\half(\e_1+\e_2-\e_3),\half(\e_1-\e_2-\e_3)\}.
+$$
+Set $v=v_{\frac{1}{2}}(-\e_1+\e_2+\e_3)$. If $G^{\{v\}}_0v_{\nu,\ell}\ne0$, then  it is a highest weight vector satisfying  \eqref{m5} with 
+$$\ov \D_{1/2}=\{\half(\e_1+\e_2+\e_3),\half(\e_1-\e_2+\e_3),\half(\e_1+\e_2-\e_3),\half(-\e_1+\e_2+\e_3)\}.
+$$
+Its   highest weight is $(\nu',\ell)$, where 
+$\nu'=\nu-\omega_1^1+\omega_3^1$.
+\end{lemma}
+
+\begin{proof}
+We first check that 
+\begin{align}
+&J^{\{x_{-\theta}\}}_1G^{\{v\}}_0v_{\nu,\ell}=0,J^{\{x_{\e_1-\e_2}\}}_0G^{\{v\}}_0v_{\nu,\ell}=0,J^{\{x_{\e_2-\e_3}\}}_0G^{\{v\}}_0v_{\nu,\ell}=0, J^{\{x_{\e_3}\}}_0G^{\{v\}}_0v_{\nu,\ell}=0\label{J1},\\
+&G^{\{v\}}_0G^{\{v\}}_0v_{\nu,\ell}=0\label{G2}.
+\end{align}
+
+It is clear that $[J^{\{x_{-\theta}\}}_1,G^{\{v\}}_0]=0$ hence $J^{\{x_{-\theta}\}}_1G^{\{v\}}_0v_{\nu,\ell}=J^{\{x_{-\theta}\}}_1G^{\{v\}}_0J^{\{x_{-\theta}\}}_1v_{\nu,\ell}=0$. Similarly for the third and fourth relation in \eqref{J1}. For the second relation in \eqref{J1}, observe that
+$[J^{\{x_{\e_2-\e_3}\}}_0,G^{\{v\}}_0]=G^{\{[x_{\e_2-\e_3},v]\}}_0$ and $[x_{\e_2-\e_3},v]$ has weight $\half(\e_1-\e_2+\e_3)$ so
+$$
+J^{\{x_{\e_1-\e_2}\}}_0G^{\{v\}}_0v_{\nu,\ell}=G^{\{[x_{\e_2-\e_3},v]\}}_0v_{\nu,\ell}+G^{\{v\}}_0J^{\{x_{\e_1-\e_2}\}}_0v_{\nu,\ell}=0.
+$$
+
+It remains to check that $G^{\{v\}}_0G^{\{v\}}_0v_{\nu,\ell}=0$. We use the formula
+\begin{align*}\notag &2G^{\{v\}}_{0}G^{\{v\}}_{0}v_{\nu, \ell}=[G^{\{v\}}_{0},G^{\{v\}}_{0}]v_{\nu, \ell}=\langle v,v\rangle(-2(k+h^\vee) \ell+ (\nu|\nu+2\rho^\natural)-\tfrac{1}{2} p(k))v_{\nu,\ell}\notag\\
+%6  
+        &+\sum_{\a,\be}\langle[u_\alpha,v],[v,u^\be]\rangle J^{\{u_\beta\}}_0J^{\{u^\a\}}_0v_{\nu,\ell}
++  \sum_{\a,\be}\langle[u_\alpha,v],[v,u^\be]\rangle
+ J^{\{u^\a\}}_0J^{\{u_\beta\}}_0v_{\nu,\ell}\\
+ &=\sum_{\a,\be}\langle[u_\alpha,v],[v,u^\be]\rangle \left(J^{\{u_\beta\}}_0J^{\{u^\a\}}_0
++ J^{\{u^\a\}}_0J^{\{u_\beta\}}_0\right)v_{\nu,\ell}.
+\end{align*}
+Observe that the possibly nonzero contributions to the above sum  come the pairs $(\a,\be)$ of roots such that $\a-\beta=\e_1-\e_2-\e_3$. One easily checks that these pairs are exactly
+$$\{(-\e_2-\e_3,-\e_1),(-\e_2,-\e_1+\e_3),(-\e_3,-\e_1+\e_2),(\e_1-\e_2,\e_3),(\e_1-\e_3,\e_2),(\e_1,\e_2+\e_3)\}
+.$$
+Note that each pair corresponds to  commuting root vectors, so that, 
+$ J^{\{u^\a\}}_0J^{\{u_\beta\}}_0v_{\nu,\ell}=J^{\{u_\beta\}}_0J^{\{u^\a\}}_0v_{\nu,\ell}=0$, since in all cases, either $u_\beta$ or $u^\a$ is a root vector corresponding to a positive root.
+
+It it is well-known that \eqref{J1} implies that $J_n^{\{a\}}v_{\nu,\ell}=0$ for $n>0$ and  $a\in\g^\natural$ as well as for $n=0$ and $a\in \mathfrak n_0(\s_R)_+$. 
+
+Note that, if $w\in \mathfrak n_{-1/2}(\s_R)'_+$, then $w=[a,v]$ with $a\in U(\mathfrak n_0(\s_R)_+)$. Using the relation $[J^{\{a\}}_n,G_0^{\{v\}}]=G^{\{[a,v]\}}_n$ one obtains  that $G^{\{w\}}_0v_{\nu,\ell}=0$ for all $w\in \mathfrak n_{-1/2}(\s_R)'_+$. We now check that $G^{\{w\}}_nG_0^{\{v\}}v_{\nu,\ell}=0$ for $n>0$ and $w\in\g_{-1/2}$. 
+We note that  $[J^{\{x_{-\e_2-\e_3}\}}_n,G_0^{\{v\}}]=G^{\{v_{\frac{1}{2}(-\e_1-\e_2-\e_3)}\}}_n$ and using the fact that $\g_{-1/2}$ has $(\Dp)^\natural$-lowest weight equal to $\frac{1}{2}(-\e_1-\e_2-\e_3)$, then, since $\g_{-1/2}=U(\mathfrak n_0(\s_R)_+)v_{\frac{1}{2}(-\e_1-\e_2-\e_3)}$, we can use repeatedly  $J^{\{a\}}_0$ with $a\in \mathfrak n_0(\s_R)_+$ to obtain $G^{\{w\}}_n$ for all $w\in\g_{-1/2}$.\end{proof}
+
+
+
+Let $L^R(\nu,\ell)$ be the irreducible $\s^R$-twisted highest weight module of highest weight $(\nu,\ell)$. Let $v_{\nu,\ell}\in L^R(\nu,\ell)$ be a highest weight vector. Recall that this means that $v_{\nu,\ell}$ is a cyclic vector in $L^R(\nu,\ell)$ that satisfies \eqref{m3}, \eqref{m4}, \eqref{m5}.
+ In the following result we use spectral flow to provide a proof of  \cite[Theorem 9.17]{KMPR} that does not rely on Conjecture 9.11 of \cite{KMPR}.
+
+Recall that a weight $\nu\in P^+_k$ is said to be {\it Ramond extremal} (w.r.t. $\rho_R$) if $\nu-\rho_R\notin  P^+_k$ or $\nu-\rho_R$ is extremal (see \cite[(9.3)]{KMPR} and \cite[Definition 8.7]{KMP1}). 
+\begin{theorem}\label{sfnomextremal}  If $\ell\ge A^R(k,\mu)$, $k$ is in the unitary range, and $\mu\in P^+_k(R)$  is  not Ramond extremal, then $L^R(\mu,\ell)$  is a unitary $\si_R$-twisted $W^k_{\min}(\g)$--module.
+\end{theorem}
+\begin{proof}
+If $\rho_R=\omega^i_j$ as in Table \ref{thetahalfisnotroot}, set
+$$
+ \nu=\mu-M_i(k)\rho_R,\ \ell_0=\ell -\frac{2}{(\theta^\natural_i|\theta^\natural_i) }(\mu|\rho_R)+\frac{1}{(\theta^\natural_i|\theta^\natural_i) }M_i(k)(\rho_R|\rho_R),
+ $$
+ so that
+ $\mu=\nu^R$ and $\ell=\ell_0^R$. 
+ We claim that $\nu$ is not an extremal weight in the Neveau-Schwarz sector. Indeed choose $\hat \ell\gg A^R(k,\mu)$. By \cite[Theorem 7.5]{KMPR}, $L^R(\mu,\hat \ell)$  is a unitary $\si_R$-twisted $W^k_{\min}(\g)$--module. By Lemma \ref{sfunitary}, since,  by Proposition \ref{Hwumaphwu},  $(L(\nu,\hat\ell_0)^\dagger)^\dagger=L^R(\mu,\hat \ell)$, we see that $L(\nu,\hat\ell_0)$ is unitary. 
+ Since, by Lemma \ref{remarkable}, $\hat\ell_0\gg A^{NS}(k,\nu)$, combining  Proposition 8.5 and Proposition 8.8 of \cite{KMP1}, we deduce that $\nu$ is not extremal, as claimed.
+ 
+Since $\nu$ is not extremal, Theorem   11.1 of \cite{KMP1} now implies that $L(\nu,\ell_0)$ is unitary for all $\ell_0\ge A^{NS}(k,\nu)$,  thus,  by Lemma \ref{remarkable} and Lemma \ref{sfunitary}, $(L(\nu,\ell_0)^\dagger)^\dagger=L^R(\mu,\ell)$ is unitary for all $\ell\ge A^R(k,\mu)$.
+
+Assume now $\g=F(4)$ and $\rho_R=\omega_3^1$. Set $\mu'=\mu+\omega_1^1-\omega_3^1$. We first prove that  $\mu'$ is in $P^+_k$ and not Ramond extremal w.r.t. 
+$\rho'_R=\omega_1^1$. Since  $\mu\in P^+_k$ and $\omega_1^1-\omega_3^1=\half(\e_1-\e_2-\e_3)$, we have $(\mu',\theta^\vee)\leq k$. 
+Moreover, by assumption, $\mu-\rho_R\in  P^+_k$, hence $\mu-\rho_R+\rho'_R$ is a dominant integral weight.
+
+We prove that if $\ell>A^R(k,\mu)$, then $G^{\{v\}}_0v_{\mu',\ell}\ne0$.
+A direct computation using the explicit expression given in \S \ref{F4} shows that $A^R(k,\mu)=A^R(k,\mu')$. 
+%By the first part of the proof, we have that highest weight module (w.r.t. to the set of positive roots attached to $\rho'_R$) $L^R(\mu',\ell)$ is unitary. In particular, s
+From   Proposition 6.6, (1) in \cite{KMPR} it follows that 
+\begin{equation}\label{norma} ||G^{\{v\}}_0v_{\mu',\ell}||^2=-2(k+h^\vee)\langle \phi(v),v\rangle \left( \ell- A(k,\mu')\right).\end{equation}
+Since $\ell>A^R(k,\mu')$,  we have  $||G^{\{v\}}_0v_{\mu',\ell}||^2\ne 0$. By Lemma \ref{42}, $G^{\{v\}}_0v_{\mu',\ell}$ is a highest weight vector, hence the highest weight module $L^R(\mu',\ell)$ (w.r.t. $\rho_R=\omega_1^1$) is the irreducible highest weight module w.r.t. $\rho_R=\omega_3^1$ of highest weight $(\mu,\ell)$.   By the first part of the proof, this module is unitary. 
+
+Finally, if $\ell=A^R(k,\mu)$ we use the limiting argument given e.g. in \cite[Theorem 11.1]{KMP1}, \cite[Theorem  9.17]{KMPR} to conclude that $L^R(\mu,A(k,\mu))$ is unitary as well.
+\end{proof}
+
+The next result discusses the extremal representations.
+
+\begin{theorem}\label{fromNStoR}
+ The extremal representations $L(\nu,A^{NS}(k,\nu))$ are all unitary if and only if the Ramond extremal representations  $L^R(\mu,A^R(k,\mu))$ are all unitary.
+\end{theorem}
+\begin{proof} Assume that $\rho^R$ is as given in Table \ref{thetahalfisnotroot}.
+Suppose that $L(\nu,A^{NS}(k,\nu))$ is unitary for all extremal $\nu$. Then, by Theorem   11.1 of \cite{KMP1},   $L(\nu,A^{NS}(k,\nu))$ is unitary for all $\nu\in P^+_k(NS)$. Thus, Proposition \ref{Hwumaphwu} and Lemma \ref{sfunitary} imply that $L^R(\nu^R,A^{R}(k,\nu^R))$ are all unitary. Since the map $\nu\mapsto \nu^R$ is a bijection between $P^+_k(NS)$ and $P^+_k(R)$, we deduce that $L^R(\mu,A^{R}(k,\mu)$ is unitary for all $\mu\in P^+_k(R)$, hence, in particular,  $L^R(\mu,A^{R}(k,\mu)$ is unitary  for all Ramond extremal weights.
+
+We have proven that, if the extremal representations $L(\nu,A^{NS}(k,\nu))$ are all unitary then the Ramond extremal representations $L^R(\mu,A^R(k,\mu))$ are all unitary. 
+Now we discuss the missing case, when $\g=F(4)$ and $\rho_R=\omega_3^1$. By the first part of the proof if $\mu\in P^+_k$, then the highest weight 
+(w.r.t. $\rho'_R:=\omega_1^1$) module $L^R(\mu, A^R(k,\mu))$  is unitary. By \eqref{norma}, $||G^{\{v_{\frac{1}{2}(-\e_1+\e_2+\e_3)}\}}_0v_{\mu,A^R(k,\mu)}||=0$, hence
+$G^{\{v_{\frac{1}{2}(-\e_1+\e_2+\e_3)}\}}_0v_{\mu,A^R(k,\mu)}=0$, so that $L^R(\mu, A^R(k,\mu))$ is a (unitary) highest weight module w.r.t. $\rho_R=\omega_3^1$ too. 
+
+The converse statement is  deduced by reversing the argument and using Theorem \ref{sfnomextremal} above instead of Theorem 11.1 of \cite{KMP1}.
+
+\end{proof}
+
+\begin{remark}
+It is proven in \cite{Gunaydin} that, if $\g$ is $D(2,1;a)$, then all the extremal representations (called massless there) in Neveu-Schwarz sector are unitary. A detailed proof of this fact can be found in \cite{KMPN4}. Theorem \ref{fromNStoR} now implies that all Ramond extremal representations are unitary, a fact already observed in \cite{Gunaydin}.
+\end{remark}
+
+\begin{remark} As a result of the present paper, in order to complete
+the classification of unitary irreducible highest weight modules
+over $\Ws$, it remains to prove our unitarity conjectures in \cite{KMP1} and \cite{KMPR}
+for extremal modules in cases $\g=spo(2|m)$ for $m>4$, $F(4)$, and $G(3)$ in the Neveu-Schwarz sector, and in cases $\g=spo(2|2m+1)$ for $m>1$, and $G(3)$ in the Ramond sector.
+\end{remark}
+
+%\bibliographystyle{Victor}
+%\bibliography{W} 
+\section*{Acknowledgments}
+The authors would like to thank Dra\v{z}en Adamovi\'c  and Haisheng Li for important correspondence. 
+Victor Kac is partially supported by Simons Travel Grant. Pierluigi M\"oseneder Frajria and Paolo Papi  are partially supported by the PRIN project 2022S8SSW2 - Algebraic and geometric aspects of Lie theory - CUP B53D2300942 0006, a project cofinanced
+by European Union - Next Generation EU fund.
+\begin{thebibliography}{10}
+
+\bibitem{Compatible}
+{\sc P.~Cellini, P.~M\"{o}seneder~Frajria, and P.~Papi}, {\em Compatible
+  discrete series}, Pacific J. Math., {\bf 212}, No.~2 (2003), pp.~201--230.
+
+\bibitem{ET1}
+{\sc T.~Eguchi and A.~Taormina}, {\em Unitary representations of the {$N=4$}
+  superconformal algebra}, Phys. Lett. B, {\bf 196}, No.~1 (1987), pp.~75--81.
+
+\bibitem{FHL}
+{\sc I.~B. Frenkel, Y.-Z. Huang, and J.~Lepowsky}, {\em On axiomatic approaches
+  to vertex operator algebras and modules}, vol.~494 of Memoirs of the American
+  Mathematical Society, A. M. S., 1993.
+
+\bibitem{Gunaydin}
+{\sc M.~G\"unaydin, J.~L. Petersen, A.~Taormina, and A.~Van~Proeyen}, {\em On
+  the unitary representations of a class of {$N=4$} superconformal algebras},
+  Nuclear Phys. B, {\bf 322}, No.~2 (1989), pp.~402--430.
+
+\bibitem{IwMa}
+{\sc N.~Iwahori and H.~Matsumoto}, {\em On some {B}ruhat decomposition and the
+  structure of the {H}ecke rings of {$p$}-adic {C}hevalley groups}, Inst.
+  Hautes \'Etudes Sci. Publ. Math.,  (1965), pp.~5--48.
+
+\bibitem{KB}
+{\sc V.~G. Kac}, {\em Vertex algebras for beginners}, vol.~10 of University
+  Lecture Series, American Mathematical Society, Providence, RI, second~ed.,
+  1998.
+
+\bibitem{KMP}
+{\sc V.~G. Kac, P.~M\"{o}seneder~Frajria, and P.~Papi}, {\em Invariant
+  {H}ermitian forms on vertex algebras}, Commun. Contemp. Math., {\bf 24},
+  No.~5 (2022), 41~pp.
+
+\bibitem{KMP1}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Unitarity of minimal
+  {$W$}--algebras and their representations {I}}, Commun. Math. Phys., {\bf
+  401}, No.~1 (2023), pp.~79--145.
+
+\bibitem{KMPN4}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Extremal unitary
+  representations of big {$N=4$} superconformal algebra}.
+\newblock arXiv:2507.10130, 2025.
+
+\bibitem{KMPR}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Unitarity of minimal
+  {$W$}-algebras and their representations {II}: Ramond sector}, Jpn. J. Math.,
+   (2025).
+
+\bibitem{KW1}
+{\sc V.~G. Kac and M.~Wakimoto}, {\em Quantum reduction and representation
+  theory of superconformal algebras}, Adv. Math., {\bf 185}, No.~2 (2004),
+  pp.~400--458.
+
+\bibitem{Lii}
+{\sc H.~Li}, {\em The physics superselection principle in vertex operator
+  algebra theory}, J. Algebra, {\bf 196}, No.~2 (1997), pp.~436--457.
+
+\bibitem{Lii2}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Twisted modules and
+  pseudo-endomorphisms}, Algebra Colloq., {\bf 19}, No.~2 (2012), pp.~219--236.
+
+\bibitem{M}
+{\sc K.~Miki}, {\em The representation theory of the {${\rm SO}(3)$} invariant
+  superconformal algebra}, Internat. J. Modern Phys. A, {\bf 5}, No.~7 (1990),
+  pp.~1293--1318.
+
+\end{thebibliography}
+
+\vskip5pt
+    \footnotesize{
+\noindent{\bf V.K.}: Department of Mathematics, MIT, 77
+Mass. Ave, Cambridge, MA 02139;\newline
+{\tt kac@math.mit.edu}
+\vskip5pt
+\noindent{\bf P.M-F.}: Politecnico di Milano, Polo regionale di Como,
+Via Anzani 42, 22100, Como, Italy;\newline {\tt pierluigi.moseneder@polimi.it}
+\vskip5pt
+\noindent{\bf P.P.}: Dipartimento di Matematica, Sapienza Universit\`a di Roma, P.le A. Moro 2,
+00185, Roma, Italy;\newline {\tt papi@mat.uniroma1.it}, Corresponding author
+}
+
+
+
+
+\end{document}
