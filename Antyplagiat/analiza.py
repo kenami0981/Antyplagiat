@@ -109,7 +109,7 @@ def merge_segments(segments):
     return merged
 
 # obliczanie %
-def calculate_plagiarism(segments, original_text):
+def calculate_text_plagiarism(segments, original_text):
     merged = merge_segments(segments)
 
     words = original_text.split()
@@ -129,9 +129,30 @@ def calculate_plagiarism(segments, original_text):
 
     return 100 * plag_chars / total_chars, merged
 
+
+def calculate_equation_plagiarism(main_eqs, all_base_eqs):
+
+    if not main_eqs:
+        return 0.0
+
+    main_eqs_set = set(main_eqs)
+    all_base_eqs_set = set(all_base_eqs)
+    
+    common_eqs = main_eqs_set.intersection(all_base_eqs_set)
+    
+    num_common = len(common_eqs)
+    num_total_main = len(main_eqs_set)
+    
+    return (num_common / num_total_main) * 100.0 if num_total_main > 0 else 0.0
+
+
 # porównanie z bazą danych
-def compare_with_folder(main_text, folder_path, level):
-    all_similar = set()
+def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
+    all_similar_text_segments = set()
+    all_base_equations = set()
+
+    run_text_comparison = mode in ["all", "text_only"]
+    run_eqs_comparison = mode in ["all", "eqs_only"]
 
     for filename in os.listdir(folder_path):
         if not filename.endswith(".tex"):
@@ -141,16 +162,29 @@ def compare_with_folder(main_text, folder_path, level):
 
         with open(file_path, "r", encoding="cp1250") as f: #przy utf-8 wysypuje się na polskich znakach z pliku test.tex
             print("Porównuję z:", filename)
-            _, text_b = preprocessing(f.read())
+            eqs_b, text_b = preprocessing(f.read())
+        
+        if run_text_comparison:
+            similar = find_similar_phrases(main_text, text_b, level)
+            all_similar_text_segments.update(similar)
 
-        similar = find_similar_phrases(main_text, text_b, level)
-        all_similar.update(similar)
+        if run_eqs_comparison:
+            all_base_equations.update(eqs_b)
 
-    percent = calculate_plagiarism(list(all_similar), main_text)
-    return percent
+    percent_text = 0.0
+    percent_eqs = 0.0
+
+    if run_text_comparison:
+        percent_text, _ = calculate_text_plagiarism(list(all_similar_text_segments), main_text)
+    
+    if run_eqs_comparison:
+        percent_eqs = calculate_equation_plagiarism(main_eqs, all_base_equations)
+
+    return percent_text, percent_eqs
+
 
 # główna funkcja uruchamiająca analizę
-def run_analysis(input_path, base_path, difficulty_level):
+def run_analysis(input_path, base_path, difficulty_level, mode="all"):
     print("Otrzymałem ścieżkę:", input_path)
     print("Poziom trudności:", difficulty_level)
     print("Ścieżka do bazy:", base_path)
@@ -164,16 +198,24 @@ def run_analysis(input_path, base_path, difficulty_level):
 
     equations, text = preprocessing(content)
 
-    percent = compare_with_folder(text, base_path, difficulty_level)
+    percent_text, percent_eqs = compare_with_folder(equations, text, base_path, difficulty_level, mode=mode)
 
-    print(f"\nPlagiat: {percent}%")
-    return percent
+    print("\n--- WYNIKI ANALIZY PLAGIATU ---")
+
+    if mode in ['all', 'text_only']:
+        print(f"Plagiat Tekstu: {percent_text:.2f}%")
+    
+    if mode in ['all', 'eqs_only']:
+        print(f"Plagiat Równań: {percent_eqs:.2f}%")
+    
+    return percent_text, percent_eqs
 
 def main():
     #dane do testów bez argumentów
     STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
     STATIC_BASE_PATH = "bazaIO[test]"
-    STATIC_DIFFICULTY = "średni"
+    STATIC_DIFFICULTY = "średni" # opcje: "niski", "średni", "wysoki", "bardzo_wysoki"
+    STATIC_MODE = "eqs_only"  # opcje: "all", "text_only", "eqs_only"
 
     #uruchomienie analizy z argumentami przekazanymi z C#
     if len(sys.argv) > 1:
@@ -192,7 +234,7 @@ def main():
         file_path = os.path.join(script_dir, STATIC_TEST_FILE)
         base_dir_path = os.path.join(script_dir, STATIC_BASE_PATH)
 
-        run_analysis(file_path, base_dir_path, STATIC_DIFFICULTY)
+        run_analysis(file_path, base_dir_path, STATIC_DIFFICULTY, mode=STATIC_MODE)
 
 
 if __name__ == "__main__":

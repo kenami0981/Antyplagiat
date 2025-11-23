@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Lepsze wsparcie dla polskich znaków
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm} % Dla definicji, twierdzeñ itp.
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+% Definicje makr i symboli
+\newcommand{\laplacian}{\Delta}
+\newcommand{\partiald}[2]{\frac{\partial #1}{\partial #2}}
+\def\reals{\mathbb{R}}
+\def\complex{\mathbb{C}}
+\def\Ltwo{\text{L}^2}
+
+\newtheorem{definition}{Definicja}
+
+\begin{document}
+\title{Wartoœci W³asne Operatora Laplace'a w Obszarze Prostok¹tnym}
+\author{Przyk³adowy Ekspert}
+\date{23 listopada 2025}
+
+\maketitle
+
+\begin{abstract}
+W niniejszym dokumencie przedstawiono analizê zagadnienia w³asnego dla operatora Laplace'a na prostok¹tnym obszarze $R = [0, a] \times [0, b]$ z jednorodnymi warunkami brzegowymi Dirichleta. Przedstawiono analityczne rozwi¹zanie problemu oraz dyskusjê na temat ortogonalnoœci funkcji w³asnych w przestrzeni $\Ltwo(R)$.
+\end{abstract}
+
+\section{Wprowadzenie do Równania W³asnego}
+
+Równanie Helmholtza, wynikaj¹ce z poszukiwania stacjonarnych rozwi¹zañ równania falowego lub dyfuzji, prowadzi do nastêpuj¹cego zagadnienia w³asnego:
+
+$$ -\laplacian u = \lambda u \quad \text{w } R $$
+
+z warunkami brzegowymi Dirichleta $u(x, y) = 0$ na $\partial R$. Operatorem Laplace'a, $\laplacian$, w dwóch wymiarach jest:
+$$ \laplacian u = \partiald{^2 u}{x^2} + \partiald{^2 u}{y^2} $$
+
+\section{Metoda Rozdzielania Zmiennych}
+
+Poszukujemy rozwi¹zania $u(x, y)$ w postaci iloczynu funkcji jednowymiarowych $u(x, y) = X(x)Y(y)$. Podstawienie tej formy do równania w³asnego daje:
+
+$$ -\left( X''(x) Y(y) + X(x) Y''(y) \right) = \lambda X(x) Y(y) $$
+
+Po podzieleniu przez $X(x)Y(y)$ i przegrupowaniu otrzymujemy separacjê zmiennych:
+\begin{equation}
+    -\frac{X''(x)}{X(x)} = \frac{Y''(y)}{Y(y)} + \lambda = \mu
+    \label{eq:separacja}
+\end{equation}
+gdzie $\mu$ jest sta³¹ separacji.
+
+\subsection{Zagadnienia Jednowymiarowe}
+
+Równanie (\ref{eq:separacja}) prowadzi do dwóch niezale¿nych zagadnieñ w³asnych (Sturm-Liouville'a):
+\begin{align}
+    X''(x) + \mu X(x) &= 0, \quad X(0) = X(a) = 0 \\
+    Y''(y) + (\lambda - \mu) Y(y) &= 0, \quad Y(0) = Y(b) = 0
+\end{align}
+
+Rozwi¹zania s¹ znane. Wartoœci w³asne $\mu_m$ i funkcje w³asne $X_m(x)$ dla $x$-owej czêœci to:
+$$ \mu_m = \left( \frac{m\pi}{a} \right)^2, \quad X_m(x) = \sin\left(\frac{m\pi x}{a}\right), \quad m \in \mathbb{N} $$
+Analogicznie, dla $y$-owej czêœci, sta³a $(\lambda - \mu)$ musi byæ wartoœci¹ w³asn¹, któr¹ oznaczamy jako $\nu_n$:
+$$ \nu_n = \left( \frac{n\pi}{b} \right)^2, \quad n \in \mathbb{N} $$
+
+\section{Wartoœci i Funkcje W³asne}
+
+£¹czna wartoœæ w³asna $\lambda_{m, n}$ jest sum¹ $\mu_m$ i $\nu_n$:
+
+\begin{definition}
+Wartoœci w³asne $\lambda_{m, n}$ operatora Laplace'a na prostok¹cie $R=[0, a] \times [0, b]$ s¹ dane wzorem:
+$$ \lambda_{m, n} = \left( \frac{m\pi}{a} \right)^2 + \left( \frac{n\pi}{b} \right)^2, \quad m, n \in \mathbb{N} $$
+\end{definition}
+
+Odpowiadaj¹ce im funkcje w³asne $\Phi_{m, n}(x, y)$ s¹ iloczynami funkcji jednowymiarowych:
+$$ \Phi_{m, n}(x, y) = \sin\left(\frac{m\pi x}{a}\right) \sin\left(\frac{n\pi y}{b}\right) $$
+
+
+\section{Ortogonalnoœæ i Zbie¿noœæ}
+
+Funkcje w³asne $\Phi_{m, n}$ tworz¹ pe³ny zbiór ortogonalny w przestrzeni Hilberta $\Ltwo(R)$. Oznacza to, ¿e dowoln¹ funkcjê $f \in \Ltwo(R)$ mo¿na roz³o¿yæ w szereg:
+$$ f(x, y) = \sum_{m=1}^\infty \sum_{n=1}^\infty c_{m, n} \Phi_{m, n}(x, y) $$
+
+Poni¿sza tabela przedstawia kilka pierwszych wartoœci w³asnych dla $a=1$ i $b=1$.
+
+\begin{center}
+\caption{Wybrane wartoœci w³asne $\lambda_{m, n}$ dla $a=b=1$}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$m$ & $n$ & $\lambda_{m, n} / \pi^2$ & $\lambda_{m, n}$ (przybli¿one) \\
+\hline
+1 & 1 & 2 & 19.739 \\
+2 & 1 & 5 & 49.348 \\
+1 & 2 & 5 & 49.348 \\
+2 & 2 & 8 & 78.957 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Wnioski}
+
+Wartoœci w³asne operatora Laplace'a na prostok¹cie s¹ w pe³ni okreœlone analitycznie, a ich charakterystyka jest kluczowa dla analizy drgañ membran czy rozk³adów temperatur. Rozk³ad w szereg jest uogólnieniem teorii Fouriera.
+\end{document}
