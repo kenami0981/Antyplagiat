@@ -139,7 +139,8 @@ def compare_with_folder(main_text, folder_path, level):
 
         file_path = os.path.join(folder_path, filename)
 
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, "r", encoding="cp1250") as f: #przy utf-8 wysypuje się na polskich znakach z pliku test.tex
+            print("Porównuję z:", filename)
             _, text_b = preprocessing(f.read())
 
         similar = find_similar_phrases(main_text, text_b, level)
@@ -148,18 +149,51 @@ def compare_with_folder(main_text, folder_path, level):
     percent = calculate_plagiarism(list(all_similar), main_text)
     return percent
 
-latex_file_path = sys.argv[1]      # ścieżka do wybranego pliku
-difficulty = sys.argv[2]           # poziom
-script_dir = os.path.dirname(os.path.abspath(__file__))
-baza_path = os.path.join(script_dir, "bazaIO") # ścieżka do bazy
+# główna funkcja uruchamiająca analizę
+def run_analysis(input_path, base_path, difficulty_level):
+    print("Otrzymałem ścieżkę:", input_path)
+    print("Poziom trudności:", difficulty_level)
+    print("Ścieżka do bazy:", base_path)
+    
+    try:
+        with open(input_path, "r", encoding="cp1250") as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"BŁĄD: Nie znaleziono pliku wejściowego: {input_path}")
+        return
 
-print("Otrzymałem:", latex_file_path, difficulty)
-with open(latex_file_path, "r", encoding="cp1250") as f:
-    content = f.read()
-   
-equations, text = preprocessing(content)
+    equations, text = preprocessing(content)
 
-percent = compare_with_folder(text, baza_path, difficulty)
+    percent = compare_with_folder(text, base_path, difficulty_level)
 
-print("Plagiat:", percent, "%")
+    print(f"\nPlagiat: {percent}%")
+    return percent
 
+def main():
+    #dane do testów bez argumentów
+    STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
+    STATIC_BASE_PATH = "bazaIO[test]"
+    STATIC_DIFFICULTY = "średni"
+
+    #uruchomienie analizy z argumentami przekazanymi z C#
+    if len(sys.argv) > 1:
+
+        latex_file_path = sys.argv[1] # ścieżka do wybranego pliku
+        difficulty = sys.argv[2] # poziom
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        baza_path = os.path.join(script_dir, "bazaIO") # ścieżka do bazy
+        
+        run_analysis(latex_file_path, baza_path, difficulty)
+    ## tryb testowy bez argumentów
+    else:
+        print("--- TRYB TESTOWY (BRAK ARGUMENTÓW) ---")
+        
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(script_dir, STATIC_TEST_FILE)
+        base_dir_path = os.path.join(script_dir, STATIC_BASE_PATH)
+
+        run_analysis(file_path, base_dir_path, STATIC_DIFFICULTY)
+
+
+if __name__ == "__main__":
+    main()
