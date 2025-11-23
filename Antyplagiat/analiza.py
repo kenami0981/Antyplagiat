@@ -1,6 +1,7 @@
 ﻿import re
 from pylatexenc.latex2text import LatexNodes2Text
 import os
+import sys
 
 # czyszczenie danych i podział
 def preprocessing(file_content):
@@ -147,13 +148,18 @@ def compare_with_folder(main_text, folder_path, level):
     percent = calculate_plagiarism(list(all_similar), main_text)
     return percent
 
+latex_file_path = sys.argv[1]      # ścieżka do wybranego pliku
+difficulty = sys.argv[2]           # poziom
+script_dir = os.path.dirname(os.path.abspath(__file__))
+baza_path = os.path.join(script_dir, "bazaIO") # ścieżka do bazy
 
-with open("bazaIO/critical.tex", "r", encoding="cp1250") as f:
+print("Otrzymałem:", latex_file_path, difficulty)
+with open(latex_file_path, "r", encoding="cp1250") as f:
     content = f.read()
    
 equations, text = preprocessing(content)
 
-percent = compare_with_folder(text, "bazaIO", "średni")
+percent = compare_with_folder(text, baza_path, difficulty)
 
 print("Plagiat:", percent, "%")
 

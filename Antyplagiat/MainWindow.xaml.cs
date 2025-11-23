@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 namespace Antyplagiat
 {
@@ -58,6 +59,49 @@ namespace Antyplagiat
 
             //Kod co ma dalej być jeśli walidacja się powiodła
             MessageBox.Show("OK");
+            string level = GetLevel();
+
+            string script = System.IO.Path.Combine(
+    AppDomain.CurrentDomain.BaseDirectory, "..", "..", "analiza.py"
+);
+            script = System.IO.Path.GetFullPath(script);
+
+            string result = RunPython(script, $"\"{selectedLatexFile}\" {level}");
+
+            MessageBox.Show("Wynik:\n" + result);
         }
+        private string GetLevel()
+        {
+            if (PoziomNiski.IsChecked == true) return "niski";
+            if (PoziomSredni.IsChecked == true) return "średni";
+            if (PoziomWysoki.IsChecked == true) return "wysoki";
+            if (PoziomBardzoWysoki.IsChecked == true) return "bardzo_wysoki";
+            return "brak";
+        }
+
+        public string RunPython(string scriptPath, string args)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = "py";
+            psi.Arguments = $"\"{scriptPath}\" {args}";
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;       // <──── MUSI BYĆ
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+
+            var process = Process.Start(psi);
+
+            // Odczyt wyjść
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            if (!string.IsNullOrWhiteSpace(error))
+                return "Błąd z Pythona:\n" + error;
+
+            return output;
+        }
+
     }
 }
