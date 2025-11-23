@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Antyplagiat
 {
@@ -21,20 +22,42 @@ namespace Antyplagiat
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string selectedLatexFile = null;
         public MainWindow()
         {
             InitializeComponent();
         }
+
         private void SelectLatexFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Pliki LaTeX (*.tex)|*.tex|Wszystkie pliki (*.*)|*.*";
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Pliki LaTeX (*.tex)|*.tex|Wszystkie pliki (*.*)|*.*";
 
-            if (openFileDialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
-                string selectedPath = openFileDialog.FileName;
-                MessageBox.Show("Wybrano plik:\n" + selectedPath);
+                selectedLatexFile = dialog.FileName;
+                MessageBox.Show($"Wybrano plik:\n{selectedLatexFile}", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+        private void CheckDocClicked(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectedLatexFile) || !File.Exists(selectedLatexFile))
+            {
+                MessageBox.Show("Nie wybrano pliku .tex!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!(PoziomNiski.IsChecked == true ||
+                  PoziomSredni.IsChecked == true ||
+                  PoziomWysoki.IsChecked == true ||
+                  PoziomBardzoWysoki.IsChecked == true))
+            {
+                MessageBox.Show("Musisz zaznaczyć poziom poprawności!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            //Kod co ma dalej być jeśli walidacja się powiodła
+            MessageBox.Show("OK");
         }
     }
 }

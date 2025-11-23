@@ -61,7 +61,7 @@
         </StackPanel>
         <Button Name="myButton" Content="Sprawdź dokument" FontSize="15"
                FontWeight="Medium" Foreground="White" Background="#1f1f1f"
-               BorderThickness="0" Padding="10" Margin="20,35" Height="49">
+               BorderThickness="0" Padding="10" Margin="20,35" Height="49" Click="CheckDocClicked">
 
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
