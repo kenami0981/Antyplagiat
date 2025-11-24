@@ -2,6 +2,7 @@
 from pylatexenc.latex2text import LatexNodes2Text
 import os
 import sys
+import hashlib
 
 # czyszczenie danych i podział
 def preprocessing(file_content):
@@ -64,6 +65,9 @@ def count_common_words_set(set_a, set_b):
     return len(set_a & set_b)
 
 # znajdowanie podobnych fraz (szybsza wersja minimalna)
+def hash_phrase(phrase):
+    return hashlib.sha1(phrase.encode("utf-8")).hexdigest()
+
 def find_similar_phrases(text_a, text_b, level):
     thresholds = similarity_levels(level)
     phrase_lengths = [5, 10, 15, 20]
@@ -76,11 +80,24 @@ def find_similar_phrases(text_a, text_b, level):
         phrases_a = split_phrases(text_a, L)
         phrases_b = split_phrases(text_b, L)
 
-        sets_a = [phrase_to_set(p) for p in phrases_a]
+        hash_map_b = {}
+        for j, phrase_b in enumerate(phrases_b):
+            hb = hash_phrase(phrase_b)
+            hash_map_b.setdefault(hb, []).append(j)
+
         sets_b = [phrase_to_set(p) for p in phrases_b]
 
-        for i, set_pa in enumerate(sets_a):
-            for j, set_pb in enumerate(sets_b):
+        for i, phrase_a in enumerate(phrases_a):
+            ha = hash_phrase(phrase_a)
+            set_pa = phrase_to_set(phrase_a)
+
+            if ha in hash_map_b:
+                start = i
+                end = i + L
+                similar.append((start, end))
+                continue  
+
+            for set_pb in sets_b:
                 if count_common_words_set(set_pa, set_pb) >= t:
                     start = i
                     end = i + L
@@ -88,6 +105,7 @@ def find_similar_phrases(text_a, text_b, level):
                     break
 
     return similar
+
 
 # funkcja pomocnicza, żeby frazy się nie powtarzały
 def merge_segments(segments):
@@ -215,7 +233,7 @@ def main():
     STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
     STATIC_BASE_PATH = "bazaIO[test]"
     STATIC_DIFFICULTY = "średni" # opcje: "niski", "średni", "wysoki", "bardzo_wysoki"
-    STATIC_MODE = "eqs_only"  # opcje: "all", "text_only", "eqs_only"
+    STATIC_MODE = "all"  # opcje: "all", "text_only", "eqs_only"
 
     #uruchomienie analizy z argumentami przekazanymi z C#
     if len(sys.argv) > 1:
