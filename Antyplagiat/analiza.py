@@ -3,7 +3,60 @@ from pylatexenc.latex2text import LatexNodes2Text
 import os
 import sys
 import hashlib
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+import datetime
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
 
+#generowanie raportu
+def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
+                      percent_text, percent_eqs, compared_files):
+
+    styles = getSampleStyleSheet()
+
+    pdfmetrics.registerFont(TTFont("ArialUni", r"C:\Windows\Fonts\arial.ttf"))
+    for style in styles.byName.values():
+        style.fontName = "ArialUni"
+
+    story = []
+
+    story.append(Paragraph("Raport analizy plagiatu", styles["Title"]))
+    story.append(Spacer(1, 12))
+
+	#dane	
+    story.append(Paragraph(f"<b>Analizowany plik:</b> {os.path.basename(analyzed_file)}", styles["Normal"]))
+    story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
+    story.append(Paragraph(f"<b>Poziom trudności:</b> {difficulty}", styles["Normal"]))
+    story.append(Paragraph(f"<b>Tryb analizy:</b> {mode}", styles["Normal"]))
+
+    formatted_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    story.append(Paragraph(f"<b>Data analizy:</b> {formatted_date}", styles["Normal"]))
+    story.append(Spacer(1, 12))
+	
+	#wyniki
+    story.append(Paragraph("<b>Wyniki:</b>", styles["Heading2"]))
+
+    if mode in ("all", "text_only"):
+        story.append(Paragraph(f"Plagiat tekstu: {percent_text:.2f}%", styles["Normal"]))
+
+    if mode in ("all", "eqs_only"):
+        story.append(Paragraph(f"Plagiat równań: {percent_eqs:.2f}%", styles["Normal"]))
+
+    story.append(Spacer(1, 12))
+
+	# lista plików
+    story.append(Paragraph("<b>Porównane pliki:</b>", styles["Heading3"]))
+    for f in compared_files:
+        story.append(Paragraph(os.path.basename(f), styles["Normal"]))
+
+
+    pdf = SimpleDocTemplate(output_path, pagesize=A4)
+    pdf.build(story)
+
+    
 # czyszczenie danych i podział
 def preprocessing(file_content):
     m = re.search(r'\\begin{document}(.*)\\end{document}', file_content, flags=re.S)
@@ -225,8 +278,28 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
     
     if mode in ['all', 'eqs_only']:
         print(f"Plagiat Równań: {percent_eqs:.2f}%")
-    
+
+    compared_files = [f for f in os.listdir(base_path) if f.endswith(".tex")]
+
+    output_pdf_path = os.path.join(
+        os.path.dirname(input_path),
+        "raport_plagiatu.pdf"
+    )
+
+    create_pdf_report(
+        output_pdf_path,
+        input_path,
+        base_path,
+        difficulty_level,
+        mode,
+        percent_text,
+        percent_eqs,
+        compared_files
+    )
+
+    print(f"\nPDF zapisany jako: {output_pdf_path}")
     return percent_text, percent_eqs
+
 
 def main():
     #dane do testów bez argumentów
