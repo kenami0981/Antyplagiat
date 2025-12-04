@@ -13,13 +13,15 @@ from reportlab.pdfbase import pdfmetrics
 
 #generowanie raportu
 def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
-                      percent_text, percent_eqs, compared_files):
+                      percent_text, percent_eqs, compared_files,
+                        original_text, analyzed_text,segments_with_sources):
 
     styles = getSampleStyleSheet()
 
     pdfmetrics.registerFont(TTFont("ArialUni", r"C:\Windows\Fonts\arial.ttf"))
     for style in styles.byName.values():
         style.fontName = "ArialUni"
+        style.alignment = 4  
 
     story = []
 
@@ -47,6 +49,17 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
 
     story.append(Spacer(1, 12))
 
+    story.append(Paragraph("<b>Wykryte fragmenty podobne:</b>", styles["Heading2"]))
+
+    highlighted_text, bibliography = highlight_and_annotate(original_text, analyzed_text, segments_with_sources)
+
+    story.append(Paragraph(highlighted_text, styles["Normal"]))
+    story.append(Spacer(1, 12))
+
+    story.append(Paragraph("<b>Źródła podobieństw:</b>", styles["Heading2"]))
+    for idx, src in bibliography:
+        story.append(Paragraph(f"[{idx}] {src}", styles["Normal"]))
+
 	# lista plików
     story.append(Paragraph("<b>Porównane pliki:</b>", styles["Heading3"]))
     for f in compared_files:
@@ -56,7 +69,20 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
     pdf = SimpleDocTemplate(output_path, pagesize=A4)
     pdf.build(story)
 
+
+def remove_equations_and_latex(text):
+    text = re.sub(r'\\begin\{(equation|align|gather|multline|eqnarray)\*?\}.*?\\end\{\1\*?\}',
+                  ' ', text, flags=re.S)
+    text = re.sub(r'\$(.*?)\$', ' ', text, flags=re.S)
+    text = re.sub(r'\\\[(.*?)\\\]', ' ', text, flags=re.S)
+    text = re.sub(r'\\[a-zA-Z]+\*?(?:\{.*?\})?', ' ', text, flags=re.S)
+    text = re.sub(r'\\begin\{.*?\}', ' ', text, flags=re.S)
+    text = re.sub(r'\\end\{.*?\}', ' ', text, flags=re.S)
+    text = re.sub(r'%.*?\n', ' ', text)
+    text = re.sub(r'\s+([.,;:!?])', r'\1', text)
     
+    return " ".join(text.split())
+  
 # czyszczenie danych i podział
 def preprocessing(file_content):
     m = re.search(r'\\begin{document}(.*)\\end{document}', file_content, flags=re.S)
@@ -81,11 +107,13 @@ def preprocessing(file_content):
     tmp = re.sub(r'[&\\]', ' ', tmp)
 
     text = LatexNodes2Text().latex_to_text(tmp)
+    clean_text = remove_equations_and_latex(file_content)
 
     text = " ".join(text.split()).lower()
     equations = [eq.replace(' ', '').replace('\n', '') for eq in equations if eq.strip()]
+    
+    return equations, text, clean_text
 
-    return equations, text
 
 # poziomy podobieństwa
 def similarity_levels(level):
@@ -98,7 +126,7 @@ def similarity_levels(level):
     elif level == "bardzo_wysoki":
         return [5, 10, 15, 19]
 
-# funkcja do podziału na frazy
+
 def split_phrases(text, phrase_len):
     words = text.split()
     phrases = []
@@ -109,17 +137,18 @@ def split_phrases(text, phrase_len):
 
     return phrases
 
-# set dla frazy
+
 def phrase_to_set(phrase):
     return set(phrase.split())
 
-# porównywanie podobieństwa słów w frazie
+
 def count_common_words_set(set_a, set_b):
     return len(set_a & set_b)
 
-# znajdowanie podobnych fraz (szybsza wersja minimalna)
+
 def hash_phrase(phrase):
     return hashlib.sha1(phrase.encode("utf-8")).hexdigest()
+
 
 def find_similar_phrases(text_a, text_b, level):
     thresholds = similarity_levels(level)
@@ -160,7 +189,6 @@ def find_similar_phrases(text_a, text_b, level):
     return similar
 
 
-# funkcja pomocnicza, żeby frazy się nie powtarzały
 def merge_segments(segments):
     if not segments:
         return []
@@ -179,7 +207,7 @@ def merge_segments(segments):
 
     return merged
 
-# obliczanie %
+
 def calculate_text_plagiarism(segments, original_text):
     merged = merge_segments(segments)
 
@@ -217,9 +245,8 @@ def calculate_equation_plagiarism(main_eqs, all_base_eqs):
     return (num_common / num_total_main) * 100.0 if num_total_main > 0 else 0.0
 
 
-# porównanie z bazą danych
 def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
-    all_similar_text_segments = set()
+    all_similar_text_segments = []
     all_base_equations = set()
 
     run_text_comparison = mode in ["all", "text_only"]
@@ -231,13 +258,14 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
 
         file_path = os.path.join(folder_path, filename)
 
-        with open(file_path, "r", encoding="cp1250") as f: #przy utf-8 wysypuje się na polskich znakach z pliku test.tex
+        with open(file_path, "r", encoding="cp1250") as f: 
             print("Porównuję z:", filename)
-            eqs_b, text_b = preprocessing(f.read())
+            eqs_b, text_b, _ = preprocessing(f.read())
         
         if run_text_comparison:
             similar = find_similar_phrases(main_text, text_b, level)
-            all_similar_text_segments.update(similar)
+            for seg in similar:
+                all_similar_text_segments.append((seg, filename)) 
 
         if run_eqs_comparison:
             all_base_equations.update(eqs_b)
@@ -246,15 +274,84 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
     percent_eqs = 0.0
 
     if run_text_comparison:
-        percent_text, _ = calculate_text_plagiarism(list(all_similar_text_segments), main_text)
+        percent_text, _ = calculate_text_plagiarism([s for s,_ in all_similar_text_segments], main_text)
     
     if run_eqs_comparison:
         percent_eqs = calculate_equation_plagiarism(main_eqs, all_base_equations)
 
-    return percent_text, percent_eqs
+    return percent_text, percent_eqs, all_similar_text_segments
 
 
-# główna funkcja uruchamiająca analizę
+def find_fragments_and_sources(segments):
+    if not segments:
+        return []
+
+    segments_sorted = sorted(segments, key=lambda x: x[0])  
+
+    merged = [segments_sorted[0]]
+
+    for (start, end), src in segments_sorted[1:]:
+        (last_start, last_end), last_src = merged[-1]
+
+        if start <= last_end:
+            merged[-1] = ((last_start, max(last_end, end)), last_src)
+        else:
+            merged.append(((start, end), src))
+
+    return merged
+
+def build_word_mapping(normalized, original):
+    norm_words = normalized.split()
+    orig_words = original.split()
+    mapping = []
+    j = 0
+    for i in range(len(norm_words)):
+        while j < len(orig_words) and norm_words[i] != orig_words[j].lower():
+            j += 1
+        if j < len(orig_words):
+            mapping.append(j)
+            j += 1
+    return mapping
+
+
+def highlight_and_annotate(clean_text, normalized_text, segments_with_sources):
+    words_original = clean_text.split()
+    words_normalized = normalized_text.split()
+
+    mapping = build_word_mapping(normalized_text, clean_text)
+
+    merged = find_fragments_and_sources(segments_with_sources)
+
+    bibliography = []
+    output = []
+    idx = 1
+
+    pointer = 0
+
+    for (start, end), src in merged:
+        if start >= len(mapping):
+            continue
+
+        real_start = mapping[start]
+        real_end = mapping[end - 1] + 1 if end - 1 < len(mapping) else len(words_original)
+
+        bibliography.append((idx, src))
+
+        output.append(" ".join(words_original[pointer:real_start]))
+
+        fragment = " ".join(words_original[real_start:real_end])
+        fragment = f"<font backColor='#FFF2A8'>{fragment}</font>[{idx}]"
+
+        output.append(fragment)
+
+        pointer = real_end
+        idx += 1
+
+    output.append(" ".join(words_original[pointer:]))
+
+    return " ".join(output), bibliography
+
+
 def run_analysis(input_path, base_path, difficulty_level, mode="all"):
     print("Otrzymałem ścieżkę:", input_path)
     print("Poziom trudności:", difficulty_level)
@@ -267,9 +364,9 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
         print(f"BŁĄD: Nie znaleziono pliku wejściowego: {input_path}")
         return
 
-    equations, text = preprocessing(content)
+    equations, text, clean_text = preprocessing(content)
 
-    percent_text, percent_eqs = compare_with_folder(equations, text, base_path, difficulty_level, mode=mode)
+    percent_text, percent_eqs, segments_with_sources = compare_with_folder(equations, text, base_path, difficulty_level, mode=mode)
 
     print("\n--- WYNIKI ANALIZY PLAGIATU ---")
 
@@ -294,7 +391,10 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
         mode,
         percent_text,
         percent_eqs,
-        compared_files
+        compared_files,
+        clean_text,
+        text,
+        segments_with_sources
     )
 
     print(f"\nPDF zapisany jako: {output_pdf_path}")
@@ -330,3 +430,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
