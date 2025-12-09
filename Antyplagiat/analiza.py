@@ -414,7 +414,7 @@ def main():
         latex_file_path = sys.argv[1] # ścieżka do wybranego pliku
         difficulty = sys.argv[2] # poziom
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        baza_path = os.path.join(script_dir, "bazaIO") # ścieżka do bazy
+        baza_path = os.path.join(script_dir, "bazaIO[test]") # ścieżka do bazy
         
         run_analysis(latex_file_path, baza_path, difficulty)
     ## tryb testowy bez argumentów
