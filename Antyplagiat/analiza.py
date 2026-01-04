@@ -14,7 +14,7 @@ from reportlab.pdfbase import pdfmetrics
 #generowanie raportu
 def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
                       percent_text, percent_eqs, compared_files,
-                        original_text, analyzed_text,segments_with_sources):
+                      final_text, segments_with_sources):
 
     styles = getSampleStyleSheet()
 
@@ -30,7 +30,7 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
 
 	#dane	
     story.append(Paragraph(f"<b>Analizowany plik:</b> {os.path.basename(analyzed_file)}", styles["Normal"]))
-    story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
+    #story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
     story.append(Paragraph(f"<b>Poziom trudności:</b> {difficulty}", styles["Normal"]))
     story.append(Paragraph(f"<b>Tryb analizy:</b> {mode}", styles["Normal"]))
 
@@ -41,17 +41,17 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
 	#wyniki
     story.append(Paragraph("<b>Wyniki:</b>", styles["Heading2"]))
 
-    if mode in ("all", "text_only"):
+    if mode in ("all", "text_only","fast"):
         story.append(Paragraph(f"Plagiat tekstu: {percent_text:.2f}%", styles["Normal"]))
 
-    if mode in ("all", "eqs_only"):
+    if mode in ("all", "eqs_only","fast"):
         story.append(Paragraph(f"Plagiat równań: {percent_eqs:.2f}%", styles["Normal"]))
 
     story.append(Spacer(1, 12))
 
     story.append(Paragraph("<b>Wykryte fragmenty podobne:</b>", styles["Heading2"]))
 
-    highlighted_text, bibliography = highlight_and_annotate(original_text, analyzed_text, segments_with_sources)
+    highlighted_text, bibliography = highlight_final_text(final_text, segments_with_sources)
 
     story.append(Paragraph(highlighted_text, styles["Normal"]))
     story.append(Spacer(1, 12))
@@ -70,19 +70,6 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
     pdf.build(story)
 
 
-def remove_equations_and_latex(text):
-    text = re.sub(r'\\begin\{(equation|align|gather|multline|eqnarray)\*?\}.*?\\end\{\1\*?\}',
-                  ' ', text, flags=re.S)
-    text = re.sub(r'\$(.*?)\$', ' ', text, flags=re.S)
-    text = re.sub(r'\\\[(.*?)\\\]', ' ', text, flags=re.S)
-    text = re.sub(r'\\[a-zA-Z]+\*?(?:\{.*?\})?', ' ', text, flags=re.S)
-    text = re.sub(r'\\begin\{.*?\}', ' ', text, flags=re.S)
-    text = re.sub(r'\\end\{.*?\}', ' ', text, flags=re.S)
-    text = re.sub(r'%.*?\n', ' ', text)
-    text = re.sub(r'\s+([.,;:!?])', r'\1', text)
-    
-    return " ".join(text.split())
-  
 # czyszczenie danych i podział
 def preprocessing(file_content):
     m = re.search(r'\\begin{document}(.*)\\end{document}', file_content, flags=re.S)
@@ -105,10 +92,14 @@ def preprocessing(file_content):
     tmp = re.sub(r'\\begin\{.*?\}', ' ', tmp, flags=re.S)
     tmp = re.sub(r'\\end\{.*?\}', ' ', tmp, flags=re.S)
     tmp = re.sub(r'[&\\]', ' ', tmp)
+    tmp = re.sub(r'\\begin\{tabular\}.*?\\end\{tabular\}', ' ', tmp, flags=re.S)
+    tmp = re.sub(r'[&|]', ' ', tmp)
+    tmp = re.sub(r'\\\\', ' ', tmp)
+
 
     text = LatexNodes2Text().latex_to_text(tmp)
-    clean_text = remove_equations_and_latex(file_content)
-
+    clean_text = LatexNodes2Text().latex_to_text(tmp)
+    
     text = " ".join(text.split()).lower()
     equations = [eq.replace(' ', '').replace('\n', '') for eq in equations if eq.strip()]
     
@@ -244,12 +235,28 @@ def calculate_equation_plagiarism(main_eqs, all_base_eqs):
     
     return (num_common / num_total_main) * 100.0 if num_total_main > 0 else 0.0
 
+def find_similar_phrases_fast(text_a, text_b):
+    phrase_lengths = [5, 10, 15, 20]
+    similar = []
+
+    for L in phrase_lengths:
+        phrases_a = split_phrases(text_a, L)
+        phrases_b = split_phrases(text_b, L)
+
+        hashes_b = set(hash_phrase(p) for p in phrases_b)
+
+        for i, phrase in enumerate(phrases_a):
+            if hash_phrase(phrase) in hashes_b:
+                similar.append((i, i + L))
+
+    return similar
+
 
 def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
     all_similar_text_segments = []
     all_base_equations = set()
 
-    run_text_comparison = mode in ["all", "text_only"]
+    run_text_comparison = mode in ["all", "text_only", "fast"]
     run_eqs_comparison = mode in ["all", "eqs_only"]
 
     for filename in os.listdir(folder_path):
@@ -258,14 +265,18 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
 
         file_path = os.path.join(folder_path, filename)
 
-        with open(file_path, "r", encoding="cp1250") as f: 
+        with open(file_path, "r", encoding="cp1250") as f:
             print("Porównuję z:", filename)
             eqs_b, text_b, _ = preprocessing(f.read())
-        
+
         if run_text_comparison:
-            similar = find_similar_phrases(main_text, text_b, level)
+            if mode == "fast":
+                similar = find_similar_phrases_fast(main_text, text_b)
+            else:
+                similar = find_similar_phrases(main_text, text_b, level)
+
             for seg in similar:
-                all_similar_text_segments.append((seg, filename)) 
+                all_similar_text_segments.append((seg, filename))
 
         if run_eqs_comparison:
             all_base_equations.update(eqs_b)
@@ -274,12 +285,16 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
     percent_eqs = 0.0
 
     if run_text_comparison:
-        percent_text, _ = calculate_text_plagiarism([s for s,_ in all_similar_text_segments], main_text)
-    
+        percent_text, _ = calculate_text_plagiarism(
+            [s for s, _ in all_similar_text_segments],
+            main_text
+        )
+
     if run_eqs_comparison:
         percent_eqs = calculate_equation_plagiarism(main_eqs, all_base_equations)
 
     return percent_text, percent_eqs, all_similar_text_segments
+
 
 
 def find_fragments_and_sources(segments):
@@ -300,81 +315,56 @@ def find_fragments_and_sources(segments):
 
     return merged
 
-def build_word_mapping(normalized, original):
-    norm_words = normalized.split()
-    orig_words = original.split()
-    mapping = []
-    j = 0
-    for i in range(len(norm_words)):
-        while j < len(orig_words) and norm_words[i] != orig_words[j].lower():
-            j += 1
-        if j < len(orig_words):
-            mapping.append(j)
-            j += 1
-    return mapping
+def build_final_text(clean_text: str) -> str:
+    text = re.sub(r'\s+', ' ', clean_text).strip()
+
+    paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
+    return "\n\n".join(paragraphs)
 
 
-def highlight_and_annotate(clean_text, normalized_text, segments_with_sources):
-    words_original = clean_text.split()
-    words_normalized = normalized_text.split()
-
-    mapping = build_word_mapping(normalized_text, clean_text)
-
+def highlight_final_text(final_text, segments_with_sources):
+    words = final_text.split()
     merged = find_fragments_and_sources(segments_with_sources)
 
-    bibliography = []
     output = []
+    bibliography = []
+    pointer = 0
     idx = 1
 
-    pointer = 0
-
     for (start, end), src in merged:
-        if start >= len(mapping):
-            continue
+        output.append(" ".join(words[pointer:start]))
 
-        real_start = mapping[start]
-        real_end = mapping[end - 1] + 1 if end - 1 < len(mapping) else len(words_original)
+        fragment = " ".join(words[start:end])
+        output.append(f"<font backColor='#FFF2A8'>{fragment}</font>[{idx}]")
 
         bibliography.append((idx, src))
-
-        output.append(" ".join(words_original[pointer:real_start]))
-
-        fragment = " ".join(words_original[real_start:real_end])
-        fragment = f"<font backColor='#FFF2A8'>{fragment}</font>[{idx}]"
-
-        output.append(fragment)
-
-        pointer = real_end
+        pointer = end
         idx += 1
 
-    output.append(" ".join(words_original[pointer:]))
+    output.append(" ".join(words[pointer:]))
 
     return " ".join(output), bibliography
 
 
+
 def run_analysis(input_path, base_path, difficulty_level, mode="all"):
-    print("Otrzymałem ścieżkę:", input_path)
+    print("Ścieżka do pliku:", input_path)
     print("Poziom trudności:", difficulty_level)
-    print("Ścieżka do bazy:", base_path)
-    
+
     try:
-        with open(input_path, "r", encoding="cp1250") as f:
+        with open(input_path, "r", encoding="utf-8") as f:
             content = f.read()
     except FileNotFoundError:
         print(f"BŁĄD: Nie znaleziono pliku wejściowego: {input_path}")
         return
 
     equations, text, clean_text = preprocessing(content)
+    final_text = build_final_text(clean_text)
 
-    percent_text, percent_eqs, segments_with_sources = compare_with_folder(equations, text, base_path, difficulty_level, mode=mode)
 
-    print("\n--- WYNIKI ANALIZY PLAGIATU ---")
-
-    if mode in ['all', 'text_only']:
-        print(f"Plagiat Tekstu: {percent_text:.2f}%")
-    
-    if mode in ['all', 'eqs_only']:
-        print(f"Plagiat Równań: {percent_eqs:.2f}%")
+    percent_text, percent_eqs, segments_with_sources = compare_with_folder(
+        equations, text, base_path, difficulty_level, mode=mode
+    )
 
     compared_files = [f for f in os.listdir(base_path) if f.endswith(".tex")]
 
@@ -392,8 +382,7 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
         percent_text,
         percent_eqs,
         compared_files,
-        clean_text,
-        text,
+        final_text,
         segments_with_sources
     )
 
@@ -403,10 +392,10 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
 
 def main():
     #dane do testów bez argumentów
-    STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
-    STATIC_BASE_PATH = "bazaIO[test]"
+    STATIC_TEST_FILE = "bazaIO\\orthview.tex"
+    STATIC_BASE_PATH = "bazaIO"
     STATIC_DIFFICULTY = "średni" # opcje: "niski", "średni", "wysoki", "bardzo_wysoki"
-    STATIC_MODE = "all"  # opcje: "all", "text_only", "eqs_only"
+    STATIC_MODE = "fast"  # opcje: "all", "text_only", "eqs_only"
 
     #uruchomienie analizy z argumentami przekazanymi z C#
     if len(sys.argv) > 1:
