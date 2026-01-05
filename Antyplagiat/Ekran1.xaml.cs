@@ -127,7 +127,7 @@ namespace Antyplagiat
             string level = GetLevel();
 
             string script = System.IO.Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, "..", "..", "analiza.py"
+                AppDomain.CurrentDomain.BaseDirectory, "..", "..", "main.py"
             );
             script = System.IO.Path.GetFullPath(script);
 

@@ -1,4 +1,4 @@
-\documentclass{article}
+ï»¿\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
@@ -18,41 +18,41 @@
 \maketitle
 
 \begin{abstract}
-Praca prezentuje zwiêz³¹ analizê rozk³adu funkcji $f(t)$ za pomoc¹ szeregów Fouriera. Koncentrujemy siê na warunku zbie¿noœci i analizie b³êdu w przestrzeni $L^2$. Wykazano, ¿e b³¹d jest œciœle zwi¹zany z szybkoœci¹, z jak¹ wspó³czynniki $c_n$ d¹¿¹ do zera.
+Praca prezentuje zwiÄ™zÅ‚Ä… analizÄ™ rozkÅ‚adu funkcji $f(t)$ za pomocÄ… szeregÃ³w Fouriera. Koncentrujemy siÄ™ na warunku zbieÅ¼noÅ›ci i analizie bÅ‚Ä™du w przestrzeni $L^2$. Wykazano, Å¼e bÅ‚Ä…d jest Å›ciÅ›le zwiÄ…zany z szybkoÅ›ciÄ…, z jakÄ… wspÃ³Å‚czynniki $c_n$ dÄ…Å¼Ä… do zera.
 \end{abstract}
 
 \section{Wprowadzenie}
 
-Rozwa¿my funkcjê $f: [0, 2\pi] \to \R$ ca³kowaln¹ z kwadratem. Jak wiadomo, ka¿d¹ tak¹ funkcjê mo¿na przedstawiæ jako szereg trygonometryczny. Kwestia ta jest gruntownie omówiona w literaturze \cite{KsiêgaAnaliza}. Pocz¹tkowe kroki opieraj¹ siê na za³o¿eniu ortogonalnoœci.
+RozwaÅ¼my funkcjÄ™ $f: [0, 2\pi] \to \R$ caÅ‚kowalnÄ… z kwadratem. Jak wiadomo, kaÅ¼dÄ… takÄ… funkcjÄ™ moÅ¼na przedstawiÄ‡ jako szereg trygonometryczny. Kwestia ta jest gruntownie omÃ³wiona w literaturze \cite{KsiÄ™gaAnaliza}. PoczÄ…tkowe kroki opierajÄ… siÄ™ na zaÅ‚oÅ¼eniu ortogonalnoÅ›ci.
 
 \section{Szereg Fouriera i Przestrzenie $L^2$}
 
-Szereg Fouriera dla $f(t)$ jest zdefiniowany nastêpuj¹co:
+Szereg Fouriera dla $f(t)$ jest zdefiniowany nastÄ™pujÄ…co:
 \[ f(t) = a_0 + \sum_{n=1}^\infty (a_n \cos(nt) + b_n \sin(nt)) \]
-gdzie wspó³czynniki $a_n$ i $b_n$ obliczane s¹ przez standardowe ca³ki. Równoœæ Parsevala stanowi podstawowy element teorii. Mówi ona, ¿e norma funkcji w przestrzeni Hilberta jest równa sumie kwadratów norm wspó³czynników. Wyra¿a siê to wzorem:
+gdzie wspÃ³Å‚czynniki $a_n$ i $b_n$ obliczane sÄ… przez standardowe caÅ‚ki. RÃ³wnoÅ›Ä‡ Parsevala stanowi podstawowy element teorii. MÃ³wi ona, Å¼e norma funkcji w przestrzeni Hilberta jest rÃ³wna sumie kwadratÃ³w norm wspÃ³Å‚czynnikÃ³w. WyraÅ¼a siÄ™ to wzorem:
 
 \begin{align}
     \norm{f}_{L^2}^2 &= \frac{1}{\pi} \int_0^{2\pi} |f(t)|^2 dt \label{eq:norma}\\
     &= 2a_0^2 + \sum_{n=1}^\infty (a_n^2 + b_n^2) \label{eq:parseval}
 \end{align}
 
-W praktyce czêsto u¿ywamy notacji zespolonej dla wspó³czynników $c_n$.
+W praktyce czÄ™sto uÅ¼ywamy notacji zespolonej dla wspÃ³Å‚czynnikÃ³w $c_n$.
 
 \begin{gather}
     c_n = \frac{1}{2\pi} \int_0^{2\pi} f(t) e^{-int} dt \\
     f(t) = \sum_{n=-\infty}^\infty c_n e^{int} \label{eq:zesp}
 \end{gather}
 
-Jeœli $f(t)$ jest ci¹g³a, a jej pochodna $f'(t)$ jest kawa³kami ci¹g³a, to wspó³czynniki $c_n$ malej¹ jak $O(1/n)$. Jest to kluczowe dla szybkoœci zbie¿noœci.
+JeÅ›li $f(t)$ jest ciÄ…gÅ‚a, a jej pochodna $f'(t)$ jest kawaÅ‚kami ciÄ…gÅ‚a, to wspÃ³Å‚czynniki $c_n$ malejÄ… jak $O(1/n)$. Jest to kluczowe dla szybkoÅ›ci zbieÅ¼noÅ›ci.
 
-\section{Analiza B³êdu}
+\section{Analiza BÅ‚Ä™du}
 
-B³¹d aproksymacji $\epsilon_N$ po $N$ wyrazach szeregu jest definiowany jako $f(t)$ minus suma czêœciowa $S_N(t)$.
-Chcemy, aby $\norm{\epsilon_N}_{L^2} \to 0$ gdy $N \to \infty$. Oczywiœcie, $\frac{\norm{\wektor{v}}}{\norm{\wektor{u}}}$ to stosunek norm.
+BÅ‚Ä…d aproksymacji $\epsilon_N$ po $N$ wyrazach szeregu jest definiowany jako $f(t)$ minus suma czÄ™Å›ciowa $S_N(t)$.
+Chcemy, aby $\norm{\epsilon_N}_{L^2} \to 0$ gdy $N \to \infty$. OczywiÅ›cie, $\frac{\norm{\wektor{v}}}{\norm{\wektor{u}}}$ to stosunek norm.
 
 \subsection{Wyniki Numeryczne}
 
-Poni¿sza tabela pokazuje przyk³adowe czasy obliczeñ. Czas $T_N$ zale¿y od $N$: $T_N \approx N^2$.
+PoniÅ¼sza tabela pokazuje przykÅ‚adowe czasy obliczeÅ„. Czas $T_N$ zaleÅ¼y od $N$: $T_N \approx N^2$.
 
 \begin{center}
 \begin{tabular}{|c|c|c|}
@@ -66,9 +66,9 @@ $N$ & $\norm{\epsilon_N}$ & Czas (s) \\
 \end{tabular}
 \end{center}
 
-Obserwujemy, ¿e na zbiorze $\R$ analiza jest nieco bardziej skomplikowana.
+Obserwujemy, Å¼e na zbiorze $\R$ analiza jest nieco bardziej skomplikowana.
 
 \section{Wnioski}
 
-Praca potwierdza, ¿e rozk³ad Fouriera jest efektywnym narzêdziem do analizy funkcji $L^2$. Pokazuje to zarówno teoria (Równanie \ref{eq:parseval}), jak i prosta analiza numeryczna.
+Praca potwierdza, Å¼e rozkÅ‚ad Fouriera jest efektywnym narzÄ™dziem do analizy funkcji $L^2$. Pokazuje to zarÃ³wno teoria (RÃ³wnanie \ref{eq:parseval}), jak i prosta analiza numeryczna.
 \end{document}

@@ -3,11 +3,11 @@ from pylatexenc.latex2text import LatexNodes2Text
 import os
 import sys
 import hashlib
+import datetime
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
-import datetime
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
@@ -392,7 +392,7 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
 
 def main():
     #dane do testów bez argumentów
-    STATIC_TEST_FILE = "bazaIO\\orthview.tex"
+    STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
     STATIC_BASE_PATH = "bazaIO"
     STATIC_DIFFICULTY = "średni" # opcje: "niski", "średni", "wysoki", "bardzo_wysoki"
     STATIC_MODE = "fast"  # opcje: "all", "text_only", "eqs_only"
