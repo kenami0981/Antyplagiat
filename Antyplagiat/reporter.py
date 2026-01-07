@@ -39,7 +39,7 @@ def register_font():
 
 
 #generowanie raportu
-def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
+def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode, speed,
                       percent_text, percent_eqs, compared_files,
                       final_text, segments_with_sources):
 
@@ -59,8 +59,14 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
 	#dane	
     story.append(Paragraph(f"<b>Analizowany plik:</b> {os.path.basename(analyzed_file)}", styles["Normal"]))
     #story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
-    story.append(Paragraph(f"<b>Poziom trudności:</b> {difficulty}", styles["Normal"]))
-    story.append(Paragraph(f"<b>Tryb analizy:</b> {mode}", styles["Normal"]))
+    if speed == "normal":
+        story.append(Paragraph(f"<b>Poziom trudności:</b> {difficulty}", styles["Normal"]))
+
+    pl_mode = {"all": "Pełny", "text_only": "Tylko tekst", "eqs_only": "Tylko równania"}.get(mode, mode)
+    pl_speed = {"normal": "Dokładny (Normal)", "fast": "Szybki (Fast)"}.get(speed, speed)
+
+    story.append(Paragraph(f"<b>Tryb analizy:</b> {pl_mode}", styles["Normal"]))
+    story.append(Paragraph(f"<b>Szybkość analizy:</b> {pl_speed}", styles["Normal"]))
 
     formatted_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     story.append(Paragraph(f"<b>Data analizy:</b> {formatted_date}", styles["Normal"]))
@@ -69,10 +75,10 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode,
 	#wyniki
     story.append(Paragraph("<b>Wyniki:</b>", styles["Heading2"]))
 
-    if mode in ("all", "text_only","fast"):
+    if mode in ("all", "text_only"):
         story.append(Paragraph(f"Plagiat tekstu: {percent_text:.2f}%", styles["Normal"]))
 
-    if mode in ("all", "eqs_only","fast"):
+    if mode in ("all", "eqs_only"):
         story.append(Paragraph(f"Plagiat równań: {percent_eqs:.2f}%", styles["Normal"]))
 
     story.append(Spacer(1, 12))

@@ -5,9 +5,12 @@ from engine import compare_with_folder
 from reporter import create_pdf_report, build_final_text
 
 
-def run_analysis(input_path, base_path, difficulty_level, mode="all"):
+def run_analysis(input_path, base_path, difficulty_level, mode="all", speed="fast"):
     print("Ścieżka do pliku:", input_path)
-    print("Poziom trudności:", difficulty_level)
+    if speed == "normal":
+         print("Poziom trudności:", difficulty_level)
+    print("Tryb analizy:", mode)
+    print("Prędkość analizy:", speed)
 
     try:
         with open(input_path, "r", encoding="utf-8") as f:
@@ -24,7 +27,7 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
 
 
     percent_text, percent_eqs, segments_with_sources = compare_with_folder(
-        equations, text, base_path, difficulty_level, mode=mode
+        equations, text, base_path, difficulty_level, mode=mode, speed=speed
     )
 
     compared_files = [f for f in os.listdir(base_path) if f.endswith(".tex")]
@@ -40,6 +43,7 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
         base_path,
         difficulty_level,
         mode,
+        speed,
         percent_text,
         percent_eqs,
         compared_files,
@@ -53,20 +57,22 @@ def run_analysis(input_path, base_path, difficulty_level, mode="all"):
 
 def main():
     #dane do testów bez argumentów
-    STATIC_TEST_FILE = "bazaIO[test]\\test2.tex"
+    STATIC_TEST_FILE = "bazaIO[test]\\test.tex"
     STATIC_BASE_PATH = "bazaIO"
     STATIC_DIFFICULTY = "średni" # opcje: "niski", "średni", "wysoki", "bardzo_wysoki"
-    STATIC_MODE = "fast"  # opcje: "all", "text_only", "eqs_only"
+    STATIC_MODE = "all"  # opcje: "all", "text_only", "eqs_only"
+    STATIC_SPEED = "fast"  # opcje: "normal", "fast"
 
     #uruchomienie analizy z argumentami przekazanymi z C#
     if len(sys.argv) > 1:
 
         latex_file_path = sys.argv[1] # ścieżka do wybranego pliku
-        difficulty = sys.argv[2] # poziom
+        difficulty = sys.argv[2] if len(sys.argv) > 2 else "średni" # poziom trudności
+        speed = sys.argv[3] if len(sys.argv) > 3 else "fast"    # prędkość analizy
         script_dir = os.path.dirname(os.path.abspath(__file__))
         baza_path = os.path.join(script_dir, "bazaIO[test]") # ścieżka do bazy
         
-        run_analysis(latex_file_path, baza_path, difficulty)
+        run_analysis(latex_file_path, baza_path, difficulty, speed=speed)
     ## tryb testowy bez argumentów
     else:
         print("--- TRYB TESTOWY (BRAK ARGUMENTÓW) ---")
@@ -75,7 +81,7 @@ def main():
         file_path = os.path.join(script_dir, STATIC_TEST_FILE)
         base_dir_path = os.path.join(script_dir, STATIC_BASE_PATH)
 
-        run_analysis(file_path, base_dir_path, STATIC_DIFFICULTY, mode=STATIC_MODE)
+        run_analysis(file_path, base_dir_path, STATIC_DIFFICULTY, mode=STATIC_MODE, speed=STATIC_SPEED)
 
 
 if __name__ == "__main__":

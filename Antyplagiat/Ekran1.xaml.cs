@@ -126,12 +126,14 @@ namespace Antyplagiat
             
             string level = GetLevel();
 
+            string speed = "normal"; //na razie stała wartość
+
             string script = System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "..", "..", "main.py"
             );
             script = System.IO.Path.GetFullPath(script);
 
-            string result = await RunPythonSafeAsync(script, $"\"{selectedLatexFile}\" {level}");
+            string result = await RunPythonSafeAsync(script, $"\"{selectedLatexFile}\" {level} {speed}");
             MessageBox.Show(result);
             Console.Write(result);
             PythonResult r = new PythonResult

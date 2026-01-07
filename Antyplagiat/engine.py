@@ -2,6 +2,8 @@
 import sys
 import hashlib
 from cleaner import preprocessing
+
+
 # poziomy podobieństwa
 def similarity_levels(level):
     if level == "niski":
@@ -159,11 +161,11 @@ def find_similar_phrases_fast(text_a, text_b):
 
 
 # porównanie z bazą
-def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
+def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all", speed="fast"):
     all_similar_text_segments = []
     all_base_equations = set()
 
-    run_text_comparison = mode in ["all", "text_only", "fast"]
+    run_text_comparison = mode in ["all", "text_only"]
     run_eqs_comparison = mode in ["all", "eqs_only"]
 
     for filename in os.listdir(folder_path):
@@ -182,7 +184,7 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all"):
             continue
 
         if run_text_comparison:
-            if mode == "fast":
+            if speed == "fast":
                 similar = find_similar_phrases_fast(main_text, text_b)
             else:
                 similar = find_similar_phrases(main_text, text_b, level)
