@@ -1,0 +1,60 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tabularx}
+
+\def\Ltwo{\text{L}^2}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\laplacian}{\Delta}
+
+\begin{document}
+\title{Kompleksowa Analiza Fouriera w Zagadnieniach Dyfuzji}
+\author{Autor Syntezujący}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+Praca prezentuje zwięzłą analizę rozkładu funkcji $f(t)$ za pomocą szeregów Fouriera w kontekście równania ciepła na prostokącie. Wykazano, że błąd aproksymacji jest ściśle związany z wartościami własnymi operatora Laplace'a, a rozwiązanie w szereg jest uogólnieniem teorii Fouriera.
+\end{abstract}
+
+\section{Wstęp do Przestrzeni Hilberta}
+
+Rozważmy funkcję całkowalną z kwadratem. Szereg Fouriera jest zdefiniowany następująco:
+\[ f = \sum c_n \Phi_n \]
+Równość Parsevala stanowi podstawowy element teorii. Mówi ona, że norma funkcji w przestrzeni Hilberta jest równa sumie kwadratów norm współczynników:
+\begin{equation}
+    \norm{f}_{L^2}^2 = \sum |c_n|^2
+\end{equation}
+Jeśli funkcja jest ciągła, współczynniki maleją jak $O(1/n)$, co jest kluczowe dla szybkości zbieżności.
+
+\section{Operator Laplace'a i Separacja}
+
+W problemach wielowymiarowych poszukujemy rozwiązania w postaci iloczynu. Prowadzi to do zagadnienia własnego:
+$$ -\laplacian u = \lambda u $$
+Dla obszaru prostokątnego $R$, wartości własne $\lambda_{m, n}$ są sumą składowych $\mu_m$ i $\nu_n$:
+$$ \lambda_{m, n} = \left( \frac{m\pi}{a} \right)^2 + \left( \frac{n\pi}{b} \right)^2 $$
+Funkcje te tworzą pełny zbiór ortogonalny w przestrzeni $\Ltwo(R)$.
+
+\section{Zastosowanie: Równanie Ciepła}
+
+Zgodnie z zasadą superpozycji, rozwiązanie problemu początkowo-brzegowego dla równania ciepła wyraża się wzorem:
+$$ u(x, t) = \sum_{n=1}^\infty B_n \Phi_n(x) e^{-k \lambda_n t} $$
+
+Poniższa tabela łączy analizę błędu (z ogólnej teorii) z konkretnymi czasami zaniku dla ustalonych wartości własnych:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$N$ (wyrazy) & $\lambda_N$ & $\norm{\epsilon_N}$ (błąd) & Czas zaniku $T$ \\
+\hline
+10 & 19.739 & $3.1 \times 10^{-2}$ & 0.05 s \\
+100 & 49.348 & $5.9 \times 10^{-3}$ & 0.85 s \\
+1000 & 78.957 & $1.1 \times 10^{-4}$ & 98.7 s \\
+\hline
+\end{tabular}
+\end{center}
+
+Metoda Fouriera pozwala na efektywne modelowanie, a analiza numeryczna potwierdza, że dla dużych $t$ dominują małe wartości własne.
+
+\end{document}

@@ -1,0 +1,59 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+% Mieszanka makr z obu plików
+\def\reals{\mathbb{R}}
+\def\Ltwo{\text{L}^2}
+\newcommand{\laplacian}{\Delta}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+
+\begin{document}
+\title{Analiza Spektralna i Aproksymacja w Obszarze Prostokątnym}
+\author{Autor Mieszany}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+W niniejszym dokumencie przedstawiono analizę zagadnienia własnego dla operatora Laplace'a na prostokątnym obszarze $R$ połączoną z analizą błędu w przestrzeni $L^2$. Wykazano, że błąd jest ściśle związany z szybkością, z jaką współczynniki dążą do zera, a funkcje własne tworzą pełny zbiór ortogonalny.
+\end{abstract}
+
+\section{Wprowadzenie do Równania Własnego}
+
+Rozważmy funkcję całkowalną z kwadratem. Jak wiadomo, każdą taką funkcję można przedstawić jako szereg, co prowadzi do następującego zagadnienia własnego:
+$$ -\laplacian u = \lambda u \quad \text{w } R $$
+z warunkami brzegowymi Dirichleta. Operatorem Laplace'a w dwóch wymiarach jest suma drugich pochodnych cząstkowych. Kwestia ta jest gruntownie omówiona w literaturze, a początkowe kroki opierają się na założeniu ortogonalności.
+
+\section{Rozkład i Równość Parsevala}
+
+Poszukujemy rozwiązania $u(x, y)$ w postaci iloczynu funkcji jednowymiarowych. Podstawienie tej formy daje równanie:
+$$ -\frac{X''(x)}{X(x)} = \frac{Y''(y)}{Y(y)} + \lambda = \mu $$
+Wartości własne $\lambda_{m, n}$ operatora Laplace'a są sumą $\mu_m$ i $\nu_n$.
+Jednocześnie, równość Parsevala stanowi podstawowy element teorii. Mówi ona, że norma funkcji w przestrzeni Hilberta jest równa sumie kwadratów norm współczynników:
+\begin{equation}
+    \norm{f}_{L^2}^2 = \sum_{m=1}^\infty \sum_{n=1}^\infty |c_{m, n}|^2
+\end{equation}
+
+\section{Analiza Błędu i Wnioski}
+
+Błąd aproksymacji $\epsilon_N$ po $N$ wyrazach szeregu jest definiowany jako $f$ minus suma częściowa. Poniższa tabela przedstawia wybrane wartości własne oraz błąd aproksymacji:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$m$ & $n$ & $\lambda_{m, n} / \pi^2$ & $\norm{\epsilon_N}$ \\
+\hline
+1 & 1 & 2 & $3.1 \times 10^{-2}$ \\
+2 & 1 & 5 & $5.9 \times 10^{-3}$ \\
+2 & 2 & 8 & $1.1 \times 10^{-4}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Wnioskujemy, że rozkład w szereg jest uogólnieniem teorii Fouriera, a błąd maleje wraz ze wzrostem liczby funkcji bazowych.
+
+\end{document}

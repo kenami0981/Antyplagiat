@@ -1,0 +1,32 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\def\R{\mathbb{R}}
+
+\begin{document}
+\section{Analiza sygnałów}
+
+W inżynierii często spotykamy się z problemem filtracji. Jednakże, wracając do teorii matematycznej, rozważmy funkcję $f: [0, 2\pi] \to \R$ całkowalną z kwadratem. Jak wiadomo, każdą taką funkcję można przedstawić jako szereg trygonometryczny.
+
+Podstawowym narzędziem jest Równość Parsevala:
+\[ \sum_{n=-\infty}^{\infty} |c_n|^2 = \frac{1}{2\pi} \int_{-\pi}^{\pi} |f(x)|^2 dx \]
+
+Jest to nieco inna forma niż w pracach teoretycznych, ale zasada pozostaje ta sama: norma funkcji w przestrzeni Hilberta jest równa sumie kwadratów norm współczynników.
+
+\section{Wyniki symulacji}
+Przeprowadziliśmy własne badania dla funkcji $f(x) = x^2$.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Próbki & Błąd \\
+\hline
+50 & $2.5 \times 10^{-2}$ \\
+500 & $4.1 \times 10^{-4}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Wnioski są zbieżne z teorią - błąd maleje wraz ze wzrostem N.
+\end{document}

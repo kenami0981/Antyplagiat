@@ -1,0 +1,101 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Lepsze wsparcie dla polskich znaków
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm} % Dla definicji, twierdzeń itp.
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+% Definicje makr i symboli
+\newcommand{\laplacian}{\Delta}
+\newcommand{\partiald}[2]{\frac{\partial #1}{\partial #2}}
+\def\reals{\mathbb{R}}
+\def\complex{\mathbb{C}}
+\def\Ltwo{\text{L}^2}
+
+\newtheorem{definition}{Definicja}
+
+\begin{document}
+\title{Wartości Własne Operatora Laplace'a w Obszarze Prostokątnym}
+\author{Przykładowy Ekspert}
+\date{23 listopada 2025}
+
+\maketitle
+
+\begin{abstract}
+W niniejszym dokumencie przedstawiono analizę zagadnienia własnego dla operatora Laplace'a na prostokątnym obszarze $R = [0, a] \times [0, b]$ z jednorodnymi warunkami brzegowymi Dirichleta. Przedstawiono analityczne rozwiązanie problemu oraz dyskusję na temat ortogonalności funkcji własnych w przestrzeni $\Ltwo(R)$.
+\end{abstract}
+
+\section{Wprowadzenie do Równania Własnego}
+
+Równanie Helmholtza, wynikające z poszukiwania stacjonarnych rozwiązań równania falowego lub dyfuzji, prowadzi do następującego zagadnienia własnego:
+
+$$ -\laplacian u = \lambda u \quad \text{w } R $$
+
+z warunkami brzegowymi Dirichleta $u(x, y) = 0$ na $\partial R$. Operatorem Laplace'a, $\laplacian$, w dwóch wymiarach jest:
+$$ \laplacian u = \partiald{^2 u}{x^2} + \partiald{^2 u}{y^2} $$
+
+\section{Metoda Rozdzielania Zmiennych}
+
+Poszukujemy rozwiązania $u(x, y)$ w postaci iloczynu funkcji jednowymiarowych $u(x, y) = X(x)Y(y)$. Podstawienie tej formy do równania własnego daje:
+
+$$ -\left( X''(x) Y(y) + X(x) Y''(y) \right) = \lambda X(x) Y(y) $$
+
+Po podzieleniu przez $X(x)Y(y)$ i przegrupowaniu otrzymujemy separację zmiennych:
+\begin{equation}
+    -\frac{X''(x)}{X(x)} = \frac{Y''(y)}{Y(y)} + \lambda = \mu
+    \label{eq:separacja}
+\end{equation}
+gdzie $\mu$ jest stałą separacji.
+
+\subsection{Zagadnienia Jednowymiarowe}
+
+Równanie (\ref{eq:separacja}) prowadzi do dwóch niezależnych zagadnień własnych (Sturm-Liouville'a):
+\begin{align}
+    X''(x) + \mu X(x) &= 0, \quad X(0) = X(a) = 0 \\
+    Y''(y) + (\lambda - \mu) Y(y) &= 0, \quad Y(0) = Y(b) = 0
+\end{align}
+
+Rozwiązania są znane. Wartości własne $\mu_m$ i funkcje własne $X_m(x)$ dla $x$-owej części to:
+$$ \mu_m = \left( \frac{m\pi}{a} \right)^2, \quad X_m(x) = \sin\left(\frac{m\pi x}{a}\right), \quad m \in \mathbb{N} $$
+Analogicznie, dla $y$-owej części, stała $(\lambda - \mu)$ musi być wartością własną, którą oznaczamy jako $\nu_n$:
+$$ \nu_n = \left( \frac{n\pi}{b} \right)^2, \quad n \in \mathbb{N} $$
+
+\section{Wartości i Funkcje Własne}
+
+Łączna wartość własna $\lambda_{m, n}$ jest sumą $\mu_m$ i $\nu_n$:
+
+\begin{definition}
+Wartości własne $\lambda_{m, n}$ operatora Laplace'a na prostokącie $R=[0, a] \times [0, b]$ są dane wzorem:
+$$ \lambda_{m, n} = \left( \frac{m\pi}{a} \right)^2 + \left( \frac{n\pi}{b} \right)^2, \quad m, n \in \mathbb{N} $$
+\end{definition}
+
+Odpowiadające im funkcje własne $\Phi_{m, n}(x, y)$ są iloczynami funkcji jednowymiarowych:
+$$ \Phi_{m, n}(x, y) = \sin\left(\frac{m\pi x}{a}\right) \sin\left(\frac{n\pi y}{b}\right) $$
+
+
+\section{Ortogonalność i Zbieżność}
+
+Funkcje własne $\Phi_{m, n}$ tworzą pełny zbiór ortogonalny w przestrzeni Hilberta $\Ltwo(R)$. Oznacza to, że dowolną funkcję $f \in \Ltwo(R)$ można rozłożyć w szereg:
+$$ f(x, y) = \sum_{m=1}^\infty \sum_{n=1}^\infty c_{m, n} \Phi_{m, n}(x, y) $$
+
+Poniższa tabela przedstawia kilka pierwszych wartości własnych dla $a=1$ i $b=1$.
+
+\begin{center}
+\caption{Wybrane wartości własne $\lambda_{m, n}$ dla $a=b=1$}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$m$ & $n$ & $\lambda_{m, n} / \pi^2$ & $\lambda_{m, n}$ (przybliżone) \\
+\hline
+1 & 1 & 2 & 19.739 \\
+2 & 1 & 5 & 49.348 \\
+1 & 2 & 5 & 49.348 \\
+2 & 2 & 8 & 78.957 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Wnioski}
+
+Wartości własne operatora Laplace'a na prostokącie są w pełni określone analitycznie, a ich charakterystyka jest kluczowa dla analizy drgań membran czy rozkładów temperatur. Rozkład w szereg jest uogólnieniem teorii Fouriera.
+\end{document}

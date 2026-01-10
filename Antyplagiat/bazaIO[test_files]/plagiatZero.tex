@@ -1,0 +1,44 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{tabularx}
+
+\newcommand{\macierz}[1]{\mathbf{#1}}
+
+\begin{document}
+\title{Metody Numeryczne: Rozkład SVD}
+\maketitle
+
+\begin{abstract}
+Artykuł opisuje algorytm rozkładu według wartości osobliwych (SVD) dla macierzy prostokątnych. Jest to fundamentalne twierdzenie w algebrze liniowej.
+\end{abstract}
+
+\section{Wprowadzenie}
+Niech $A$ będzie macierzą o wymiarach $m \times n$. Rozkład SVD pozwala zapisać ją jako iloczyn trzech macierzy:
+\[ A = U \Sigma V^T \]
+Gdzie $U$ i $V$ są ortogonalne, a $\Sigma$ jest diagonalna.
+
+\section{Właściwości}
+Wartości na przekątnej $\Sigma$ nazywamy wartościami osobliwymi.
+Norma Frobeniusa macierzy $A$ może być obliczona jako:
+\begin{equation}
+    \|A\|_F = \sqrt{\sum_{i=1}^{\min(m,n)} \sigma_i^2}
+\end{equation}
+
+Jest to wynik przydatny przy kompresji obrazów.
+
+\section{Złożoność obliczeniowa}
+Poniższa tabela przedstawia czas działania algorytmu Golub-Kahan.
+
+\begin{center}
+\begin{tabular}{|l|r|}
+\hline
+Rozmiar macierzy & Czas (ms) \\
+\hline
+$100 \times 100$ & 12 \\
+$1000 \times 1000$ & 450 \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}

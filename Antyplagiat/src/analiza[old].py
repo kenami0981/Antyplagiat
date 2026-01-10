@@ -1,4 +1,5 @@
-﻿import re
+﻿# stary plik ze wszystkimi funkcjami w jednym pliku, teraz podzielone na mniejsze moduły 
+import re
 from pylatexenc.latex2text import LatexNodes2Text
 import os
 import sys

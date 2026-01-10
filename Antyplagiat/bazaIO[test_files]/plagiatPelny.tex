@@ -1,0 +1,74 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+% Definicje makr i symboli
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\wektor}[1]{\mathbf{#1}}
+
+\begin{document}
+\title{Analiza Fouriera na Przestrzeniach Hilberta}
+\author{Testowy Autor}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+Praca prezentuje zwięzłą analizę rozkładu funkcji $f(t)$ za pomocą szeregów Fouriera. Koncentrujemy się na warunku zbieżności i analizie błędu w przestrzeni $L^2$. Wykazano, że błąd jest ściśle związany z szybkością, z jaką współczynniki $c_n$ dążą do zera.
+\end{abstract}
+
+\section{Wprowadzenie}
+
+Rozważmy funkcję $f: [0, 2\pi] \to \R$ całkowalną z kwadratem. Jak wiadomo, każdą taką funkcję można przedstawić jako szereg trygonometryczny. Kwestia ta jest gruntownie omówiona w literaturze \cite{KsięgaAnaliza}. Początkowe kroki opierają się na założeniu ortogonalności.
+
+\section{Szereg Fouriera i Przestrzenie $L^2$}
+
+Szereg Fouriera dla $f(t)$ jest zdefiniowany następująco:
+\[ f(t) = a_0 + \sum_{n=1}^\infty (a_n \cos(nt) + b_n \sin(nt)) \]
+gdzie współczynniki $a_n$ i $b_n$ obliczane są przez standardowe całki. Równość Parsevala stanowi podstawowy element teorii. Mówi ona, że norma funkcji w przestrzeni Hilberta jest równa sumie kwadratów norm współczynników. Wyraża się to wzorem:
+
+\begin{align}
+    \norm{f}_{L^2}^2 &= \frac{1}{\pi} \int_0^{2\pi} |f(t)|^2 dt \label{eq:norma}\\
+    &= 2a_0^2 + \sum_{n=1}^\infty (a_n^2 + b_n^2) \label{eq:parseval}
+\end{align}
+
+W praktyce często używamy notacji zespolonej dla współczynników $c_n$.
+
+\begin{gather}
+    c_n = \frac{1}{2\pi} \int_0^{2\pi} f(t) e^{-int} dt \\
+    f(t) = \sum_{n=-\infty}^\infty c_n e^{int} \label{eq:zesp}
+\end{gather}
+
+Jeśli $f(t)$ jest ciągła, a jej pochodna $f'(t)$ jest kawałkami ciągła, to współczynniki $c_n$ maleją jak $O(1/n)$. Jest to kluczowe dla szybkości zbieżności.
+
+\section{Analiza Błędu}
+
+Błąd aproksymacji $\epsilon_N$ po $N$ wyrazach szeregu jest definiowany jako $f(t)$ minus suma częściowa $S_N(t)$.
+Chcemy, aby $\norm{\epsilon_N}_{L^2} \to 0$ gdy $N \to \infty$. Oczywiście, $\frac{\norm{\wektor{v}}}{\norm{\wektor{u}}}$ to stosunek norm.
+
+\subsection{Wyniki Numeryczne}
+
+Poniższa tabela pokazuje przykładowe czasy obliczeń. Czas $T_N$ zależy od $N$: $T_N \approx N^2$.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$N$ & $\norm{\epsilon_N}$ & Czas (s) \\
+\hline
+10 & $3.1 \times 10^{-2}$ & 0.05 \\
+100 & $5.9 \times 10^{-3}$ & 0.85 \\
+1000 & $1.1 \times 10^{-4}$ & 98.7 \\
+\hline
+\end{tabular}
+\end{center}
+
+Obserwujemy, że na zbiorze $\R$ analiza jest nieco bardziej skomplikowana.
+
+\section{Wnioski}
+
+Praca potwierdza, że rozkład Fouriera jest efektywnym narzędziem do analizy funkcji $L^2$. Pokazuje to zarówno teoria (Równanie \ref{eq:parseval}), jak i prosta analiza numeryczna.
+\end{document}

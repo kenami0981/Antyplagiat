@@ -118,7 +118,7 @@ namespace Antyplagiat
                   PoziomWysoki.IsChecked == true ||
                   PoziomBardzoWysoki.IsChecked == true))
             {
-                MessageBox.Show("Musisz zaznaczyć poziom poprawności!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Musisz zaznaczyć poziom podobieństwa!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace Antyplagiat
             string speed = "normal"; //na razie stała wartość
 
             string script = System.IO.Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, "..", "..", "main.py"
+                AppDomain.CurrentDomain.BaseDirectory, "..", "..","src", "main.py"
             );
             script = System.IO.Path.GetFullPath(script);
 

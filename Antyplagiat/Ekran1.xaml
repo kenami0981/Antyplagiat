@@ -44,7 +44,7 @@
             </Button>
         </Grid>
         <StackPanel Margin="0,20,0,0">
-            <Label Content="Wybierz poziom poprawności" FontSize="15" FontWeight="Medium" Margin="0,0,0,8"/>
+            <Label Content="Wybierz poziom podobieństwa" FontSize="15" FontWeight="Medium" Margin="0,0,0,8"/>
             <RadioButton x:Name="PoziomNiski" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23">
                 <RadioButton.Content>
                     <TextBlock Text="Niski" Margin="0,-2,0,0"/>

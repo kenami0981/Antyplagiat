@@ -1,4 +1,5 @@
-﻿import os
+﻿from ctypes import alignment
+import os
 import datetime
 import re
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
@@ -39,7 +40,7 @@ def register_font():
 
 
 #generowanie raportu
-def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode, speed,
+def create_pdf_report(output_path, analyzed_file, base_path, similarity, mode, speed,
                       percent_text, percent_eqs, compared_files,
                       final_text, segments_with_sources):
 
@@ -60,13 +61,13 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode, s
     story.append(Paragraph(f"<b>Analizowany plik:</b> {os.path.basename(analyzed_file)}", styles["Normal"]))
     #story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
     if speed == "normal":
-        story.append(Paragraph(f"<b>Poziom trudności:</b> {difficulty}", styles["Normal"]))
+        story.append(Paragraph(f"<b>Poziom podobieństwa:</b> {similarity}", styles["Normal"]))
 
     pl_mode = {"all": "Pełny", "text_only": "Tylko tekst", "eqs_only": "Tylko równania"}.get(mode, mode)
     pl_speed = {"normal": "Dokładny (Normal)", "fast": "Szybki (Fast)"}.get(speed, speed)
 
     story.append(Paragraph(f"<b>Tryb analizy:</b> {pl_mode}", styles["Normal"]))
-    story.append(Paragraph(f"<b>Szybkość analizy:</b> {pl_speed}", styles["Normal"]))
+    story.append(Paragraph(f"<b>Typ analizy:</b> {pl_speed}", styles["Normal"]))
 
     formatted_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     story.append(Paragraph(f"<b>Data analizy:</b> {formatted_date}", styles["Normal"]))
@@ -83,19 +84,23 @@ def create_pdf_report(output_path, analyzed_file, base_path, difficulty, mode, s
 
     story.append(Spacer(1, 12))
 
-    story.append(Paragraph("<b>Wykryte fragmenty podobne:</b>", styles["Heading2"]))
+    if percent_text < 1.0:
+        story.append(Paragraph("<b>Nie wykryto fragmentów podobnych w tekście. </b>", styles["Heading2"]))
+        story.append(Spacer(1, 12))
+    else:
+        story.append(Paragraph("<b>Wyodrębinony tekst i wykryte fragmenty podobne: </b>", styles["Heading2"]))
 
-    highlighted_text, bibliography = highlight_final_text(final_text, segments_with_sources)
+        highlighted_text, bibliography = highlight_final_text(final_text, segments_with_sources)
 
-    story.append(Paragraph(highlighted_text, styles["Normal"]))
-    story.append(Spacer(1, 12))
+        story.append(Paragraph(highlighted_text, styles["Normal"]))
+        story.append(Spacer(1, 12))
 
-    story.append(Paragraph("<b>Źródła podobieństw:</b>", styles["Heading2"]))
-    for idx, src in bibliography:
-        story.append(Paragraph(f"[{idx}] {src}", styles["Normal"]))
+        story.append(Paragraph("<b>Źródła podobieństw:</b>", styles["Heading2"]))
+        for idx, src in bibliography:
+            story.append(Paragraph(f"[{idx}] {src}", styles["Normal"]))
 
 	# lista plików
-    story.append(Paragraph("<b>Porównane pliki:</b>", styles["Heading3"]))
+    story.append(Paragraph("<b>Porównane pliki:</b>", styles["Heading2"]))
     for f in compared_files:
         story.append(Paragraph(os.path.basename(f), styles["Normal"]))
 

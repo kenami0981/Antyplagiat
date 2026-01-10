@@ -1,0 +1,58 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+
+\newcommand{\partiald}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\partialt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\laplacian}{\Delta}
+
+\begin{document}
+\title{Ewolucja Ciepła i Wartości Własne}
+\author{Ekspert Od Ciepła}
+\date{Styczeń 2026}
+
+\maketitle
+
+\begin{abstract}
+Artykuł omawia zastosowanie metody rozdzielania zmiennych do równania przewodnictwa cieplnego na obszarze prostokątnym. Przedstawiono analityczne rozwiązanie problemu oraz dyskusję na temat ortogonalności funkcji własnych, które determinują szybkość zaniku temperatury w czasie.
+\end{abstract}
+
+\section{Sformułowanie Problemu}
+
+Analizie poddano obszar z jednorodnymi warunkami brzegowymi Dirichleta $u = 0$ na brzegu. Równanie dyfuzji prowadzi do poszukiwania rozwiązań w postaci:
+$$ \partialt{u} = k \laplacian u $$
+gdzie operatorem przestrzennym jest:
+$$ \laplacian u = \partiald{^2 u}{x^2} + \partiald{^2 u}{y^2} $$
+
+Stosując metodę separacji zmiennych $u(x,y,t) = \Phi(x,y)T(t)$, otrzymujemy zagadnienie własne dla części przestrzennej:
+$$ -\laplacian \Phi = \lambda \Phi $$
+oraz równanie czasowe $T'(t) + k\lambda T(t) = 0$.
+
+\section{Wartości Własne i Rozwiązanie}
+
+Wartości własne $\lambda_{m, n}$ są dane wzorem znanym z analizy na prostokącie $R=[0, a] \times [0, b]$:
+$$ \lambda_{m, n} = \left( \frac{m\pi}{a} \right)^2 + \left( \frac{n\pi}{b} \right)^2 $$
+Odpowiadające im funkcje własne $\Phi_{m, n}$ są iloczynami sinusów. Zgodnie z zasadą superpozycji, rozwiązanie ogólne wyraża się wzorem zawierającym czynnik wykładniczy:
+
+$$ u(x, y, t) = \sum_{m,n} C_{m,n} \sin\left(\frac{m\pi x}{a}\right) \sin\left(\frac{n\pi y}{b}\right) e^{-k \lambda_{m,n} t} $$
+
+\section{Analiza Numeryczna Zaniku}
+
+Obecność czynnika $e^{-\lambda t}$ gwarantuje bardzo szybką zbieżność. Poniższa tabela prezentuje ewolucję temperatury (korzystając z przykładowych wartości własnych dla $a=b=1$):
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Czas $t$ & $\lambda_{1,1} \approx 19.7$ & $\lambda_{2,2} \approx 78.9$ & Amplituda \\
+\hline
+0.0 & 1.000 & 1.000 & 1.000 \\
+0.1 & 0.139 & 0.000 & 0.139 \\
+0.5 & 0.000 & 0.000 & 0.000 \\
+\hline
+\end{tabular}
+\end{center}
+
+Zauważalny jest szybki zanik wyższych harmonicznych. Wartości własne są w pełni określone analitycznie, a ich charakterystyka jest kluczowa dla analizy rozkładów temperatur.
+
+\end{document}

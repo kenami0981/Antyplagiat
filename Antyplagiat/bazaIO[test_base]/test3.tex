@@ -1,0 +1,103 @@
+﻿\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+% Definicje makr i symboli
+\newcommand{\partialt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\partialxx}[1]{\frac{\partial^2 #1}{\partial x^2}}
+\def\reals{\mathbb{R}}
+\def\natural{\mathbb{N}}
+\newcommand{\funcSpace}{L^2([0, L])}
+
+\newtheorem{theorem}{Twierdzenie}
+
+\begin{document}
+\title{Analityczne Rozwiązanie Równania Ciepła w Pręcie 1D}
+\author{Autor Symulowany}
+\date{12 stycznia 2026}
+
+\maketitle
+
+\begin{abstract}
+Niniejszy artykuł omawia zastosowanie metody rozdzielania zmiennych do rozwiązania jednowymiarowego równania przewodnictwa cieplnego.
+Analizie poddano pręt o skończonej długości z jednorodnymi warunkami brzegowymi Dirichleta.
+Przedstawiono wyprowadzenie szeregu Fouriera jako rozwiązania ogólnego oraz numeryczną ilustrację zaniku temperatury w czasie.
+\end{abstract}
+
+\section{Sformułowanie Problemu}
+
+Rozważmy jednorodny pręt o długości $L$, izolowany na powierzchni bocznej. Rozkład temperatury $u(x, t)$ opisuje klasyczne paraboliczne równanie różniczkowe cząstkowe:
+
+$$ \partialt{u} = k \partialxx{u} \quad \text{dla } x \in (0, L), \ t > 0 $$
+
+gdzie $k > 0$ jest współczynnikiem dyfuzyjności cieplnej. Przyjmujemy następujące warunki brzegowe (końce pręta utrzymywane w temperaturze zero):
+\begin{equation}
+    u(0, t) = 0, \quad u(L, t) = 0
+    \label{eq:brzegowe}
+\end{equation}
+oraz warunek początkowy $u(x, 0) = f(x)$, gdzie $f(x)$ jest zadaną funkcją rozkładu temperatury.
+
+\section{Separacja Zmiennych}
+
+Zakładamy rozwiązanie w postaci iloczynu funkcji przestrzennej i czasowej: $u(x, t) = X(x)T(t)$.
+Podstawiając do równania wyjściowego i dzieląc przez $k X(x)T(t)$, otrzymujemy:
+
+\begin{equation}
+    \frac{1}{k} \frac{T'(t)}{T(t)} = \frac{X''(x)}{X(x)} = -\lambda
+\end{equation}
+
+Stała separacji $-\lambda$ musi być ujemna, aby rozwiązanie nie rosło nieograniczenie w czasie. Prowadzi to do zagadnienia własnego dla zmiennej przestrzennej:
+$$ X''(x) + \lambda X(x) = 0 $$
+z warunkami $X(0) = X(L) = 0$.
+
+\subsection{Wartości Własne}
+
+Rozwiązaniami powyższego równania są funkcje trygonometryczne. Uwzględniając warunki brzegowe, otrzymujemy dyskretny zbiór wartości własnych:
+$$ \lambda_n = \left( \frac{n\pi}{L} \right)^2, \quad n \in \natural $$
+oraz odpowiadające im funkcje własne $X_n(x) = \sin\left(\frac{n\pi x}{L}\right)$.
+
+Część czasowa rozwiązania przyjmuje postać wykładniczą:
+$$ T_n(t) = C_n e^{-k \lambda_n t} $$
+
+\section{Rozwiązanie Ogólne i Zbieżność}
+
+Zgodnie z zasadą superpozycji, rozwiązanie ogólne jest sumą nieskończoną rozwiązań szczegółowych:
+
+\begin{theorem}
+Rozwiązanie problemu początkowo-brzegowego dla równania ciepła wyraża się wzorem:
+$$ u(x, t) = \sum_{n=1}^\infty B_n \sin\left(\frac{n\pi x}{L}\right) e^{-k \left(\frac{n\pi}{L}\right)^2 t} $$
+gdzie współczynniki $B_n$ są współczynnikami Fouriera funkcji początkowej $f(x)$.
+\end{theorem}
+
+Obecność czynnika wykładniczego $e^{-\lambda_n t}$ gwarantuje bardzo szybką zbieżność szeregu dla $t > 0$, co wygładza wszelkie nieciągłości warunku początkowego.
+
+\section{Analiza Numeryczna}
+
+Poniższa tabela prezentuje ewolucję temperatury w środku pręta ($x = L/2$) dla $L=\pi$ i $k=1$, przy założeniu, że w chwili $t=0$ temperatura wynosiła stałą wartość (przybliżenie pierwszymi wyrazami szeregu).
+
+\begin{center}
+\caption{Zanik temperatury $u(L/2, t)$ w funkcji czasu}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Czas $t$ & Wyraz $n=1$ & Wyraz $n=3$ & Suma (przybliżona) \\
+\hline
+0.0 & 1.273 & -0.424 & 0.849 \\
+0.1 & 1.152 & -0.174 & 0.978 \\
+0.5 & 0.773 & -0.005 & 0.768 \\
+1.0 & 0.468 & 0.000 & 0.468 \\
+2.0 & 0.172 & 0.000 & 0.172 \\
+\hline
+\end{tabular}
+\end{center}
+
+Zauważalny jest szybki zanik wyższych harmonicznych (dla $n=3$ tłumienie jest 9 razy szybsze niż dla $n=1$).
+
+\section{Podsumowanie}
+
+Metoda Fouriera pozwala na efektywne modelowanie dyfuzji ciepła. Kluczowym wnioskiem jest obserwacja, że po krótkim czasie rozkład temperatury zdominowany jest przez pierwszą funkcję własną, niezależnie od skomplikowania warunku początkowego.
+
+\end{document}
