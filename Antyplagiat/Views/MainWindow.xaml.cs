@@ -16,19 +16,18 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
 
-namespace Antyplagiat
+namespace Antyplagiat.Views
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string selectedLatexFile = null;
         public MainWindow()
         {
             InitializeComponent();
-            MainContent.Content = new Ekran1(this);
+            // Ustawiamy DataContext na główny ViewModel
+            DataContext = new ViewModels.MainViewModel();
         }
-
     }
 }

@@ -52,6 +52,10 @@ def run_analysis(input_path, base_path, similarity, mode="all", speed="fast"):
     )
 
     print(f"\nPDF zapisany jako: {output_pdf_path}")
+
+    print(f"Plagiat Tekstu: {percent_text:.2f}%")
+    print(f"Plagiat Równań: {percent_eqs:.2f}%")
+
     return percent_text, percent_eqs
 
 

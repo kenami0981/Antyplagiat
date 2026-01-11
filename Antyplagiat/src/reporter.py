@@ -61,10 +61,11 @@ def create_pdf_report(output_path, analyzed_file, base_path, similarity, mode, s
     story.append(Paragraph(f"<b>Analizowany plik:</b> {os.path.basename(analyzed_file)}", styles["Normal"]))
     #story.append(Paragraph(f"<b>Baza porównawcza:</b> {os.path.basename(base_path)}", styles["Normal"]))
     if speed == "normal":
-        story.append(Paragraph(f"<b>Poziom podobieństwa:</b> {similarity}", styles["Normal"]))
+        format_similarity = {"niski": "Niski", "średni": "Średni", "wysoki": "Wysoki", "bardzo_wysoki": "Bardzo Wysoki"}.get(similarity,similarity)
+        story.append(Paragraph(f"<b>Poziom podobieństwa:</b> {format_similarity}", styles["Normal"]))
 
     pl_mode = {"all": "Pełny", "text_only": "Tylko tekst", "eqs_only": "Tylko równania"}.get(mode, mode)
-    pl_speed = {"normal": "Dokładny (Normal)", "fast": "Szybki (Fast)"}.get(speed, speed)
+    pl_speed = {"normal": "Dokładny", "fast": "Szybki"}.get(speed, speed)
 
     story.append(Paragraph(f"<b>Tryb analizy:</b> {pl_mode}", styles["Normal"]))
     story.append(Paragraph(f"<b>Typ analizy:</b> {pl_speed}", styles["Normal"]))

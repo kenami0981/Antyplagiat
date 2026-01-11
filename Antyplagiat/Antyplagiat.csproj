@@ -64,15 +64,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Ekran1.xaml">
+    <Compile Include="Models\AnalysisOptions.cs" />
+    <Compile Include="Models\AnalysisResult.cs" />
+    <Compile Include="Models\SimilarityLevels.cs" />
+    <Compile Include="Services\PythonAnalysisService.cs" />
+    <Compile Include="ViewModels\InputViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ResultViewModel.cs" />
+    <Page Include="Views\InputView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ekran2.xaml">
+    <Page Include="Views\ResultView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -80,13 +87,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Ekran1.xaml.cs">
-      <DependentUpon>Ekran1.xaml</DependentUpon>
+    <Compile Include="Views\InputView.xaml.cs">
+      <DependentUpon>InputView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ekran2.xaml.cs">
-      <DependentUpon>Ekran2.xaml</DependentUpon>
+    <Compile Include="Views\ResultView.xaml.cs">
+      <DependentUpon>ResultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -121,6 +130,7 @@
   <ItemGroup>
     <Resource Include="icon\upload.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
