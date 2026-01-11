@@ -5,14 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Background="White"
-             Height="850" Width="1000">
+             Height="850" Width="800">
     <StackPanel Margin="20,0,20,0">
 
         <TextBlock Text="Antyplagiat" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"/>
         <TextBlock Text="Dodaj dokument, który chcesz sprawdzić pod kątem plagiatu" 
                    FontSize="15" FontWeight="Medium" Margin="0,40,0,0"/>
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="570" Height="100" Margin="10">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="100" Margin="10">
             <Rectangle Stroke="#C0C8D0" StrokeThickness="2" RadiusX="12" RadiusY="12"
                        StrokeDashArray="4,2" Fill="Transparent"/>
 
@@ -72,9 +72,6 @@
                 </Style>
             </Button.Resources>
         </Button>
-
-        <TextBlock Text="Trwa analiza..." Foreground="Red" HorizontalAlignment="Center" 
-                   Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
     </StackPanel>
 </UserControl>

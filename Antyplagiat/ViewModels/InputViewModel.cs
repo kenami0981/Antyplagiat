@@ -134,17 +134,7 @@ namespace Antyplagiat.ViewModels
                 if (type == TestTypes.Fast) pyType = "fast";
                 if (type == TestTypes.Normal) pyType = "normal";
 
-
-                AnalysisResult result = await _pythonService.AnalyzeAsync(SelectedFilePath, pyLevel, pyType);
-
-                if (result.IsSuccess)
-                {
-                    _mainViewModel.NavigateTo(new ResultViewModel(_mainViewModel, result));
-                }
-                else
-                {
-                    MessageBox.Show($"Wystąpił błąd analizy:\n{result.ErrorMessage}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                _mainViewModel.NavigateTo(new ProgressViewModel(_mainViewModel, SelectedFilePath, pyLevel, pyType));
             }
             catch (System.Exception ex)
             {

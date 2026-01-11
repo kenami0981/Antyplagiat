@@ -10,14 +10,14 @@ namespace Antyplagiat.Services
 {
     public class PythonAnalysisService
     {
-        // ZMIANA: Zwracamy Task<AnalysisResult>, a nie Task<string>
-        public async Task<AnalysisResult> AnalyzeAsync(string latexPath, string level, string speed = "normal")
+        // Dodano parametr: IProgress<int> progressReporter
+        public async Task<AnalysisResult> AnalyzeAsync(string latexPath, string level, string speed, IProgress<int> progressReporter)
         {
             string scriptPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "src", "main.py"));
 
             var psi = new ProcessStartInfo
             {
-                FileName = "py", // lub "python"
+                FileName = "py",
                 Arguments = $"\"{scriptPath}\" \"{latexPath}\" {level} {speed}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -27,32 +27,49 @@ namespace Antyplagiat.Services
                 StandardErrorEncoding = Encoding.UTF8
             };
 
-            string rawOutput = "";
-            string errorOutput = "";
+            var outputBuilder = new StringBuilder();
+            var errorBuilder = new StringBuilder();
 
-            // Uruchomienie procesu
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 using (var process = new Process { StartInfo = psi })
                 {
-                    var outputBuilder = new StringBuilder();
-                    var errorBuilder = new StringBuilder();
+                    // Obsługa wyjścia w czasie rzeczywistym
+                    process.OutputDataReceived += (s, e) =>
+                    {
+                        if (e.Data != null)
+                        {
+                            outputBuilder.AppendLine(e.Data);
 
-                    process.OutputDataReceived += (s, e) => { if (e.Data != null) outputBuilder.AppendLine(e.Data); };
-                    process.ErrorDataReceived += (s, e) => { if (e.Data != null) errorBuilder.AppendLine(e.Data); };
+                            // SPRAWDZANIE CZY LINIA ZAWIERA POSTĘP
+                            // Oczekujemy, że Python wypisze np.: "PROGRESS: 45"
+                            if (e.Data.StartsWith("PROGRESS:"))
+                            {
+                                var parts = e.Data.Split(':');
+                                if (parts.Length > 1 && int.TryParse(parts[1].Trim(), out int p))
+                                {
+                                    progressReporter?.Report(p);
+                                }
+                            }
+                        }
+                    };
+
+                    process.ErrorDataReceived += (s, e) =>
+                    {
+                        if (e.Data != null) errorBuilder.AppendLine(e.Data);
+                    };
 
                     process.Start();
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.WaitForExit();
 
-                    rawOutput = outputBuilder.ToString();
-                    errorOutput = errorBuilder.ToString();
+                    string rawOutput = outputBuilder.ToString();
+                    string errorOutput = errorBuilder.ToString();
+
+                    return ParseOutput(rawOutput, errorOutput, latexPath);
                 }
             });
-
-            // Parsowanie wyniku do modelu AnalysisResult
-            return ParseOutput(rawOutput, errorOutput, latexPath);
         }
 
         private AnalysisResult ParseOutput(string output, string error, string sourceFilePath)

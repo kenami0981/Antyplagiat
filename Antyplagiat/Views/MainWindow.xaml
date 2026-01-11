@@ -12,6 +12,9 @@
         <DataTemplate DataType="{x:Type vm:ResultViewModel}">
             <views:ResultView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProgressViewModel}">
+            <views:ProgressView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>

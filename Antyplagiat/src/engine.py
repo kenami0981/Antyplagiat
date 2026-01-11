@@ -168,10 +168,11 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all", spe
     run_text_comparison = mode in ["all", "text_only"]
     run_eqs_comparison = mode in ["all", "eqs_only"]
 
-    for filename in os.listdir(folder_path):
-        if not filename.endswith(".tex"):
-            continue
+    files_to_check = [f for f in os.listdir(folder_path) if f.endswith(".tex")]
+    total_files = len(files_to_check)
 
+    for i, filename in enumerate(files_to_check):
+        
         file_path = os.path.join(folder_path, filename)
 
         try:
@@ -181,6 +182,10 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all", spe
                 eqs_b, text_b, _ = preprocessing(content)
         except Exception as e:
             print(f"BŁĄD: Nie można odczytać pliku {filename}: {e}")
+
+            if total_files > 0:
+                percent_done = int(((i + 1) / total_files) * 100)
+                print(f"PROGRESS: {percent_done}", flush=True)
             continue
 
         if run_text_comparison:
@@ -194,6 +199,11 @@ def compare_with_folder(main_eqs, main_text, folder_path, level, mode="all", spe
 
         if run_eqs_comparison:
             all_base_equations.update(eqs_b)
+
+        if total_files > 0:
+            percent_done = int(((i + 1) / total_files) * 100)
+            
+            print(f"PROGRESS: {percent_done}", flush=True)
 
     percent_text = 0.0
     percent_eqs = 0.0
