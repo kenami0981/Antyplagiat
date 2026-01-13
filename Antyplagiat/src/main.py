@@ -75,7 +75,7 @@ def main():
         speed = sys.argv[3] if len(sys.argv) > 3 else "fast"    # prędkość analizy
         script_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(script_dir)
-        baza_path = os.path.join(project_root, "bazaIO[test_base]") # ścieżka do bazy
+        baza_path = os.path.join(project_root, "bazaIO") # ścieżka do bazy
         
         run_analysis(latex_file_path, baza_path, similarity, speed=speed)
     ## tryb testowy bez argumentów
