@@ -14,14 +14,39 @@ namespace Antyplagiat.ViewModels
 
         private string _selectedFilePath;
         private bool _isBusy;
+        private bool _typeFast;
+        
 
         public bool LevelLow { get; set; }
         public bool LevelMedium { get; set; }
         public bool LevelHigh { get; set; }
         public bool LevelVeryHigh { get; set; }
 
-        public bool TypeFast { get; set; }
-        public bool TypeNormal { get; set; }
+        public bool TypeFast
+        {
+            get => _typeFast;
+            set
+            {
+                _typeFast = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsLevelSelectionEnabled));
+            }
+        }
+
+        private bool _typeNormal;
+        public bool TypeNormal
+        {
+            get => _typeNormal;
+            set
+            {
+                _typeNormal = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsLevelSelectionEnabled));
+            }
+        }
+
+        // Poziomy aktywne tylko gdy NIE jest szybki
+        public bool IsLevelSelectionEnabled => !TypeFast;
 
         public string SelectedFilePath
         {
@@ -105,21 +130,23 @@ namespace Antyplagiat.ViewModels
                 MessageBox.Show("Nie wybrano poprawnego pliku .tex!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            var level = GetSelectedLevel();
-            if (level == null)
-            {
-                MessageBox.Show("Musisz zaznaczyć poziom podobieństwa!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             var type = GetSelectedType();
             if (type == null)
             {
                 MessageBox.Show("Musisz zaznaczyć typ analizy!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            SimilarityLevels? level = null;
 
+            if (type != TestTypes.Fast)
+            {
+                level = GetSelectedLevel();
+                if (level == null)
+                {
+                    MessageBox.Show("Musisz zaznaczyć poziom podobieństwa!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
             IsBusy = true;
 
             try

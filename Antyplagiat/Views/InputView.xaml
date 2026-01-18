@@ -48,10 +48,10 @@
             <StackPanel Margin="0,20,0,0">
                 <Label Content="Wybierz poziom podobieństwa" FontSize="15" FontWeight="Medium" Margin="0,0,0,8"/>
 
-                <RadioButton IsChecked="{Binding LevelLow}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Niski"/>
-                <RadioButton IsChecked="{Binding LevelMedium}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Średni"/>
-                <RadioButton IsChecked="{Binding LevelHigh}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Wysoki"/>
-                <RadioButton IsChecked="{Binding LevelVeryHigh}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Bardzo wysoki"/>
+                <RadioButton IsEnabled="{Binding IsLevelSelectionEnabled}" IsChecked="{Binding LevelLow}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Niski"/>
+                <RadioButton IsEnabled="{Binding IsLevelSelectionEnabled}" IsChecked="{Binding LevelMedium}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Średni"/>
+                <RadioButton IsEnabled="{Binding IsLevelSelectionEnabled}" IsChecked="{Binding LevelHigh}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Wysoki"/>
+                <RadioButton IsEnabled="{Binding IsLevelSelectionEnabled}" IsChecked="{Binding LevelVeryHigh}" GroupName="Poziom" FontSize="15" FontWeight="Medium" Margin="20,23" Content="Bardzo wysoki"/>
             </StackPanel>
 
             <StackPanel Margin="0,20,0,0" Grid.Column="1">
