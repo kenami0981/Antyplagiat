@@ -13,12 +13,10 @@ namespace Antyplagiat.ViewModels
         private readonly MainViewModel _mainViewModel;
         private readonly PythonAnalysisService _pythonService;
 
-        // Dane wejściowe potrzebne do analizy
         private readonly string _filePath;
         private readonly string _level;
         private readonly string _type;
 
-        // Wynik analizy (przechowujemy go do momentu kliknięcia przycisku)
         private AnalysisResult _analysisResult;
 
         private int _progressValue;
@@ -69,7 +67,6 @@ namespace Antyplagiat.ViewModels
 
         private async Task StartAnalysis()
         {
-            // Obiekt raportujący postęp do UI
             var progress = new Progress<int>(percent =>
             {
                 ProgressValue = percent;
@@ -90,7 +87,6 @@ namespace Antyplagiat.ViewModels
                 StatusMessage = "Wystąpił błąd.";
                 MessageBox.Show($"Błąd procesu: {ex.Message}");
 
-                // W razie błędu możemy wrócić do menu
                 Application.Current.Dispatcher.Invoke(() =>
                     _mainViewModel.NavigateTo(new InputViewModel(_mainViewModel)));
             }

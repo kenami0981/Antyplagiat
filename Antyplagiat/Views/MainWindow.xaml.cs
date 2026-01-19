@@ -26,7 +26,6 @@ namespace Antyplagiat.Views
         public MainWindow()
         {
             InitializeComponent();
-            // Ustawiamy DataContext na główny ViewModel
             DataContext = new ViewModels.MainViewModel();
         }
     }

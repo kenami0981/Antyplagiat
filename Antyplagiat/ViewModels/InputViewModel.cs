@@ -45,7 +45,6 @@ namespace Antyplagiat.ViewModels
             }
         }
 
-        // Poziomy aktywne tylko gdy NIE jest szybki
         public bool IsLevelSelectionEnabled => !TypeFast;
 
         public string SelectedFilePath
@@ -55,17 +54,14 @@ namespace Antyplagiat.ViewModels
             {
                 _selectedFilePath = value;
                 OnPropertyChanged();
-                // Gdy zmienia się ścieżka, aktualizujemy też tekst wyświetlany na przycisku
                 OnPropertyChanged(nameof(FileNameDisplay));
             }
         }
 
-        // Pomocnicza właściwość dla Widoku - pokazuje nazwę pliku lub domyślny tekst
         public string FileNameDisplay => string.IsNullOrEmpty(SelectedFilePath)
             ? "Wybierz plik LaTeX"
             : System.IO.Path.GetFileName(SelectedFilePath);
 
-        // Flaga blokująca przycisk podczas analizy
         public bool IsBusy
         {
             get => _isBusy;
@@ -73,12 +69,10 @@ namespace Antyplagiat.ViewModels
             {
                 _isBusy = value;
                 OnPropertyChanged();
-                // Odświeżamy stan przycisku (czy jest aktywny)
                 AnalyzeCommand.RaiseCanExecuteChanged();
             }
         }
 
-        // Komendy (akcje wywoływane przez przyciski)
         public RelayCommand SelectFileCommand { get; }
         public RelayCommand AnalyzeCommand { get; }
 
@@ -88,8 +82,6 @@ namespace Antyplagiat.ViewModels
             _pythonService = new PythonAnalysisService();
 
             SelectFileCommand = new RelayCommand(o => SelectFile());
-
-            // Komenda Analizy: wykonaj AnalyzeDocs, ale tylko jeśli !IsBusy
             AnalyzeCommand = new RelayCommand(async o => await AnalyzeDocs(), o => !IsBusy);
         }
 
@@ -124,7 +116,6 @@ namespace Antyplagiat.ViewModels
 
         private async Task AnalyzeDocs()
         {
-            // 1. Walidacja
             if (string.IsNullOrEmpty(SelectedFilePath) || !System.IO.File.Exists(SelectedFilePath))
             {
                 MessageBox.Show("Nie wybrano poprawnego pliku .tex!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);

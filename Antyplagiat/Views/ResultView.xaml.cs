@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using PdfiumViewer;
-using Antyplagiat.ViewModels; // Pamiętaj o dodaniu usinga do ViewModeli
+using Antyplagiat.ViewModels; 
 
 namespace Antyplagiat.Views
 {
@@ -15,7 +15,6 @@ namespace Antyplagiat.Views
 
         private void PdfHost_Loaded(object sender, RoutedEventArgs e)
         {
-            // Próba rzutowania DataContext na nasz ViewModel
             if (DataContext is ResultViewModel viewModel)
             {
                 if (!string.IsNullOrEmpty(viewModel.PdfPath) && File.Exists(viewModel.PdfPath))
@@ -26,7 +25,6 @@ namespace Antyplagiat.Views
                         pdfViewer.Document = PdfDocument.Load(viewModel.PdfPath);
                         pdfViewer.ZoomMode = PdfViewerZoomMode.FitWidth;
 
-                        // Przypisanie kontrolki WinForms do Hosta WPF
                         PdfHost.Child = pdfViewer;
                     }
                     catch (System.Exception ex)

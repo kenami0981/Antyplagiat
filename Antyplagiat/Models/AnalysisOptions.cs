@@ -10,7 +10,6 @@ namespace Antyplagiat.Models
     {
         public string FilePath { get; set; }
         public SimilarityLevels Similarity { get; set; }
-        // Opcjonalnie, jeśli planujesz to zmieniać w przyszłości:
         public string Speed { get; set; } = "normal";
     }
 }
